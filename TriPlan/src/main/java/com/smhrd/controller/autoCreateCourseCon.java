@@ -1,10 +1,15 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.smhrd.model.autoCourseDAO;
+import com.smhrd.model.autoCourseVO;
 
 /**
  * Servlet implementation class autoCreateCourseCon
@@ -17,6 +22,19 @@ public class autoCreateCourseCon extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("[autoCreateCourseCon]");
+
+		int courseID = Integer.parseInt(request.getParameter("courseID"));
+
+		// 4-1. DAO 가서 회원가입 메소드 작성 DataAccessObject
+		// 4-2. DAO 객체 생성
+		autoCourseDAO cDao = new autoCourseDAO();
+		// 4-3. 
+//		autoCourseVO courseVO = cDao.importCourse(courseID);
+
+
+		
+
 	}
 
 }
