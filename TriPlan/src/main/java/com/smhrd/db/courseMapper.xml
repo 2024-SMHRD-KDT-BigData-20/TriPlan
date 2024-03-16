@@ -6,6 +6,10 @@
 <!-- namespace: sql태그 id를 그룹화 해주는 속성 id가 다른 파일에 중복될 수 있다. 파일의 namespace로 
 	구분 mapper.xml 경로와 동일해야 함 -->
 
-<mapper namespace="com.smhrd.db.MemberMapper">
+<mapper namespace="com.smhrd.db.courseMapper">
+
+	<select id="dailyCourseList" parameterType = "int" resultType="autoCourseVO">
+		select * from test_daily where bc_idx=#{courseID}
+	</select>
 
 </mapper>

@@ -9,7 +9,7 @@
 	<properties resource="com/smhrd/db/db.properties" />
 
 	<typeAliases>
-<!-- 		<typeAlias type="com.smhrd.model.MemberVO" alias="MemberVO"/> -->
+ 		<typeAlias type="com.smhrd.model.autoCourseVO" alias="autoCourseVO"/>
 	
 	</typeAliases>
 

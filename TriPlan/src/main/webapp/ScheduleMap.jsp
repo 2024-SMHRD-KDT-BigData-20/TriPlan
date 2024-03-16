@@ -144,22 +144,6 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	color: rgb(214, 104, 103);
 }
 </style>
-<%
-List<String> day1 = new ArrayList<String>();
-day1.add("A");
-day1.add("B");
-day1.add("C");
-day1.add("D");
-
-List<String> day2 = new ArrayList<String>();
-day2.add("E");
-day2.add("F");
-day2.add("G");
-
-List<String[]> days = new ArrayList<String[]>();
-days.add(day1.toArray(new String[0]));
-days.add(day2.toArray(new String[0]));
-%>
 </head>
 <body>
 	<div id="left_col">
@@ -192,14 +176,15 @@ days.add(day2.toArray(new String[0]));
 				<div class="container">
 
 					<%
-					for (int i = 0; i < days.size(); i++) {
+					List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
+					for (int i = 0; i < allDayCourses.size(); i++) {
 					%>
 					<h2>
 						Day
 						<%=i + 1%></h2>
 
 					<%
-					for (String item : days.get(i)) {
+					for (int item : allDayCourses.get(i)) {
 					%>
 					<div class="item">
 						<div class="name"><%=item%></div>

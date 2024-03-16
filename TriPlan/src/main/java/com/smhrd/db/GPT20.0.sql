@@ -14,15 +14,16 @@ CREATE TABLE test_tour AS SELECT * FROM tour_course_info;
 
 
 select * from poi_info_test;
+delete from test_daily where d_sche_idx = 1;
 select * from test_daily;
 select * from test_tour;
 
 insert into test_tour values ('1','서북지역 뚜벅이 여행','4','#친구 #천천히 걷기 #휴식/힐링/건강','2','C:\Users\smart\Desktop\ProjectTriPlan\DB\CourseImg\1-서북지역 뚜벅이 여행.jpg');
 
-insert into test_daily values ('1.1','1','1','10001');
-insert into test_daily values ('1.2','1','2','10002-10003-10004');
-insert into test_daily values ('1.3','1','3','10005-10006');
-insert into test_daily values ('1.4','1','4','10007-10008-10009-10001');
+insert into test_daily values ('101','1','1','10001');
+insert into test_daily values ('102','1','2','10002-10003-10004');
+insert into test_daily values ('103','1','3','10005-10006');
+insert into test_daily values ('104','1','4','10007-10008-10009-10001');
 
 insert into poi_info_test values('10001','제주국제공항','제주특별자치도 제주시 공항로 2','동북아의 중심에서 일본, 중국, 동남아를 연결하는 제주국제공항','33.5','126.5','#공항 #제주국제공항 #실내관광지','-','-');
 insert into poi_info_test values('10002','애월한담해안산책로','제주특별자치도 제주시 애월읍 곽지리 1359','해안선을 따라 걷는 구불구불 해안길.','33.5','126.5','#해변 #걷기/등산 #친구','-','-');
