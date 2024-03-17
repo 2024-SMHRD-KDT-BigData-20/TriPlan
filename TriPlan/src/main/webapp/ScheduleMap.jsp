@@ -2,6 +2,10 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+
+<!-- !참고! -->
+<%-- <%@page import="com.smhrd.controller.loadScheduleCon"%> --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -221,6 +225,11 @@ for (int item : allDayCourses.get(i)) {
     }
 }
 }
+
+
+
+
+
 %>
 				</div>
 			</div>
