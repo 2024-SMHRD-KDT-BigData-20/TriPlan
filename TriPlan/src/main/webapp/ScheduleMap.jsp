@@ -203,7 +203,8 @@ for (int item : allDayCourses.get(i)) {
         if (p.getPoi_idx() == item) {
             poi = p;
             break;
-        }
+            // TODO 테스트임 03/17 
+            }
     }
     // 해당 POI가 발견되면 출력합니다.
     if (poi != null) {
