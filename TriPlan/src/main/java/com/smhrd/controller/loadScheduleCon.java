@@ -77,8 +77,8 @@ public class loadScheduleCon extends HttpServlet {
 		
 		System.out.println(allDayCourses);
 		request.getSession().setAttribute("allDayCourses", allDayCourses);
-		request.getSession().setAttribute("myUniquePOI", myUniquePOI);
-		response.sendRedirect("ScheduleMap.jsp");
+		request.setAttribute("myUniquePOI", myUniquePOI);
+		request.getRequestDispatcher("ScheduleMap.jsp").forward(request, response);
 	}
 
 }

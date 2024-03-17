@@ -18,9 +18,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
 	rel="stylesheet" />
-<% 
-List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
-System.out.println(myUniquePOI); %>
 <style>
 #background {
 	position: fixed;
@@ -89,10 +86,11 @@ body {
 }
 
 .item {
-	width: 350px;
-	height: 60px;
+	width: 500px;
+	height: 150px;
 	box-sizing: border-box;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	position: relative;
@@ -112,6 +110,12 @@ body {
 	font-size: 18px;
 	font-weight: 500;
 	color: black;
+}
+/* 설명 및 운영 시간 스타일 */
+.description, .operation-time {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #757575;
 }
 
 .item span {
@@ -180,25 +184,43 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 
 				<div class="container">
 
-					<%
-					List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
-					for (int i = 0; i < allDayCourses.size(); i++) {
-					%>
-					<h2>
-						Day
-						<%=i + 1%></h2>
+<%
+List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
+List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
+System.out.println("유니크POI 확인: "+myUniquePOI);
+System.out.println("데이코스 확인: "+allDayCourses);
+for (int i = 0; i < allDayCourses.size(); i++) {
+%>
+<h2>
+    Day <%= i + 1 %>
+</h2>
 
-					<%
-					for (int item : allDayCourses.get(i)) {
-					%>
-					<div class="item">
-						<div class="name"><%=item%></div>
-						<span class="material-icons-round">drag_indicator</span>
-					</div>
-					<%
-					}
-					}
-					%>
+<%
+for (int item : allDayCourses.get(i)) {
+    PoiVO poi = null;
+    // allDayCourses의 아이템이 myUniquePOI의 인덱스와 매핑되는 POI를 찾습니다.
+    for (PoiVO p : myUniquePOI) {
+        if (p.getPoi_idx() == item) {
+            poi = p;
+            break;
+        }
+    }
+    // 해당 POI가 발견되면 출력합니다.
+    if (poi != null) {
+    	System.out.println(poi.getPoi_desc());
+%>
+<div class="item">
+    <div class="name"><%= poi.getPoi_name() %></div>
+    <div class="description"><%= poi.getPoi_desc() %></div>
+    <div class="operation-time"><%= poi.getPoi_runingtime() %></div>
+    <!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
+    <span class="material-icons-round">drag_indicator</span>
+</div>
+<%
+    }
+}
+}
+%>
 				</div>
 			</div>
 
