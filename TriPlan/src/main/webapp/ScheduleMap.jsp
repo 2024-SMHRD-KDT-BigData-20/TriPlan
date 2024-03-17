@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.PoiVO"%>
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,6 +18,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
 	rel="stylesheet" />
+<% 
+List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
+System.out.println(myUniquePOI); %>
 <style>
 #background {
 	position: fixed;

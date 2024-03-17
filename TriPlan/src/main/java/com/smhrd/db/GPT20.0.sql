@@ -8,7 +8,8 @@ select * from EHS;
 CREATE TABLE poi_info_test AS SELECT * FROM poi_info;
 CREATE TABLE test_daily AS SELECT * FROM daily_schedule_info;
 CREATE TABLE test_tour AS SELECT * FROM tour_course_info;
-
+CREATE TABLE testMyTour AS SELECT * FROM my_tour_course_info;
+CREATE TABLE testMyDaily AS SELECT * FROM my_daily_schedule_info;
 
 
 
@@ -17,6 +18,10 @@ select * from poi_info_test;
 delete from test_daily where d_sche_idx = 1;
 select * from test_daily;
 select * from test_tour;
+select * from testMyTour;
+select * from testMyDaily;
+
+delete from testMyTour;
 
 insert into test_tour values ('1','서북지역 뚜벅이 여행','4','#친구 #천천히 걷기 #휴식/힐링/건강','2','C:\Users\smart\Desktop\ProjectTriPlan\DB\CourseImg\1-서북지역 뚜벅이 여행.jpg');
 
