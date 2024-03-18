@@ -180,10 +180,12 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 <body>
 	<!-- 왼쪽 화면에 지도 출력 -->
 	<div id="left_col">
+		<div id="background">
 		<div id="left_col_inner">
 			<body onload="initTmap()">
 				<div id="map_div" onload="initTmap()"></div>
 			</body>
+		</div>
 		</div>
 	</div>
 
