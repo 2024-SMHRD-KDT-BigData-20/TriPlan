@@ -46,12 +46,12 @@ body {
 	width: 100%;
 	margin-left: -100%;
 	text-align: center;
-	background-color: green;
+	background-color: white;
 }
 
 #left_col_inner {
-	padding: 10px;
-	color: #ffffff;
+	padding: 0px;
+	color: black;
 }
 
 #content {
@@ -157,23 +157,33 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	color: rgb(214, 104, 103);
 }
 </style>
+</style>
+
+<!-- 지도 함수 스크립트 -->
+<script src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=5xlrQgGGMeW9sjaWtFx1613MYzRTs0x8EaGbs2Da"></script>
+<script type="text/javascript">
+	// 페이지가 로딩이 된 후 호출하는 함수입니다.
+	function initTmap(){
+		// map 생성
+		// Tmapv3.Map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
+		var map = new Tmapv3.Map("map_div", { // 지도가 생성될 div
+			center : new Tmapv3.LatLng(37.56520450, 126.98702028),
+			width : "100%",	// 지도의 넓이
+			height : "800px",	// 지도의 높이
+			zoom : 16	// 지도 줌레벨
+			
+		});
+	} 
+</script> <!-- 지도 함수 끝 -->
 </head>
+
 <body>
+	<!-- 왼쪽 화면에 지도 출력 -->
 	<div id="left_col">
-		<div id="background">
-			<div id="left_col_inner">
-				<h1>지도 - 고정 자리</h1>
-				<h2>오른쪽으로 옮기는 게 좋지 않을까요?</h2>
-				<h3>화이팅</h3>
-				<h4>참고 소스</h4>
-				<p>
-				
-				<a href="https://codepen.io/throwtoys/pen/oYGzja"> 스플릿 화면 소스 코드</a>
-				<br>
-				<a href="https://github.com/SnippetsDevelop/snippetsdevelop.github.io/blob/master/codes/drag-drop-list.html">드래그 & 드롭 소스 코드</a>
-				<br>
-				</p>
-			</div>
+		<div id="left_col_inner">
+			<body onload="initTmap()">
+				<div id="map_div" onload="initTmap()"></div>
+			</body>
 		</div>
 	</div>
 
