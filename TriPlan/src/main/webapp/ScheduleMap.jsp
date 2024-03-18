@@ -215,6 +215,7 @@ for (int item : allDayCourses.get(i)) {
     	System.out.println(poi.getPoi_desc());
 %>
 <div class="item">
+    <div class="Img"><img src=<%="poiImgs/" + poi.getPoi_file_location() %> alt=<%=poi.getPoi_name() %>></div>
     <div class="name"><%= poi.getPoi_name() %></div>
     <div class="description"><%= poi.getPoi_desc() %></div>
     <div class="operation-time"><%= poi.getPoi_runingtime() %></div>
