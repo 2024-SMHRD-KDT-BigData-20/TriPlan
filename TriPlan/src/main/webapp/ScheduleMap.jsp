@@ -162,6 +162,10 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	align: left;
  
 }
+
+.title{
+	
+}
 </style>
 </style>
 
