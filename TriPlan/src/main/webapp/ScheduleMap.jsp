@@ -69,7 +69,7 @@ body {
 
 #right_col_inner {
 	padding-left: 20px;
-	color: #ffffff;
+	color: black;
 	text-align: center;
 }
 
@@ -156,6 +156,12 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 .item.dragging span {
 	color: rgb(214, 104, 103);
 }
+
+.Img{
+	float: left;
+	align: left;
+ 
+}
 </style>
 </style>
 
@@ -198,6 +204,8 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 			<br>장소 정보가 들어갈 div.item > div.detail ? 만들어주세요</h3>
 			<div class="center">
 
+
+					<!-- 일정 장소별 드래그 앤 드롭 -->
 				<div class="container">
 
 <%
@@ -227,8 +235,8 @@ for (int item : allDayCourses.get(i)) {
     	System.out.println(poi.getPoi_desc());
 %>
 <div class="item">
-    <div class="Img"><img src=<%="poiImgs/" + poi.getPoi_img_location() %> width = 100px alt=<%=poi.getPoi_name() %>></div>
-    <div class="name"><%= poi.getPoi_name() %></div>
+    <div class="Img" ><img src=<%="poiImgs/" + poi.getPoi_img_location() %> width = 100px alt=<%=poi.getPoi_name() %>></div>
+    <div class="name" align="left"><%= poi.getPoi_name() %></div>
     <div class="description"><%= poi.getPoi_desc() %></div>
     <div class="operation-time"><%= poi.getPoi_runingtime() %></div>
     <!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
@@ -247,27 +255,7 @@ for (int item : allDayCourses.get(i)) {
 				</div>
 			</div>
 
-			<h4>To demonstrate the effect</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				mattis metus a purus tincidunt accumsan. Sed non orci felis. Vivamus
-				eros risus, luctus vel vulputate id, vestibulum vel augue. In
-				vulputate egestas volutpat. Donec in velit quis leo mollis porta.
-				Suspendisse potenti. Etiam faucibus porttitor libero, in fermentum
-				urna pulvinar quis. Sed pretium tortor nisl. Pellentesque auctor
-				elementum urna laoreet molestie. Donec et mauris ante. Vestibulum
-				malesuada lacinia nulla, vitae tristique erat interdum a.
-				Suspendisse potenti. Cras magna neque, dictum at vehicula lobortis,
-				varius eget libero. Curabitur a lectus ac nulla pharetra porttitor
-				vel at magna. Donec neque risus, pellentesque at porta vitae.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				mattis metus a purus tincidunt accumsan. Sed non orci felis. Vivamus
-				eros risus, luctus vel vulputate id, vestibulum vel augue. In
-				vulputate egestas volutpat. Donec in velit quis leo mollis porta.
-				Suspendisse potenti. Etiam faucibus porttitor libero, in fermentum
-				urna pulvinar quis. Sed pretium tortor nisl. Pellentesque auctor
-				elementum urna laoreet molestie. Donec et mauris ante. Vestibulum
-				malesuada lacinia nulla, vitae tristique erat interdum a.
-				Suspendisse potenti.</p>
+
 		</div>
 	</div>
 	<script>
