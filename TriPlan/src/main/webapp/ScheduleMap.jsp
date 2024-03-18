@@ -1,5 +1,11 @@
+<%@page import="com.smhrd.model.PoiVO"%>
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+
+<!-- !참고! -->
+<%-- <%@page import="com.smhrd.controller.loadScheduleCon"%> --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,7 +38,7 @@ body {
 	width: 50%;
 	min-height: 100%;
 	float: right;
-	background-color: blue;
+	background-color: white;
 }
 
 #left_col {
@@ -84,10 +90,11 @@ body {
 }
 
 .item {
-	width: 350px;
-	height: 60px;
+	width: 500px;
+	height: 150px;
 	box-sizing: border-box;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	position: relative;
@@ -107,6 +114,12 @@ body {
 	font-size: 18px;
 	font-weight: 500;
 	color: black;
+}
+/* 설명 및 운영 시간 스타일 */
+.description, .operation-time {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #757575;
 }
 
 .item span {
@@ -144,22 +157,6 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	color: rgb(214, 104, 103);
 }
 </style>
-<%
-List<String> day1 = new ArrayList<String>();
-day1.add("A");
-day1.add("B");
-day1.add("C");
-day1.add("D");
-
-List<String> day2 = new ArrayList<String>();
-day2.add("E");
-day2.add("F");
-day2.add("G");
-
-List<String[]> days = new ArrayList<String[]>();
-days.add(day1.toArray(new String[0]));
-days.add(day2.toArray(new String[0]));
-%>
 </head>
 <body>
 	<div id="left_col">
@@ -191,24 +188,50 @@ days.add(day2.toArray(new String[0]));
 
 				<div class="container">
 
-					<%
-					for (int i = 0; i < days.size(); i++) {
-					%>
-					<h2>
-						Day
-						<%=i + 1%></h2>
+<%
+List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
+List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
+System.out.println("유니크POI 확인: "+myUniquePOI);
+System.out.println("데이코스 확인: "+allDayCourses);
+for (int i = 0; i < allDayCourses.size(); i++) {
+%>
+<h2>
+    Day <%= i + 1 %>
+</h2>
 
-					<%
-					for (String item : days.get(i)) {
-					%>
-					<div class="item">
-						<div class="name"><%=item%></div>
-						<span class="material-icons-round">drag_indicator</span>
-					</div>
-					<%
-					}
-					}
-					%>
+<%
+for (int item : allDayCourses.get(i)) {
+    PoiVO poi = null;
+    // allDayCourses의 아이템이 myUniquePOI의 인덱스와 매핑되는 POI를 찾습니다.
+    for (PoiVO p : myUniquePOI) {
+        if (p.getPoi_idx() == item) {
+            poi = p;
+            break;
+            // TODO 테스트임 03/17 
+            }
+    }
+    // 해당 POI가 발견되면 출력합니다.
+    if (poi != null) {
+    	System.out.println(poi.getPoi_desc());
+%>
+<div class="item">
+    <div class="Img"><img src=<%="poiImgs/" + poi.getPoi_img_location() %> width = 100px alt=<%=poi.getPoi_name() %>></div>
+    <div class="name"><%= poi.getPoi_name() %></div>
+    <div class="description"><%= poi.getPoi_desc() %></div>
+    <div class="operation-time"><%= poi.getPoi_runingtime() %></div>
+    <!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
+    <span class="material-icons-round">drag_indicator</span>
+</div>
+<%
+    }
+}
+}
+
+
+
+
+
+%>
 				</div>
 			</div>
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace: sql태그 id를 그룹화 해주는 속성 id가 다른 파일에 중복될 수 있다. 파일의 namespace로 
+	구분 mapper.xml 경로와 동일해야 함 -->
+
+<mapper namespace="com.smhrd.db.courseMapper">
+	<insert id="createMySchedule" parameterType="createScheduleVO">
+		insert into
+		testMyTour values
+		(#{mt_idx}, #{mt_name}, #{mt_preference}, #{mt_headcount}, #{user_id},
+		#{mt_st_dt}, #{mt_st_tm}, #{mt_ed_dt}, #{mt_ed_tm}, #{mt_select})
+	</insert>
+	<insert id="createMyDaily" parameterType="createScheduleVO">
+		insert into testMyDaily
+		values
+		(#{d_sche_idx}, #{mt_idx}, #{day}, #{mt_course})
+	</insert>
+	<select id="dailyCourseList" parameterType="int"
+		resultType="autoCourseVO">
+		select * from test_daily where bc_idx=#{bc_idx}
+	</select>
+	<select id="myDailyCourseList" parameterType="int"
+		resultType="createScheduleVO">
+		select * from testMyDaily where mt_idx=#{mt_idx} order by day_sche
+	</select>
+
+	<select id="myCoursePOI" parameterType="int"
+		resultType="PoiVO">
+		select * from TestPoiInfo where poi_idx=#{poiIdx}
+	</select>
+</mapper>
