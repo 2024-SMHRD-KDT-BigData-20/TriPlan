@@ -19,5 +19,5 @@ public class PoiVO {
 	private String poi_tag;
 	private String poi_runingtime;
 	private String poi_offday;
-	private String poi_file_location;
+	private String poi_img_location;
 }
