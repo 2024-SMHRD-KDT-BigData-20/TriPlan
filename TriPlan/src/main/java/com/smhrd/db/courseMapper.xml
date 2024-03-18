@@ -24,7 +24,7 @@
 	</select>
 	<select id="myDailyCourseList" parameterType="int"
 		resultType="createScheduleVO">
-		select * from testMyDaily where mt_idx=#{mt_idx}
+		select * from testMyDaily where mt_idx=#{mt_idx} order by day_sche
 	</select>
 
 	<select id="myCoursePOI" parameterType="int"
