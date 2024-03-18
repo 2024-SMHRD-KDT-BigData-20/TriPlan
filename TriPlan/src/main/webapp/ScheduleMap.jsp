@@ -38,7 +38,7 @@ body {
 	width: 50%;
 	min-height: 100%;
 	float: right;
-	background-color: blue;
+	background-color: white;
 }
 
 #left_col {
