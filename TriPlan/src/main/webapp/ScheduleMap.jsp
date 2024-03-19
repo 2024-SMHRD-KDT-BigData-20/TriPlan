@@ -82,11 +82,12 @@ body {
 }
 
 .container {
-	position: relative;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	gap : 30px; 
 	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	/* align-items: center; */
 }
 
 .item {
@@ -131,40 +132,57 @@ body {
 	color: rgb(180, 180, 180);
 }
 
-.item.dragging {
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0) scale(1.15);
-	pointer-events: none;
-	z-index: 1000;
-}
 
-.insert-animation {
+/* .insert-animation {
 	animation: scaleit 0.1s ease-in-out;
-}
+} */
 
-@
-keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
+@keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	
 }
-
-}
-.item.dragging .name {
-	color: rgb(218, 83, 80);
 }
 
-.item.dragging span {
-	color: rgb(214, 104, 103);
+.column {
+flex-basis: 20%;
+background: #ddd;
+min-height: 30vh;
+padding: 5px;
+border-radius: 10px;
+flex-direction: column
 }
-
-.Img {
+.column h1 {
+text-align: center;
+font-size: 22px;
+}
+.list-group-item {
+background: #fff;
+margin: 20px;
+padding: 20px;
+border-radius: 5px;
+cursor: pointer;
+}
+.daycount{
+    margin: 0%;
+}
+.item-plus{
+		display: flex;
+	text-align: right; ;
+	justify-content: right;
+	float: right;
+	
+}
+.Img{
 	float: left;
-	align: left;
+}
+.material-icons-round{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  
 }
 
-.title {
-	
-}
+
+/* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
 </style>
 
@@ -200,6 +218,8 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 		</div>
 	</div>
 
+
+
 	<div id="right_col">
 		<div id="right_col_inner">
 			<h1>스크롤 - 일정 관리</h1>
@@ -209,25 +229,30 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 				item<br> 사이즈, 칼라 등 디자인 조정해주세요 <br>장소 정보가 들어갈 div.item >
 				div.detail ? 만들어주세요
 			</h3>
-			<div class="center">
-
-
 				<!-- 일정 장소별 드래그 앤 드롭 -->
 				<div class="container">
 
 					<%
 					List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
+					
 					List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
+					
 					System.out.println("유니크POI 확인: " + myUniquePOI);
+					
 					System.out.println("데이코스 확인: " + allDayCourses);
+					
 					for (int i = 0; i < allDayCourses.size(); i++) {
 					%>
-					<div class="Day<%=i + 1%>">
+					<div class="column">
 						<h2>
-							Day
-							<%=i + 1%>
+							<%=i + 1%>일차
 						</h2>
-
+						<!-- <div class="item-plus">
+							<button>+ 장소추가</button>
+						</div> -->
+						
+						
+						
 						<%
 						for (int item : allDayCourses.get(i)) {
 							PoiVO poi = null;
@@ -236,21 +261,29 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 								if (p.getPoi_idx() == item) {
 							poi = p;
 							break;
-							// TODO 테스트임 03/17 
 								}
 							}
 							// 해당 POI가 발견되면 출력합니다.
 							if (poi != null) {
 								System.out.println(poi.getPoi_desc());
 							%>
-							<div class="item">
+								
+							<div class="list-group-item"  draggable="true">
+								
+								<!-- 이미지 요소 -->
 								<div class="Img">
 									<img src=<%="poiImgs/" + poi.getPoi_img_location()%>
-										width=100px alt=<%=poi.getPoi_name()%>>
+										width=150px height="130px" alt=<%=poi.getPoi_name()%>>
 								</div>
-								<div class="name" align="left"><%=poi.getPoi_name()%></div>
+								
+								
+								<div class="name"><%=poi.getPoi_name()%></div>
 								<div class="description"><%=poi.getPoi_desc()%></div>
 								<div class="operation-time"><%=poi.getPoi_runingtime()%></div>
+								
+								<!-- 위도경도 재민 추신 : 현식이형 위도경도 쓸려면 주석 풀어주세용-->
+								<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div> --%>
+								<%-- <div class="operation-time"><%=poi.getPoi_lng()%></div> --%>
 								<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 								<span class="material-icons-round">drag_indicator</span>
 							</div>
@@ -264,85 +297,16 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 					%>
 				</div>
 			</div>
-
-
 		</div>
-	</div>
-	<script>
-      let isDragging = false;
-      let currentItem = null;
-      let containerOffsetY = 0;
-      let initY = 0;
-      
-      
-
-      const container = document.querySelector(".container");
-      container.style.width = container.offsetWidth + "px";
-      container.style.height = container.offsetHeight + "px";
-
-      document.addEventListener("mousedown", (e) => {
-        const item = e.target.closest(".item");
-        if (item) {
-          isDragging = true;
-          currentItem = item;
-          containerOffsetY = currentItem.offsetTop;
-          currentItem.classList.add("dragging");
-          document.body.style.userSelect = "none";
-          currentItem.classList.add("insert-animation");
-          currentItem.style.top = containerOffsetY + "px";
-          initY = e.clientY;
-        }
-      });
-      document.addEventListener("mousemove", (e) => {
-        if (isDragging && currentItem) {
-          currentItem.classList.remove("insert-animation");
-          let newTop = containerOffsetY - (initY - e.clientY);
-          if (newTop < -50) {
-            newTop = -50;
-          } else if (newTop > container.offsetHeight - 30) {
-            newTop = container.offsetHeight - 30;
-          }
-          currentItem.style.top = newTop + "px";
-
-          let itemSibilings = [
-            ...document.querySelectorAll(".item:not(.dragging)"),
-          ];
-          let nextItem = itemSibilings.find((sibiling) => {
-            return (
-              e.clientY - container.getBoundingClientRect().top <=
-              sibiling.offsetTop + sibiling.offsetHeight / 2
-            );
-          });
-
-          itemSibilings.forEach((sibiling) => {
-            sibiling.style.marginTop = "10px";
-          });
-
-          if (nextItem) {
-            nextItem.style.marginTop = currentItem.offsetHeight + 20 + "px";
-          }
-          container.insertBefore(currentItem, nextItem);
-        }
-      });
-
-      document.addEventListener("mouseup", () => {
-        if (currentItem) {
-          currentItem.classList.remove("dragging");
-          currentItem.style.top = "auto";
-          currentItem = null;
-          isDragging = false;
-
-          document.body.style.userSelect = "auto";
-        }
-
-        let itemSibilings = [
-          ...document.querySelectorAll(".item:not(.dragging)"),
-        ];
-
-        itemSibilings.forEach((sibiling) => {
-          sibiling.style.marginTop = "10px";
-        });
-      });
-    </script>
+<script>
+    const columns = document.querySelectorAll(".column");
+columns.forEach((column) => {
+  new Sortable(column, {
+    group: "shared",
+    animation: 150,
+    ghostClass: "blue-background-class"
+  });
+});
+</script>
 </body>
 </html>
