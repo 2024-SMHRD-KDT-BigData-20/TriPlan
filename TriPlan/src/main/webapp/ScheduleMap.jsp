@@ -82,11 +82,12 @@ body {
 }
 
 .container {
-	position: relative;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	gap : 30px; 
 	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	/* align-items: center; */
 }
 
 .item {
@@ -131,40 +132,16 @@ body {
 	color: rgb(180, 180, 180);
 }
 
-.item.dragging {
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0) scale(1.15);
-	pointer-events: none;
-	z-index: 1000;
-}
 
-.insert-animation {
+/* .insert-animation {
 	animation: scaleit 0.1s ease-in-out;
-}
+} */
 
-@
-keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
+@keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	
 }
-
-}
-.item.dragging .name {
-	color: rgb(218, 83, 80);
 }
 
-.item.dragging span {
-	color: rgb(214, 104, 103);
-}
-
-.Img {
-	float: left;
-	align: left;
-}
-
-.title {
-	
-}
 </style>
 </style>
 
