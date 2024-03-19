@@ -251,6 +251,8 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 								<div class="name" align="left"><%=poi.getPoi_name()%></div>
 								<div class="description"><%=poi.getPoi_desc()%></div>
 								<div class="operation-time"><%=poi.getPoi_runingtime()%></div>
+								<div class="operation-time"><%=poi.getPoi_lat()%></div>
+								<div class="operation-time"><%=poi.getPoi_lng()%></div>
 								<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 								<span class="material-icons-round">drag_indicator</span>
 							</div>
