@@ -73,6 +73,18 @@ body {
 	text-align: center;
 }
 
+.fixed-element {
+			position: sticky;
+            text-align: center;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            box-sizing: border-box;
+            z-index: 1000;
+ }
+ 
 .center {
 	width: 100%;
 	height: 100%;
@@ -233,13 +245,16 @@ cursor: pointer;
 
 	<div id="right_col">
 		<div id="right_col_inner">
-			<h1>스크롤 - 일정 관리</h1>
-			<h2>상단에 제목을 출력할 div.title이 fix로 들어 있으면 좋겠어요</h2>
-			<h3>
+		<div class="fixed-element">
+    		<h2><%= "여행주제" %></h2>
+   			 <p>2024-03-19 ~ 2024-03-20 (1박2일)</p>
+</div>
+			<!-- <h3>
 				드래그 & 드롭 박스는 div.item입니다. <br>div.center > div.container > div.
 				item<br> 사이즈, 칼라 등 디자인 조정해주세요 <br>장소 정보가 들어갈 div.item >
 				div.detail ? 만들어주세요
 			</h3>
+			</div> -->
 				<!-- 일정 장소별 드래그 앤 드롭 -->
 				<div class="container">
 
