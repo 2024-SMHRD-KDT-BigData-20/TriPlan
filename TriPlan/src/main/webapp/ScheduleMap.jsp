@@ -133,9 +133,9 @@ body {
 }
 
 
-/* .insert-animation {
+.insert-animation {
 	animation: scaleit 0.1s ease-in-out;
-} */
+}
 
 @keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	
@@ -145,7 +145,7 @@ body {
 .column {
 flex-basis: 20%;
 background: #ddd;
-min-height: 30vh;
+min-height: 20vh;
 padding: 5px;
 border-radius: 10px;
 flex-direction: column
@@ -162,7 +162,8 @@ border-radius: 5px;
 cursor: pointer;
 }
 .daycount{
-    margin: 0%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 .item-plus{
 		display: flex;
@@ -178,13 +179,20 @@ cursor: pointer;
   display: flex;
   justify-content: right;
   align-items: center;
-  
 }
+ .list-froup-item.dragging {
+   position: absolute;
+   left: 50%;
+   transform: translate(-50%, 0) scale(1.15);
+   pointer-events: none;
+   z-index: 1000;
+      }
+
 
 
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
-</style>
+
 
 <!-- 지도 함수 스크립트 -->
 <script
@@ -204,6 +212,8 @@ cursor: pointer;
 	} 
 </script>
 <!-- 지도 함수 끝 -->
+ 
+ <!-- 드래그 앤 드롭 소스 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
@@ -244,10 +254,10 @@ cursor: pointer;
 					
 					for (int i = 0; i < allDayCourses.size(); i++) {
 					%>
-					<div class="column">
-						<h2>
+						<h2 draggable="false">
 							<%=i + 1%>일차
 						</h2>
+					<div class="column">
 						<!-- <div class="item-plus">
 							<button>+ 장소추가</button>
 						</div> -->
@@ -274,15 +284,13 @@ cursor: pointer;
 								<!-- 이미지 요소 -->
 								<div class="Img">
 									<img src=<%="poiImgs/" + poi.getPoi_img_location()%>
-										width=150px height="130px" alt=<%=poi.getPoi_name()%>>
+										width=150px height="110px" alt=<%=poi.getPoi_name()%>>
 								</div>
-								
-								
 								<div class="name"><%=poi.getPoi_name()%></div>
 								<div class="description"><%=poi.getPoi_desc()%></div>
 								<div class="operation-time"><%=poi.getPoi_runingtime()%></div>
 								
-								<!-- 위도경도 재민 추신 : 현식이형 위도경도 쓸려면 주석 풀어주세용-->
+								<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
 								<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div> --%>
 								<%-- <div class="operation-time"><%=poi.getPoi_lng()%></div> --%>
 								<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
@@ -300,7 +308,15 @@ cursor: pointer;
 			</div>
 		</div>
 <script>
+	document.addEventListener("mousedown", (e) => {
+		const drag_item = e.target.closest(".list-group-item");
+		current_item = drag_item;
+		current_item.classList.add("insert-animation");
+		iniY = e.clientY;
+	})
+
     const columns = document.querySelectorAll(".column");
+	console.log(columns);
 columns.forEach((column) => {
   new Sortable(column, {
     group: "shared",
@@ -308,6 +324,16 @@ columns.forEach((column) => {
     ghostClass: "blue-background-class"
   });
 });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elements = document.querySelectorAll('h2');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('dragstart', function(event) {
+                event.preventDefault();
+            });
+        }
+    });
 </script>
 </body>
 </html>
