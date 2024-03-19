@@ -46,12 +46,12 @@ body {
 	width: 100%;
 	margin-left: -100%;
 	text-align: center;
-	background-color: green;
+	background-color: white;
 }
 
 #left_col_inner {
-	padding: 10px;
-	color: #ffffff;
+	padding: 0px;
+	color: black;
 }
 
 #content {
@@ -69,7 +69,7 @@ body {
 
 #right_col_inner {
 	padding-left: 20px;
-	color: #ffffff;
+	color: black;
 	text-align: center;
 }
 
@@ -82,11 +82,12 @@ body {
 }
 
 .container {
-	position: relative;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	gap : 30px; 
 	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	/* align-items: center; */
 }
 
 .item {
@@ -117,9 +118,9 @@ body {
 }
 /* 설명 및 운영 시간 스타일 */
 .description, .operation-time {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #757575;
+	margin-top: 10px;
+	font-size: 14px;
+	color: #757575;
 }
 
 .item span {
@@ -131,206 +132,208 @@ body {
 	color: rgb(180, 180, 180);
 }
 
-.item.dragging {
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0) scale(1.15);
-	pointer-events: none;
-	z-index: 1000;
-}
 
 .insert-animation {
 	animation: scaleit 0.1s ease-in-out;
 }
 
-@
-keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
+@keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	
 }
-
-}
-.item.dragging .name {
-	color: rgb(218, 83, 80);
 }
 
-.item.dragging span {
-	color: rgb(214, 104, 103);
+.column {
+flex-basis: 20%;
+background: #ddd;
+min-height: 20vh;
+padding: 5px;
+border-radius: 10px;
+flex-direction: column
 }
+.column h1 {
+text-align: center;
+font-size: 22px;
+}
+.list-group-item {
+background: #fff;
+margin: 20px;
+padding: 20px;
+border-radius: 5px;
+cursor: pointer;
+}
+.daycount{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.item-plus{
+		display: flex;
+	text-align: right; ;
+	justify-content: right;
+	float: right;
+	
+}
+.Img{
+	float: left;
+}
+.material-icons-round{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+ .list-froup-item.dragging {
+   position: absolute;
+   left: 50%;
+   transform: translate(-50%, 0) scale(1.15);
+   pointer-events: none;
+   z-index: 1000;
+      }
+
+
+
+/* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
+
+
+<!-- 지도 함수 스크립트 -->
+<script
+	src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=5xlrQgGGMeW9sjaWtFx1613MYzRTs0x8EaGbs2Da"></script>
+<script type="text/javascript">
+	// 페이지가 로딩이 된 후 호출하는 함수입니다.
+	function initTmap(){
+		// map 생성
+		// Tmapv3.Map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
+		var map = new Tmapv3.Map("map_div", { // 지도가 생성될 div
+			center : new Tmapv3.LatLng(37.56520450, 126.98702028),
+			width : "100%",	// 지도의 넓이
+			height : "800px",	// 지도의 높이
+			zoom : 16	// 지도 줌레벨
+			
+		});
+	} 
+</script>
+<!-- 지도 함수 끝 -->
+ 
+ <!-- 드래그 앤 드롭 소스 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
+	<!-- 왼쪽 화면에 지도 출력 -->
 	<div id="left_col">
 		<div id="background">
 			<div id="left_col_inner">
-				<h1>지도 - 고정 자리</h1>
-				<h2>오른쪽으로 옮기는 게 좋지 않을까요?</h2>
-				<h3>화이팅</h3>
-				<h4>참고 소스</h4>
-				<p>
-				
-				<a href="https://codepen.io/throwtoys/pen/oYGzja"> 스플릿 화면 소스 코드</a>
-				<br>
-				<a href="https://github.com/SnippetsDevelop/snippetsdevelop.github.io/blob/master/codes/drag-drop-list.html">드래그 & 드롭 소스 코드</a>
-				<br>
-				</p>
+				<body onload="initTmap()">
+					<div id="map_div" onload="initTmap()"></div>
+				</body>
 			</div>
 		</div>
 	</div>
+
+
 
 	<div id="right_col">
 		<div id="right_col_inner">
 			<h1>스크롤 - 일정 관리</h1>
 			<h2>상단에 제목을 출력할 div.title이 fix로 들어 있으면 좋겠어요</h2>
-			<h3>드래그 & 드롭 박스는 div.item입니다. <br>div.center > div.container > div. item<br>
-			사이즈, 칼라 등 디자인 조정해주세요
-			<br>장소 정보가 들어갈 div.item > div.detail ? 만들어주세요</h3>
-			<div class="center">
-
+			<h3>
+				드래그 & 드롭 박스는 div.item입니다. <br>div.center > div.container > div.
+				item<br> 사이즈, 칼라 등 디자인 조정해주세요 <br>장소 정보가 들어갈 div.item >
+				div.detail ? 만들어주세요
+			</h3>
+				<!-- 일정 장소별 드래그 앤 드롭 -->
 				<div class="container">
 
-<%
-List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
-List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
-System.out.println("유니크POI 확인: "+myUniquePOI);
-System.out.println("데이코스 확인: "+allDayCourses);
-for (int i = 0; i < allDayCourses.size(); i++) {
-%>
-<h2>
-    Day <%= i + 1 %>
-</h2>
-
-<%
-for (int item : allDayCourses.get(i)) {
-    PoiVO poi = null;
-    // allDayCourses의 아이템이 myUniquePOI의 인덱스와 매핑되는 POI를 찾습니다.
-    for (PoiVO p : myUniquePOI) {
-        if (p.getPoi_idx() == item) {
-            poi = p;
-            break;
-            // TODO 테스트임 03/17 
-            }
-    }
-    // 해당 POI가 발견되면 출력합니다.
-    if (poi != null) {
-    	System.out.println(poi.getPoi_desc());
-%>
-<div class="item">
-    <div class="Img"><img src=<%="poiImgs/" + poi.getPoi_img_location() %> width = 100px alt=<%=poi.getPoi_name() %>></div>
-    <div class="name"><%= poi.getPoi_name() %></div>
-    <div class="description"><%= poi.getPoi_desc() %></div>
-    <div class="operation-time"><%= poi.getPoi_runingtime() %></div>
-    <!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
-    <span class="material-icons-round">drag_indicator</span>
-</div>
-<%
-    }
-}
-}
-
-
-
-
-
-%>
+					<%
+					List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
+					
+					List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
+					
+					System.out.println("유니크POI 확인: " + myUniquePOI);
+					
+					System.out.println("데이코스 확인: " + allDayCourses);
+					
+					for (int i = 0; i < allDayCourses.size(); i++) {
+					%>
+						<h2 draggable="false">
+							<%=i + 1%>일차
+						</h2>
+					<div class="column">
+						<!-- <div class="item-plus">
+							<button>+ 장소추가</button>
+						</div> -->
+						
+						
+						
+						<%
+						for (int item : allDayCourses.get(i)) {
+							PoiVO poi = null;
+							// allDayCourses의 아이템이 myUniquePOI의 인덱스와 매핑되는 POI를 찾습니다.
+							for (PoiVO p : myUniquePOI) {
+								if (p.getPoi_idx() == item) {
+							poi = p;
+							break;
+								}
+							}
+							// 해당 POI가 발견되면 출력합니다.
+							if (poi != null) {
+								System.out.println(poi.getPoi_desc());
+							%>
+								
+							<div class="list-group-item"  draggable="true">
+								
+								<!-- 이미지 요소 -->
+								<div class="Img">
+									<img src=<%="poiImgs/" + poi.getPoi_img_location()%>
+										width=150px height="110px" alt=<%=poi.getPoi_name()%>>
+								</div>
+								<div class="name"><%=poi.getPoi_name()%></div>
+								<div class="description"><%=poi.getPoi_desc()%></div>
+								<div class="operation-time"><%=poi.getPoi_runingtime()%></div>
+								
+								<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
+								<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div> --%>
+								<%-- <div class="operation-time"><%=poi.getPoi_lng()%></div> --%>
+								<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
+								<span class="material-icons-round">drag_indicator</span>
+							</div>
+							<%
+							}
+							%>
+					<%
+					}%>
+					</div><%
+					}
+					%>
 				</div>
 			</div>
-
-			<h4>To demonstrate the effect</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				mattis metus a purus tincidunt accumsan. Sed non orci felis. Vivamus
-				eros risus, luctus vel vulputate id, vestibulum vel augue. In
-				vulputate egestas volutpat. Donec in velit quis leo mollis porta.
-				Suspendisse potenti. Etiam faucibus porttitor libero, in fermentum
-				urna pulvinar quis. Sed pretium tortor nisl. Pellentesque auctor
-				elementum urna laoreet molestie. Donec et mauris ante. Vestibulum
-				malesuada lacinia nulla, vitae tristique erat interdum a.
-				Suspendisse potenti. Cras magna neque, dictum at vehicula lobortis,
-				varius eget libero. Curabitur a lectus ac nulla pharetra porttitor
-				vel at magna. Donec neque risus, pellentesque at porta vitae.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				mattis metus a purus tincidunt accumsan. Sed non orci felis. Vivamus
-				eros risus, luctus vel vulputate id, vestibulum vel augue. In
-				vulputate egestas volutpat. Donec in velit quis leo mollis porta.
-				Suspendisse potenti. Etiam faucibus porttitor libero, in fermentum
-				urna pulvinar quis. Sed pretium tortor nisl. Pellentesque auctor
-				elementum urna laoreet molestie. Donec et mauris ante. Vestibulum
-				malesuada lacinia nulla, vitae tristique erat interdum a.
-				Suspendisse potenti.</p>
 		</div>
-	</div>
-	<script>
-      let isDragging = false;
-      let currentItem = null;
-      let containerOffsetY = 0;
-      let initY = 0;
+<script>
+	document.addEventListener("mousedown", (e) => {
+		const drag_item = e.target.closest(".list-group-item");
+		current_item = drag_item;
+		current_item.classList.add("insert-animation");
+		iniY = e.clientY;
+	})
 
-      const container = document.querySelector(".container");
-      container.style.width = container.offsetWidth + "px";
-      container.style.height = container.offsetHeight + "px";
-
-      document.addEventListener("mousedown", (e) => {
-        const item = e.target.closest(".item");
-        if (item) {
-          isDragging = true;
-          currentItem = item;
-          containerOffsetY = currentItem.offsetTop;
-          currentItem.classList.add("dragging");
-          document.body.style.userSelect = "none";
-          currentItem.classList.add("insert-animation");
-          currentItem.style.top = containerOffsetY + "px";
-          initY = e.clientY;
+    const columns = document.querySelectorAll(".column");
+	console.log(columns);
+columns.forEach((column) => {
+  new Sortable(column, {
+    group: "shared",
+    animation: 150,
+    ghostClass: "blue-background-class"
+  });
+});
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elements = document.querySelectorAll('h2');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('dragstart', function(event) {
+                event.preventDefault();
+            });
         }
-      });
-      document.addEventListener("mousemove", (e) => {
-        if (isDragging && currentItem) {
-          currentItem.classList.remove("insert-animation");
-          let newTop = containerOffsetY - (initY - e.clientY);
-          if (newTop < -50) {
-            newTop = -50;
-          } else if (newTop > container.offsetHeight - 30) {
-            newTop = container.offsetHeight - 30;
-          }
-          currentItem.style.top = newTop + "px";
-
-          let itemSibilings = [
-            ...document.querySelectorAll(".item:not(.dragging)"),
-          ];
-          let nextItem = itemSibilings.find((sibiling) => {
-            return (
-              e.clientY - container.getBoundingClientRect().top <=
-              sibiling.offsetTop + sibiling.offsetHeight / 2
-            );
-          });
-
-          itemSibilings.forEach((sibiling) => {
-            sibiling.style.marginTop = "10px";
-          });
-
-          if (nextItem) {
-            nextItem.style.marginTop = currentItem.offsetHeight + 20 + "px";
-          }
-          container.insertBefore(currentItem, nextItem);
-        }
-      });
-
-      document.addEventListener("mouseup", () => {
-        if (currentItem) {
-          currentItem.classList.remove("dragging");
-          currentItem.style.top = "auto";
-          currentItem = null;
-          isDragging = false;
-
-          document.body.style.userSelect = "auto";
-        }
-
-        let itemSibilings = [
-          ...document.querySelectorAll(".item:not(.dragging)"),
-        ];
-
-        itemSibilings.forEach((sibiling) => {
-          sibiling.style.marginTop = "10px";
-        });
-      });
-    </script>
+    });
+</script>
 </body>
 </html>

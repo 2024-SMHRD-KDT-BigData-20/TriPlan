@@ -12,7 +12,7 @@
 		<input name="mt_name" value = "제주도" placeholder = "제주도">
 		<input name="mt_preference" value = "액티비티" placeholder = "액티비티">
 		<input name="mt_headcount" value = 2 placeholder = 2>
-		<input name="user_id" value = "jinnie" placeholder = "jinnie">
+		<input name="user_id" dvalue = "jinnie" placeholder = "jinnie">
 		<input name="mt_st_dt" value = "24/04/30" placeholder = "24/04/30">
 		<input name="mt_st_tm" value = "10:00" placeholder = "10:00">
 		<input name="mt_ed_dt" value = "24/05/04" placeholder = "24/05/04">
