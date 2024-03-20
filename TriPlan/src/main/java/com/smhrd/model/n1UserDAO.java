@@ -38,5 +38,13 @@ public class n1UserDAO {
 		
 		return myTrips;
 	}
+
+	public int insertPreference(n3PreferenceVO preference) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
+		
+		int cnt = sqlSession.insert("com.smhrd.db.UserMapper.user_preference", preference);
+		sqlSession.close();
+		return cnt;
+	}
 	
 }
