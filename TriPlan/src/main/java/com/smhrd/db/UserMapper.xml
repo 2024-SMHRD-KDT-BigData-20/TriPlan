@@ -14,12 +14,12 @@
 		(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_gender},
 		#{user_nick})
 	</insert>
-<!-- 	<select id="Login" parameterType="UserVO" resultType = "UserVO">
-	Login
-	UserID / 비번 일치하는 것으로 userVO 세션에 전달
-		select * from suer_info where user_id=#{user_id} and user_pw=#{user_pw}
+ 	<select id="Login" parameterType="UserVO" resultType = "UserVO">
+<!-- 	Login
+	UserID / 비번 일치하는 것으로 userVO 세션에 전달 -->
+		select * from user_info where user_id=#{user_id} and user_pw=#{user_pw}
 	</select>
-	<insert id="user_preference" parameterType="PreferenceVO">
+<!--	<insert id="user_preference" parameterType="PreferenceVO">
 	Preference - 최초 입력
 	User_Preference 테이블에 최초 입력
 		insert into user_preference values #{}, ..., #{} where user_id = #{user_id}

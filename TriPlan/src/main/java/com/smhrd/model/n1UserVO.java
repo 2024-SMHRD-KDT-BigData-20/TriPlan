@@ -11,7 +11,7 @@ import oracle.sql.DATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class n1_UserVO {
+public class n1UserVO {
 	@NonNull
 	private String user_id;
 	@NonNull
@@ -27,5 +27,13 @@ public class n1_UserVO {
 	private String user_nick;
 	private DATE  created_at;
 	private String user_role;
-
+	
+	public n1UserVO(@NonNull String user_id, @NonNull String user_pw) {
+		super();
+		this.user_id = user_id;
+		this.user_pw = user_pw;
+	}
+	
+	
+	
 }
