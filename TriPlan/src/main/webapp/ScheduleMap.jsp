@@ -219,15 +219,17 @@ cursor: pointer;
         zoom : 13
     });
 <% 
-HttpSession session2 = request.getSession();
-List<PoiVO> poiList = (List<PoiVO>)session2.getAttribute("myUniquePOI");
-for(int i = 0; i< poiList.size(); i++){
-	PoiVO poi = poiList.get(i);%>
-    var marker = new Tmapv3.Marker({
-        position: new Tmapv3.LatLng(poi.getPoi_lat(), poi.getPoi_lng()),
-        map: map
-    });	
-<%	
+List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
+%>
+<%for(int i = 0; i<myUniquePOI.size(); i++){
+	PoiVO poi = (PoiVO)myUniquePOI.get(i); 
+	System.out.println(poi);
+	%>
+	    var marker = new Tmapv3.Marker({
+	        position: new Tmapv3.LatLng(<%=poi.getPoi_lat()%>, <%=poi.getPoi_lng()%>),
+	        map: map
+	    });	
+<%
 }
 %>
 /*     // poiList를 반복하여 각 POI의 위도와 경도 정보를 사용하여 지도에 마커를 추가합니다.
@@ -263,6 +265,7 @@ for(int i = 0; i< poiList.size(); i++){
 		<div id="right_col_inner">
 		<div class="fixed-element">
     		<h2><%= "여행주제" %></h2>
+    		poiList확인<%=myUniquePOI.size() %>
    			 <p>2024-03-19 ~ 2024-03-20 (1박2일)</p>
 </div>
 			<!-- <h3>
@@ -277,7 +280,7 @@ for(int i = 0; i< poiList.size(); i++){
 					<%
 					List<List<Integer>> allDayCourses = (List<List<Integer>>) request.getSession().getAttribute("allDayCourses");
 					
-					List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
+					/* List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI"); */
 					
 					System.out.println("유니크POI 확인: " + myUniquePOI);
 					
