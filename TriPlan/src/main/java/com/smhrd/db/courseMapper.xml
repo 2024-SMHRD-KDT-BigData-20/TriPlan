@@ -7,11 +7,20 @@
 	구분 mapper.xml 경로와 동일해야 함 -->
 
 <mapper namespace="com.smhrd.db.courseMapper">
+
+	<select id="MyTrips" parameterType="String">
+		<!-- MyTrips MyTourInfo 테이블에서 해당 유저의 여행 리스트 가져오기 -->
+		select * from my_tour_course_info where user_id = #{user_id}
+
+	</select>
+
 	<insert id="createMySchedule" parameterType="createScheduleVO">
 		insert into
 		testMyTour values
-		(#{mt_idx}, #{mt_name}, #{mt_preference}, #{mt_headcount}, #{user_id},
-		#{mt_st_dt}, #{mt_st_tm}, #{mt_ed_dt}, #{mt_ed_tm}, #{mt_select})
+		(#{mt_idx}, #{mt_name}, #{mt_preference},
+		#{mt_headcount}, #{user_id},
+		#{mt_st_dt}, #{mt_st_tm}, #{mt_ed_dt},
+		#{mt_ed_tm}, #{mt_select})
 	</insert>
 	<insert id="createMyDaily" parameterType="createScheduleVO">
 		insert into testMyDaily
@@ -24,11 +33,12 @@
 	</select>
 	<select id="myDailyCourseList" parameterType="int"
 		resultType="createScheduleVO">
-		select * from testMyDaily where mt_idx=#{mt_idx} order by day_sche
+		select * from testMyDaily where mt_idx=#{mt_idx} order by
+		day_sche
 	</select>
 
-	<select id="myCoursePOI" parameterType="int"
-		resultType="PoiVO">
-		select * from TestPoiInfo where poi_idx=#{poiIdx}
+	<select id="myCoursePOI" parameterType="int" resultType="PoiVO">
+		select *
+		from TestPoiInfo where poi_idx=#{poiIdx}
 	</select>
 </mapper>
