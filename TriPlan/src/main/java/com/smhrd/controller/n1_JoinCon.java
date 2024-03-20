@@ -28,16 +28,16 @@ public class n1_JoinCon extends HttpServlet {
 		String user_nick = request.getParameter(user_nick);
 		String user_role = request.getParameter(user_role);
 			
-//		2. 받아온 값 MemberVO객체에 담아주기
+//		2. 받아온 값 UserVO객체에 담아주기
 		n1_UserVO joinUser = new n1_UserVO(user_id,user_pw,user_name,user_email,user_gender,user_birthdate,user_nick,user_role);
 		System.out.println(joinUser.toString());
 		
-		// 3. MemberMapper.xml에 sql문 작성
+		// 3. UserMapper.xml에 sql문 작성
 		
-		// 4-1. MemberDAO 가서 회원가입 메소드 작성 DataAccessObject
+		// 4-1. UserDAO 메소드 작성
 		// 4-2. DAO 객체 생성
 		n1_UserDAO dao = new n1_UserDAO();
-		// 4-3. insertMember 메소드 호출
+		// 4-3. Join 메소드 호출
 		int cnt = dao.Join(joinUser);
 		
 		//5. 명령 후 처리
@@ -51,7 +51,6 @@ public class n1_JoinCon extends HttpServlet {
 //			request.setAttribute("joinEmail", joinMember.getEmail());
 			request.setAttribute("loginVO", joinUser);
 			rd.forward(request, response);
-//			response.sendRedirect("joinSuccess.jsp");
 		}else {
 			//실패
 			System.out.println("가입 실패");
