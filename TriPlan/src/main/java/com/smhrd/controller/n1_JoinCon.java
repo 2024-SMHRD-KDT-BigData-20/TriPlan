@@ -7,9 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.smhrd.model.n1_UserDAO;
-import com.smhrd.model.n1_UserVO;
+import com.smhrd.model.n1UserDAO;
+import com.smhrd.model.n1UserVO;
 
 import oracle.sql.DATE;
 
@@ -29,28 +30,30 @@ public class n1_JoinCon extends HttpServlet {
 		//String user_role = request.getParameter(user_role);
 			
 //		2. 받아온 값 UserVO객체에 담아주기
-		n1_UserVO joinUser = new n1_UserVO(user_id,user_pw,user_name,user_email,user_gender,user_nick);
+		n1UserVO joinUser = new n1UserVO(user_id,user_pw,user_name,user_email,user_gender,user_nick);
 		System.out.println(joinUser.toString());
 		
 		// 3. UserMapper.xml에 sql문 작성
 		
 		// 4-1. UserDAO 메소드 작성
 		// 4-2. DAO 객체 생성
-		n1_UserDAO dao = new n1_UserDAO();
+		n1UserDAO dao = new n1UserDAO();
 		// 4-3. Join 메소드 호출
 		int cnt = dao.Join(joinUser);
+		System.out.println(cnt);
 		
 		//5. 명령 후 처리
-		//회원가입 성공 => joinSuccess.jsp
-		//회원가입 실패 => main.jsp
+		//회원가입 성공 => n2Preference.jsp
+		//회원가입 실패 => n1LoginJoin.jsp
 		if(cnt>0) {
 			//성공
 			//회원 가입 축하드립니다. ooo님 : request에 담아서 forward 방식 이동
-			
-			RequestDispatcher rd = request.getRequestDispatcher("n2_Preference.jsp");
-//			request.setAttribute("joinEmail", joinMember.getEmail());
-			request.setAttribute("loginVO", joinUser);
-			rd.forward(request, response);
+//			request.setAttribute("loginVO", joinUser);
+			HttpSession session = request.getSession();
+	        session.setAttribute("loginMember", joinUser);
+			response.sendRedirect("n3Preference.jsp");
+//			RequestDispatcher rd = request.getRequestDispatcher("n2Preference.jsp");
+//			rd.forward(request, response);
 		}else {
 			//실패
 			System.out.println("가입 실패");

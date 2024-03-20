@@ -14,10 +14,11 @@ public class PoiVO {
 	private String poi_name;
 	private String poi_addr;
 	private String poi_desc;
-	private float poi_lat;
-	private float poi_lng;
+	private double poi_lat;
+	private double poi_lng;
 	private String poi_tag;
 	private String poi_runingtime;
 	private String poi_offday;
 	private String poi_img_location;
+	
 }
