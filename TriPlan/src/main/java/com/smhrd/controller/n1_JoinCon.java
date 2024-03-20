@@ -19,17 +19,17 @@ public class n1_JoinCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		String user_id = request.getParameter(user_id);
-		String user_pw = request.getParameter(user_pw);
-		String user_name = request.getParameter(user_name);
-		String user_email = request.getParameter(user_email);
-		String  user_gender = request.getParameter(user_gender);
-		String  user_birthdate = request.getParameter(user_birthdate);//타입 변환 어떻게 할지!!
-		String user_nick = request.getParameter(user_nick);
-		String user_role = request.getParameter(user_role);
+		String user_id = request.getParameter("user_id");
+		String user_pw = request.getParameter("user_pw");
+		String user_name = request.getParameter("user_name");
+		String user_email = request.getParameter("user_email");
+		String  user_gender = request.getParameter("user_gender");
+		//String  user_birthdate = request.getParameter(user_birthdate);//타입 변환 어떻게 할지!!
+		String user_nick = request.getParameter("user_nick");
+		//String user_role = request.getParameter(user_role);
 			
 //		2. 받아온 값 UserVO객체에 담아주기
-		n1_UserVO joinUser = new n1_UserVO(user_id,user_pw,user_name,user_email,user_gender,user_birthdate,user_nick,user_role);
+		n1_UserVO joinUser = new n1_UserVO(user_id,user_pw,user_name,user_email,user_gender,user_nick);
 		System.out.println(joinUser.toString());
 		
 		// 3. UserMapper.xml에 sql문 작성

@@ -22,12 +22,10 @@ public class n1_UserVO {
 	private String user_email;
 	@NonNull
 	private String  user_gender;
-	@NonNull
 	private String  user_birthdate;//타입 변환 어떻게 할지!!
 	@NonNull
 	private String user_nick;
 	private DATE  created_at;
-	@NonNull
 	private String user_role;
 
 }

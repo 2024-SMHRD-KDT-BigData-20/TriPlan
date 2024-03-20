@@ -395,10 +395,10 @@ body {
               <fieldset>
                 <div class="input-block">
                   <label for="login-id">ID</label>
-                  <input id="login-id" type="id" required>
+                  <input id="user_id" type="id" required>
                 </div>
                 <div class="input-block">
-                  <label for="login-password">Password</label>
+                  <label for="user_pw">Password</label>
                   <input id="login-password" type="password" required>
                 </div>
               </fieldset>
@@ -411,31 +411,31 @@ body {
                 Sign Up
               <span class="underline"></span>
             </button>
-            <form class="form form-signup" action = "n1_JoinCon">
+            <form class="form form-signup" action = "n1_JoinCon" method="post">
               <fieldset>
                 <div class="input-block">
-                  <label for="signup-id">ID</label>
-                  <input id="signup-id" type="id" required>
+                  <label for="user_id">ID</label>
+                  <input id="user_id" name="user_id" type="id" required>
                 </div>
                 <div class="input-block">
-                  <label for="signup-password">Password</label>
-                  <input id="signup-password" type="password" required>
+                  <label for="user_pw">Password</label>
+                  <input id="user_pw" name="user_pw" type="password" required>
                 </div>
                 <div class="input-block">
                   <label for="signup-password-confirm">Confirm password</label>
                   <input id="signup-password-confirm" type="password" required>
                 </div>
 				<div class="input-block">
-                    <label for="signup-name">Name</label>
-                    <input id="signup-name" type="name" required>
+                    <label for="user_name">Name</label>
+                    <input id="user_name" name="user_name" type="name" required>
                 </div>
                 <div class="input-block">
-                    <label for="signup-nick">Nick name</label>
-                    <input id="signup-nick" type="nick" required>
+                    <label for="user_nick">Nick name</label>
+                    <input id="user_nick" name="user_nick" type="nick" required>
                 </div>
                 <div class="input-block">
-                    <label for="signup-email">E-mail</label>
-                    <input id="signup-email" type="email" required>
+                    <label for="user_email">E-mail</label>
+                    <input id="user_email" name="user_email" type="email" required>
                 </div>
                 <div class="row">
                     <div class="col-half input-block">
@@ -454,12 +454,12 @@ body {
 					</div>
 					
 					<div class="col-half input-block">
-						<label for="signup-gender">Gender</label>
+						<label for="user_gender">성별</label>
 						<div class="input-group">
-							<input type="radio" id="gender-male" name="gender" value="male" required>
-							<label for="gender-male">Male</label>
-							<input type="radio" id="gender-female" name="gender" value="female" required>
-							<label for="gender-female">Female</label>
+							<input type="radio" id="gender-male" name="user_gender" value="남" required>
+							<label for="gender-male">남</label>
+							<input type="radio" id="gender-female" name="user_gender" value="여" required>
+							<label for="gender-female">여</label>
 						</div>
 					</div>
             

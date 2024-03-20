@@ -31,5 +31,6 @@
   <!-- SQL문을 JAVA파일과 별도 관리 (기능별로 파일 추가하면 됨, mapper태그 추가)-->
   <mappers>
     <mapper resource="com/smhrd/db/courseMapper.xml"/>
+    <mapper resource="com/smhrd/db/UserMapper.xml"/>
   </mappers>
 </configuration>
