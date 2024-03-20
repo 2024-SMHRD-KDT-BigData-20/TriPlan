@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.smhrd.model.n1_UserDAO;
-import com.smhrd.model.n1_UserVO;
+import com.smhrd.model.n1UserDAO;
+import com.smhrd.model.n1UserVO;
 
 import oracle.sql.DATE;
 
@@ -30,14 +30,14 @@ public class n1_JoinCon extends HttpServlet {
 		//String user_role = request.getParameter(user_role);
 			
 //		2. 받아온 값 UserVO객체에 담아주기
-		n1_UserVO joinUser = new n1_UserVO(user_id,user_pw,user_name,user_email,user_gender,user_nick);
+		n1UserVO joinUser = new n1UserVO(user_id,user_pw,user_name,user_email,user_gender,user_nick);
 		System.out.println(joinUser.toString());
 		
 		// 3. UserMapper.xml에 sql문 작성
 		
 		// 4-1. UserDAO 메소드 작성
 		// 4-2. DAO 객체 생성
-		n1_UserDAO dao = new n1_UserDAO();
+		n1UserDAO dao = new n1UserDAO();
 		// 4-3. Join 메소드 호출
 		int cnt = dao.Join(joinUser);
 		System.out.println(cnt);
