@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>TriPlan 여행 스타일 선택</title>
+<title>TriPlan 선호도</title>
 </head>
 <body>
-
+<p>선호도 조사<p>
 </body>
 </html>

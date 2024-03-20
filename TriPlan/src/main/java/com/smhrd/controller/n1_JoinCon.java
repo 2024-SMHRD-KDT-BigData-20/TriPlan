@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.smhrd.model.n1_UserDAO;
 import com.smhrd.model.n1_UserVO;
@@ -48,7 +49,9 @@ public class n1_JoinCon extends HttpServlet {
 			//성공
 			//회원 가입 축하드립니다. ooo님 : request에 담아서 forward 방식 이동
 //			request.setAttribute("loginVO", joinUser);
-			response.sendRedirect("n2Preference.jsp");
+			HttpSession session = request.getSession();
+	        session.setAttribute("loginMember", joinUser);
+			response.sendRedirect("n3Preference.jsp");
 //			RequestDispatcher rd = request.getRequestDispatcher("n2Preference.jsp");
 //			rd.forward(request, response);
 		}else {
