@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Start TriPlan</title>
-</head>
-<body>
-
-=======
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -391,15 +382,15 @@ body {
               Login
               <span class="underline"></span>
             </button>
-            <form class="form form-login">
+            <form class="form form-login" action = "n2LoginCon" method = "post">
               <fieldset>
                 <div class="input-block">
                   <label for="login-id">ID</label>
-                  <input id="user_id" type="id" required>
+                  <input id="user_id" name = "user_id" type="id" required>
                 </div>
                 <div class="input-block">
-                  <label for="user_pw">Password</label>
-                  <input id="login-password" type="password" required>
+                  <label for="login-password">Password</label>
+                  <input id="login-password" name = "user_pw" type="password" required>
                 </div>
               </fieldset>
 
