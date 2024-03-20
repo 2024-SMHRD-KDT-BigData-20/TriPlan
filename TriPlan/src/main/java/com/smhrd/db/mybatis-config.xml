@@ -9,6 +9,7 @@
 	<properties resource="com/smhrd/db/db.properties" />
 
 	<typeAliases>
+ 		<typeAlias type="com.smhrd.model.n1_UserVO" alias="UserVO"/>
  		<typeAlias type="com.smhrd.model.autoCourseVO" alias="autoCourseVO"/>
  		<typeAlias type="com.smhrd.model.createScheduleVO" alias="createScheduleVO"/>
  		<typeAlias type="com.smhrd.model.myScheduleVO" alias="myScheduleVO"/>
