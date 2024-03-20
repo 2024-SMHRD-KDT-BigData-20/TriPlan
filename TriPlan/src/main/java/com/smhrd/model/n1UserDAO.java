@@ -1,5 +1,7 @@
 package com.smhrd.model;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -24,7 +26,17 @@ public class n1UserDAO {
 		loginVO = sqlSession.selectOne("com.smhrd.db.UserMapper.Login",login);
 		
 		
+		sqlSession.close();
 		return loginVO;
+	}
+
+	public List<n4MyTripsVO> MyTrips(String user_id) {
+
+		List<n4MyTripsVO> myTrips = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
+		myTrips = sqlSession.selectList("com.smhrd.db.UserMapper.MyTrips",user_id);
+		
+		return myTrips;
 	}
 	
 }

@@ -8,5 +8,11 @@
 </head>
 <body>
 <p>선호도 조사<p>
+
+<form action = "n3PreferenceCon" method = "post">
+
+
+<button type="submit">다음</button>
+</form>
 </body>
 </html>
