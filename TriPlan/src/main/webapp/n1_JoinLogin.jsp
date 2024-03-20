@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Start TriPlan</title>
-</head>
-<body>
-
-=======
 <html lang="en">
 <head>
 <meta charset="UTF-8">

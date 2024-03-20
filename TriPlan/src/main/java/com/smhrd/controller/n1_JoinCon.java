@@ -39,18 +39,18 @@ public class n1_JoinCon extends HttpServlet {
 		n1_UserDAO dao = new n1_UserDAO();
 		// 4-3. Join 메소드 호출
 		int cnt = dao.Join(joinUser);
+		System.out.println(cnt);
 		
 		//5. 명령 후 처리
-		//회원가입 성공 => joinSuccess.jsp
-		//회원가입 실패 => main.jsp
+		//회원가입 성공 => n2Preference.jsp
+		//회원가입 실패 => n1LoginJoin.jsp
 		if(cnt>0) {
 			//성공
 			//회원 가입 축하드립니다. ooo님 : request에 담아서 forward 방식 이동
-			
-			RequestDispatcher rd = request.getRequestDispatcher("n2_Preference.jsp");
-//			request.setAttribute("joinEmail", joinMember.getEmail());
-			request.setAttribute("loginVO", joinUser);
-			rd.forward(request, response);
+//			request.setAttribute("loginVO", joinUser);
+			response.sendRedirect("n2Preference.jsp");
+//			RequestDispatcher rd = request.getRequestDispatcher("n2Preference.jsp");
+//			rd.forward(request, response);
 		}else {
 			//실패
 			System.out.println("가입 실패");

@@ -5,24 +5,24 @@
 <!-- namespace: sql태그 id를 그룹화 해주는 속성 id가 다른 파일에 중복될 수 있다. 파일의 namespace로 
 	구분 mapper.xml 경로와 동일해야 함 -->
 
-<mapper namespace="com.smhrd.db.userMapper">
+<mapper namespace="com.smhrd.db.UserMapper">
 	<insert id="Join" parameterType="UserVO">
 	<!-- Join
 	User정보 User info 테이블에 최초 입력 -->
 		insert into
-		user_info values
+		user_info (user_id, user_pw,user_name,user_email,user_gender,user_nick) values
 		(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_gender},
-		#{user_birthdate}, #{user_nick}, sysdate, #{user_role})
+		#{user_nick})
 	</insert>
-	<select id="Login" parameterType="UserVO" resultType = "UserVO">
-	<!-- Login
-	UserID / 비번 일치하는 것으로 userVO 세션에 전달 -->
+<!-- 	<select id="Login" parameterType="UserVO" resultType = "UserVO">
+	Login
+	UserID / 비번 일치하는 것으로 userVO 세션에 전달
 		select * from suer_info where user_id=#{user_id} and user_pw=#{user_pw}
 	</select>
 	<insert id="user_preference" parameterType="PreferenceVO">
-	<!-- Preference - 최초 입력
-	User_Preference 테이블에 최초 입력 -->
+	Preference - 최초 입력
+	User_Preference 테이블에 최초 입력
 		insert into user_preference values #{}, ..., #{} where user_id = #{user_id}
 	</insert>
-
+ -->
 </mapper>
