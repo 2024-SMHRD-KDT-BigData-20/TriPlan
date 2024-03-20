@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.smhrd.model.courseDAO;
@@ -42,6 +43,9 @@ public class loadScheduleCon extends HttpServlet {
 		//대체 왜 16개가 나오는지 모르겠음? 전체 4행인데?
 		System.out.println("크기"+myCourseDetail.size());
 		System.out.println(myCourseDetail.toString());
+		
+
+		
 
 		// 4-3. 
 		//		autoCourseVO courseVO = cDao.importCourse(courseID);

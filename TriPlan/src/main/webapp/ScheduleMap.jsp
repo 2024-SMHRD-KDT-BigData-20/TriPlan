@@ -210,18 +210,34 @@ cursor: pointer;
 <script
 	src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=5xlrQgGGMeW9sjaWtFx1613MYzRTs0x8EaGbs2Da"></script>
 <script type="text/javascript">
-	// 페이지가 로딩이 된 후 호출하는 함수입니다.
-	function initTmap(){
-		// map 생성
-		// Tmapv3.Map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
-		var map = new Tmapv3.Map("map_div", { // 지도가 생성될 div
-			center : new Tmapv3.LatLng(37.56520450, 126.98702028),
-			width : "100%",	// 지도의 넓이
-			height : "800px",	// 지도의 높이
-			zoom : 16	// 지도 줌레벨
-			
-		});
-	} 
+    // 페이지가 로딩이 된 후 호출하는 함수입니다.
+    function initTmap(){
+    var map = new Tmapv3.Map("map_div", {
+        center : new Tmapv3.LatLng(33.5070339, 126.4937486),
+        width : "100%",
+        height : "800px",
+        zoom : 13
+    });
+<% 
+HttpSession session2 = request.getSession();
+List<PoiVO> poiList = (List<PoiVO>)session2.getAttribute("myUniquePOI");
+for(int i = 0; i< poiList.size(); i++){
+	PoiVO poi = poiList.get(i);%>
+    var marker = new Tmapv3.Marker({
+        position: new Tmapv3.LatLng(poi.getPoi_lat(), poi.getPoi_lng()),
+        map: map
+    });	
+<%	
+}
+%>
+/*     // poiList를 반복하여 각 POI의 위도와 경도 정보를 사용하여 지도에 마커를 추가합니다.
+    poiList.forEach(function(poi) {
+        var marker = new Tmapv3.Marker({
+            position: new Tmapv3.LatLng(poi.getPoi_lat(), poi.getPoi_lng()),
+            map: map
+        });
+    }); */
+}
 </script>
 <!-- 지도 함수 끝 -->
  
@@ -306,8 +322,8 @@ cursor: pointer;
 								<div class="operation-time"><%=poi.getPoi_runingtime()%></div>
 								
 								<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
-								<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div> --%>
-								<%-- <div class="operation-time"><%=poi.getPoi_lng()%></div> --%>
+								<div class="operation-time"><%=poi.getPoi_lat()%></div>
+								<div class="operation-time"><%=poi.getPoi_lng()%></div> --%>
 								<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 								<span class="material-icons-round">drag_indicator</span>
 							</div>
