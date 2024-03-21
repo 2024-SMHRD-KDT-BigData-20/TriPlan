@@ -8,7 +8,7 @@
 
 <mapper namespace="com.smhrd.db.courseMapper">
 
-	<select id="MyTrips" parameterType="String">
+	<select id="MyTrips" parameterType="String" resultType = "createScheduleVO">
 		<!-- MyTrips MyTourInfo 테이블에서 해당 유저의 여행 리스트 가져오기 -->
 		select * from my_tour_course_info where user_id = #{user_id}
 
@@ -16,11 +16,11 @@
 
 	<insert id="createMySchedule" parameterType="createScheduleVO">
 		insert into
-		testMyTour values
-		(#{mt_idx}, #{mt_name}, #{mt_preference},
-		#{mt_headcount}, #{user_id},
-		#{mt_st_dt}, #{mt_st_tm}, #{mt_ed_dt},
-		#{mt_ed_tm}, #{mt_select})
+		MY_TOUR_COURSE_INFO (mt_idx, mt_name, mt_preference, user_id, mt_st_dt, mt_ed_dt)
+		values
+		(MY_TOUR_COURSE_INFO_SEQ.nextval, #{mt_name}, #{mt_preference},
+		#{user_id},
+		#{mt_st_dt}, #{mt_ed_dt})
 	</insert>
 	<insert id="createMyDaily" parameterType="createScheduleVO">
 		insert into testMyDaily

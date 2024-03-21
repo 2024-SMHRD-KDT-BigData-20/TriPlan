@@ -24,6 +24,9 @@
 	User_Preference 테이블에 최초 입력 -->
 		insert into user_preference values (USER_PREFERENCE_SEQ.nextval, #{user_id}, #{people}, #{transportation}, #{pace}, #{poi}, #{food}, #{sleep})
 	</insert>
+	<select id ="PrefID" parameterType = "String" resultType = "PreferenceVO">
+		select pf_idx from user_preference where user_id = #{user_id}
+	</select>
 	<select id="printPreference" parameterType = "String" resultType = "PreferenceVO">
 		select * from user_preference where user_id = #{user_id}
 	</select>

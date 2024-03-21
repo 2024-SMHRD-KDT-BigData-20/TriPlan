@@ -38,16 +38,18 @@
         <h1>새로운 일정 생성</h1>
         <hr>
         <div>
+        <form action ="n5CreateScheduleCon" method = "post">
           <h2>가는날</h2>
-          <input type="text" id="go" name = "MT_ST_DT" placeholder="날짜를 선택해주세요" data-input>
+          <input type="text" id="go" name = "mt_st_dt" placeholder="날짜를 선택해주세요" data-input>
       
           <h2>오는날</h2>
-          <input type="text" id="come" name = "MT_ED_DT" placeholder="날짜를 선택해주세요" data-input>
+          <input type="text" id="come" name = "mt_ed_dt" placeholder="날짜를 선택해주세요" data-input>
             
           <h2>여행 제목</h2>
           <input type="text" id="travel_title" name = "mt_name" placeholder="여행제목을 입력해주세요" required>
         </div>
         <button id="next">next</button>
+        </form>
       </div>
         
     <!-- jQuery -->

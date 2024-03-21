@@ -74,12 +74,11 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		String[] FoodPreference = preferenceVO.getFood().split("#");
 		String[] SleepPreference = preferenceVO.getSleep().split("#");
 		
-		//장소별 태그 불러오기
+		Map<Integer, Integer> countMap = new HashMap<>();
 		//create view 
 		//PoiTags
 //		CREATE VIEW view_name AS tags
 
-		Map<Integer, Integer> countMap = new HashMap<>();
 		for(int i = 0; i<IntPOIsInPotentialMatch.size(); i++) {
 			List<Integer> POIs = IntPOIsInPotentialMatch.get(i);
 			/*
@@ -92,8 +91,19 @@ public class n8FindMatchingTripCon extends HttpServlet {
 			}
 			int cnt = 0;
 			
+			//장소별 태그 불러오기
 			for(String p: PoiPreference) {
 				if(tags.contains(p)){
+					cnt+=1;
+				}
+			}
+			for(String f: FoodPreference){
+				if(tags.contains(f)){
+					cnt+=1;
+				}
+			}
+			for(String s: SleepPreference){
+				if(tags.contains(s)){
 					cnt+=1;
 				}
 			}

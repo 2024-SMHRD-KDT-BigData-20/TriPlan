@@ -30,14 +30,7 @@ public class n1UserDAO {
 		return loginVO;
 	}
 
-	public List<n4MyTripsVO> MyTrips(String user_id) {
 
-		List<n4MyTripsVO> myTrips = null;
-		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
-		myTrips = sqlSession.selectList("com.smhrd.db.UserMapper.MyTrips",user_id);
-		
-		return myTrips;
-	}
 
 	public int insertPreference(n3PreferenceVO preference) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
@@ -54,6 +47,15 @@ public class n1UserDAO {
 		prefVOtoPrint = sqlSession.selectOne("com.smhrd.db.UserMapper.printPreference", user_id);
 		sqlSession.close();
 		return prefVOtoPrint;
+	}
+	
+	public n3PreferenceVO PrefIdx(String user_id) {
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
+		n3PreferenceVO prefIdx = sqlSession.selectOne("com.smhrd.db.UserMapper.PrefID", user_id);
+		sqlSession.close();
+		return prefIdx;
+		
 	}
 
 	public int confirmPreference(n3PreferenceVO tripPreferenceVO) {

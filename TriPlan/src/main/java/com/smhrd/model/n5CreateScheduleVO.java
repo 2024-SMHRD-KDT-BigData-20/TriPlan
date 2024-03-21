@@ -17,7 +17,8 @@ public class n5CreateScheduleVO {
 	private int mt_idx;
 	@NonNull
 	private String mt_name;
-	private String mt_preference;
+	@NonNull
+	int mt_preference;
 	private int mt_headcount;
 	@NonNull
 	private String user_id;
@@ -30,7 +31,7 @@ public class n5CreateScheduleVO {
 	private String mt_select;
 	private int day;
 	private String mt_course;
-	public n5CreateScheduleVO(@NonNull int mt_idx, String mt_name, String mt_preference, int mt_headcount, String user_id,
+	public n5CreateScheduleVO(@NonNull int mt_idx, String mt_name, int mt_preference, int mt_headcount, String user_id,
 			String mt_st_dt,String mt_ed_dt, String mt_select) {
 		super();
 		this.mt_idx = mt_idx;

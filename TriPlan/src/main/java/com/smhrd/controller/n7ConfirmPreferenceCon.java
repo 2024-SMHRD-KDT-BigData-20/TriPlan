@@ -16,13 +16,14 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("euc-kr");
+		System.out.println("[ConfirmPreferenceCON");
 		
 		HttpSession session = request.getSession();
 		
 		//변수 받아오기
 		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
 		String user_id = loginMember.getUser_id();
-		int people = Integer.parseInt(request.getParameter("people"));
+		String people = request.getParameter("people");
 		String transportation = request.getParameter("transportation");
 		String pace = request.getParameter("pace");
 		String poi = request.getParameter("poi");

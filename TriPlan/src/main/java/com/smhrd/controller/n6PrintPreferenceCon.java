@@ -17,7 +17,7 @@ public class n6PrintPreferenceCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("[PrintPreferenceConnnnnnn");
 		//preference 정보 불러오기
 		//조건문에 쓸 ID 세션에서 불러오기
 		HttpSession session = request.getSession();
@@ -31,10 +31,9 @@ public class n6PrintPreferenceCon extends HttpServlet {
 		n1UserDAO dao = new n1UserDAO();
 		
 		n3PreferenceVO preference = dao.PreferenceToPrint(user_id);
-		
 		if(preference != null){
 			session.setAttribute("userPreference", preference);
-			response.sendRedirect("n7ConfirmPreference.jsp");
+			response.sendRedirect("n6ConfirmPreference.jsp");
 		}
 		
 	}

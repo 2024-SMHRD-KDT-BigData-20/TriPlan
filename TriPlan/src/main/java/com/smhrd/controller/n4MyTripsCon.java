@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.smhrd.model.courseDAO;
 import com.smhrd.model.n1UserDAO;
 import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n4MyTripsVO;
@@ -23,7 +24,7 @@ public class n4MyTripsCon extends HttpServlet {
 		
 		String user_id = loginUserVO.getUser_id();
 		
-		n1UserDAO dao = new n1UserDAO();
+		courseDAO dao = new courseDAO();
 		
 		List<n4MyTripsVO> myTrips = dao.MyTrips(user_id);
 		

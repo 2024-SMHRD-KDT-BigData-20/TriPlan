@@ -10,6 +10,15 @@ import com.smhrd.db.SqlSessionManager;
 public class courseDAO {
 
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
+	
+	public List<n4MyTripsVO> MyTrips(String user_id) {
+
+		List<n4MyTripsVO> myTrips = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
+		myTrips = sqlSession.selectList("com.smhrd.db.courseMapper.MyTrips",user_id);
+		
+		return myTrips;
+	}
 
 	public int createSchedule(n5CreateScheduleVO vo) {
 

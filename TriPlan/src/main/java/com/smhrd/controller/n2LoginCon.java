@@ -28,6 +28,8 @@ public class n2LoginCon extends HttpServlet {
 		n1UserDAO dao = new n1UserDAO();
 
 		n1UserVO loginUserVO = dao.Login(login);
+		
+		System.out.println("확인" +dao.PrefIdx(user_id).toString());
 
 		//loginVO가 잘 불러와지면 loginVO session에 저장해 다음 페이지로, 안 되면 로그인 페이지로 돌아가기
 		if (loginUserVO!=null) {
@@ -60,8 +62,12 @@ public class n2LoginCon extends HttpServlet {
 			// 세션에 정보 저장
 			// Servlet에서는 세션 객체 생성 먼저!
 
-//			response.sendRedirect("/n4MyTripsCon");
+//			response.sendRedirect("/n4MyTripsCon");  
+			
+			
+			
 		}else {
+			
 			// 실패
 			System.out.println("로그인실패");
 		}

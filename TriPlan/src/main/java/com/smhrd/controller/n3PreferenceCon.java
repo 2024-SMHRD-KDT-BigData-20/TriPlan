@@ -26,7 +26,7 @@ public class n3PreferenceCon extends HttpServlet {
 		//변수 받아오기
 		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
 		String user_id = loginMember.getUser_id();
-		int people = Integer.parseInt(request.getParameter("question_1"));
+		String people = request.getParameter("question_1");
 		String transportation = request.getParameter("question_1_1");
 		String pace = request.getParameter("question_1_2");
 		String[] pois = request.getParameterValues("question_2");
@@ -49,7 +49,7 @@ public class n3PreferenceCon extends HttpServlet {
 		
 		//VO에 담기 - insert parameter로 활용
 		n3PreferenceVO preferenceVO = new n3PreferenceVO(user_id,people,transportation,pace,poi,food,sleep);
-		
+				
 		//세션...굳이 필요없을듯? select로 불러오기?
 		
 		session.setAttribute("PreferenceVO", preferenceVO);
