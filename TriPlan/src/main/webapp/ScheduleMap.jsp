@@ -223,14 +223,14 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
         zoom : 13
     });
 <%HttpSession session2 = request.getSession();
-List<PoiVO> myUniquePOI = (List<PoiVO>) session2.getAttribute("myUniquePOI");%>
+List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 <%for (int i = 0; i < myUniquePOI.size(); i++) {
-	PoiVO poi = (PoiVO) myUniquePOI.get(i);
-	System.out.println(poi);%>
-	    var marker = new Tmapv3.Marker({
-	        position: new Tmapv3.LatLng(<%=poi.getPoi_lat()%>, <%=poi.getPoi_lng()%>),
-	        map: map
-	    });	
+   PoiVO poi = (PoiVO) myUniquePOI.get(i);
+   System.out.println(poi);%>
+       var marker = new Tmapv3.Marker({
+           position: new Tmapv3.LatLng(<%=poi.getPoi_lat()%>, <%=poi.getPoi_lng()%>),
+           map: map
+       });   
 <%}%>
 /*     // poiList를 반복하여 각 POI의 위도와 경도 정보를 사용하여 지도에 마커를 추가합니다.
     poiList.forEach(function(poi) {
@@ -355,7 +355,7 @@ function update(){
 
 				<%
 				List<List<Integer>> allDayCourses = (List<List<Integer>>) session2.getAttribute("allDayCourses");
-
+				
 				/* List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI"); */
 
 				System.out.println("유니크POI 확인: " + myUniquePOI);
