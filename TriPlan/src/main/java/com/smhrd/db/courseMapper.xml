@@ -27,6 +27,14 @@
 		values
 		(#{d_sche_idx}, #{mt_idx}, #{day}, #{mt_course})
 	</insert>
+	<select id="PoiTags" parameterType="java.util.List" resultType="PoiVO">
+		SELECT poi_idx, poi_name, poi_tag
+		FROM poi_info 
+		WHERE poi_idx in (
+		<foreach collection="list" item="item" separator=",">
+		
+		</foreach>)
+	</select>
 	<select id="dailyCourseList" parameterType="int"
 		resultType="autoCourseVO">
 		select * from test_daily where bc_idx=#{bc_idx}
@@ -41,4 +49,6 @@
 		select *
 		from TestPoiInfo where poi_idx=#{poiIdx}
 	</select>
+	
+
 </mapper>

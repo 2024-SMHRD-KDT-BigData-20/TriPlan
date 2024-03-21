@@ -30,12 +30,12 @@ public class n6PrintPreferenceCon extends HttpServlet {
 		
 		n1UserDAO dao = new n1UserDAO();
 		
-//		List<n3PreferenceVO> preference = dao.PreferenceToPrint(user_id);
-//		
-//		if(preference != null){
-//			session.setAttribute("userPreference", preference);
-//			response.sendRedirect("ConfirmPreference.jsp");
-//		}
+		n3PreferenceVO preference = dao.PreferenceToPrint(user_id);
+		
+		if(preference != null){
+			session.setAttribute("userPreference", preference);
+			response.sendRedirect("n7ConfirmPreference.jsp");
+		}
 		
 	}
 

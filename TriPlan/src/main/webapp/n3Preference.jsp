@@ -250,7 +250,7 @@
           text-align: center;
           border-radius: 3px;
         }
- 
+        
         .radiobox,
         .radiobox:checked,
         .radiobox:not(:checked),
@@ -416,35 +416,57 @@
               <h2 class="survey__panel__question">
                 <span class="visuallyhidden">Question 1 of 4 </span> 기본 정보
               </h2>
-              
+                            <div class="survey__panel__impormation"></div>
+              <label for="companion" id="companion" class="companion">동행</label><br>
               <div class="form-group">
-                <label for="number" id="number-label" class="people">총 인원</label> <br>
-                <input type="number" id="number" name="question_1" min="0" max="50" required />
-                <p class="error-message"></p>
-              </div>
+                  <input id="alone" type="radio" name="question_1_1" value="alone" />
+                  <label for="alone">혼자</label>
+                </div>
+                <div class="form-group">
+                  <input id="couple" type="radio" name="question_1_1" value="couple" />
+                  <label for="couple">커플</label>
+                </div>
+                <div class="form-group">
+                  <input id="friend" type="radio" name="question_1_1" value="friend" />
+                  <label for="friend">친구</label>
+                </div>
+                <div class="form-group">
+                  <input id="child" type="radio" name="question_1_1" value="child" />
+                  <label for="child">아이</label>
+                </div>
+                <div class="form-group">
+                  <input id="pet" type="radio" name="question_1_1" value="pet" />
+                  <label for="pet">반려동물</label>
+                </div>
+                <div class="form-group">
+                  <input id="parents" type="radio" name="question_1_1" value="parents" />
+                  <label for="parents">부모</label>
+                </div>
+              <p class="error-message"></p>
+
               <div class="survey__panel__impormation"></div>
               <label for="transportation" id="transportation" class="transportation">이동수단</label><br>
               <div class="form-group">
-                  <input id="walk" type="radio" name="question_1_1" value="walk" />
+                  <input id="walk" type="radio" name="question_1_2" value="walk" />
                   <label for="walk">뚜벅이</label>
                 </div>
                 <div class="form-group">
-                  <input id="public-transport" type="radio" name="question_1_1" value="public-transport" />
+                  <input id="public-transport" type="radio" name="question_1_2" value="public-transport" />
                   <label for="public-transport">대중교통</label>
                 </div>
                 <div class="form-group">
-                  <input id="car" type="radio" name="question_1_1" value="car" />
+                  <input id="car" type="radio" name="question_1_2" value="car" />
                   <label for="car">자동차</label>
                 </div>
               <p class="error-message"></p>
               
               <label for="style" id="style" class="style">여행을 다닐때?</label><br>
               <div class="form-group">
-                  <input id="slow" type="radio" name="question_1_2" value="slow" />
+                  <input id="slow" type="radio" name="question_1_3" value="slow" />
                   <label for="slow">느긋하게 다녀요</label>
                 </div>
                 <div class="form-group">
-                  <input id="fast" type="radio" name="question_1_2" value="fast" />
+                  <input id="fast" type="radio" name="question_1_3" value="fast" />
                   <label for="fast">부지런히 다녀요</label>
                 </div>
               <p class="error-message"></p>
@@ -585,9 +607,9 @@
   
   const progressbar = survey.querySelector(".progressbar");
   const surveyPanels = survey.querySelectorAll(".survey__panel");
-  const question1People = document.querySelector("[name='people']");
   const question1_1Radios = survey.querySelectorAll("[name='question_1_1']");
   const question1_2Radios = survey.querySelectorAll("[name='question_1_2']");
+  const question1_3Radios = survey.querySelectorAll("[name='question_1_3']");
   const question2CheckBoxes = survey.querySelectorAll("[name='question_2']");
   const question3CheckBoxes = survey.querySelectorAll("[name='question_3']");
   const question4CheckBoxes = survey.querySelectorAll("[name='question_4']");
@@ -604,9 +626,9 @@ panel.classList.contains("survey__panel--impormation")
   )[0];
   const formData = {};
   const options = {
-    question1People,
     question1_1Radios,
     question1_2Radios,
+    question1_3Radios,
     question2CheckBoxes,
     question3CheckBoxes,
     question4CheckBoxes
@@ -683,24 +705,6 @@ panel.classList.contains("survey__panel--impormation")
     errorElement.removeAttribute("role");
   }
 
-  function getName(input) {
-    if (input.name === "people") return "People";
-    return `${input.id.charAt(0).toUpperCase()}${input.id.slice(1)}`;
-  }
-
-  function checkEmail(input) { // 이메일 < 문자 + @ + 영어>
-    if (input.value.trim() === "") {
-      showError(input, `${getName(input)} is required`);
-    } else {
-      const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if (pattern.test(input.value.trim())) {
-        noErrors(input);
-      } else {
-        showError(input, "Email is not valid");
-      }
-    }
-  }
-
   function checkRequired(input) {
     if (input.value.trim() === "") {
       showError(input, `${getName(input)} is required`);
@@ -714,16 +718,6 @@ panel.classList.contains("survey__panel--impormation")
       showError(input, `${getName(input)} is required`);
     } else {
       noErrors(input);
-    }
-  }
-
-  function checkPeople(people) {
-    if (people.value === "") {
-      showError(people, `${getName(people)} is required`);
-      return;
-    }
-    if (+people.value > 0) {
-      noErrors(people);
     }
   }
 
@@ -755,7 +749,7 @@ panel.classList.contains("survey__panel--impormation")
       survey.classList.add("form-error");
     }
   }
-
+  
   function updateProgressbarBar() { // progressbar 업데이트
     const index = currentPanel.dataset.index;
     let currentQuestion = formData[`${parseFloat(index)}`].question;
@@ -833,10 +827,10 @@ panel.classList.contains("survey__panel--impormation")
 
   storeInitialData();
 
-  // Add event listeners
   function addListenersTo({
     question1_1Radios,
     question1_2Radios,
+    question1_3Radios,
     question2CheckBoxes,
     question3CheckBoxes,
     question4CheckBoxes,
@@ -848,6 +842,9 @@ panel.classList.contains("survey__panel--impormation")
     question1_2Radios.forEach((elem) =>
       elem.addEventListener("change", updateFormData)
     );
+    question1_3Radios.forEach((elem) =>
+    elem.addEventListener("change", updateFormData)
+ 	);
     question2CheckBoxes.forEach((elem) =>
       elem.addEventListener("change", updateFormData)
     );
@@ -857,10 +854,6 @@ panel.classList.contains("survey__panel--impormation")
     question4CheckBoxes.forEach((elem) =>
       elem.addEventListener("change", updateFormData)
     );
-    let {
-      question1People
-    } = inputs;
-    question1People.addEventListener("change", updateFormData);
   }
   nextButton.addEventListener("click", handleNextButton);
   prevButton.addEventListener("click", handleprevButton);

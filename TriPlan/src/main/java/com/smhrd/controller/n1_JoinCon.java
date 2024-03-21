@@ -33,7 +33,7 @@ public class n1_JoinCon extends HttpServlet {
 		n1UserVO joinUser = new n1UserVO(user_id,user_pw,user_name,user_email,user_gender,user_nick);
 		System.out.println(joinUser.toString());
 		
-		// 3. UserMapper.xml에 sql문 작성
+		// 3. UserMapper.xml에 sql문 작성 - 완료
 		
 		// 4-1. UserDAO 메소드 작성
 		// 4-2. DAO 객체 생성
