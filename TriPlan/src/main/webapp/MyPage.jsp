@@ -385,7 +385,7 @@ button {
         <div class="restaurant-container">
         <div class="label-container">
           <h2><span class="">"최재민" <!-- user_info의 닉네임 -->님의</span> 여행일정 목록</h2> 
-          <button class="" onclick='location.href='n5CreateSchedule.jsp'' type="button">새로운 일정 생성</button>
+          <button class="" onclick="location.href='n5CreateSchedule.jsp'" type="button">새로운 일정 생성</button>
           <button class="restaurant-arrow-left"><i class="bi bi-arrow-left"></i></button>
           <button class="restaurant-arrow-right"><i class="bi bi-arrow-right"></i></button>
         </div>
@@ -401,13 +401,7 @@ button {
               
               
               <!--info-container -->
-              <div class="info-container">
-                  <div class="info-row">
-                      <div class="rating">
-                          <span class="rating-star"><i class="bi bi-star-fill star"></i></span>
-                          <span class="review-count">(4.6)</span>
-                      </div>
-                  </div>                  
+              <div class="info-container">                 
                   <p><%=courseResult.get(i).get(2) %><!-- 여행설명 --></p>
 
               </div>
