@@ -14,6 +14,7 @@
  		<typeAlias type="com.smhrd.model.createScheduleVO" alias="createScheduleVO"/>
  		<typeAlias type="com.smhrd.model.myScheduleVO" alias="myScheduleVO"/>
  		<typeAlias type="com.smhrd.model.PoiVO" alias="PoiVO"/>
+ 		<typeAlias type="com.smhrd.model.PreferenceVO" alias="PreferenceVO"/>
 	
 	</typeAliases>
 
