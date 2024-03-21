@@ -39,13 +39,13 @@
         <hr>
         <div>
           <h2>가는날</h2>
-          <input type="text" id="go" placeholder="날짜를 선택해주세요" data-input>
+          <input type="text" id="go" name = "MT_ST_DT" placeholder="날짜를 선택해주세요" data-input>
       
           <h2>오는날</h2>
-          <input type="text" id="come" placeholder="날짜를 선택해주세요" data-input>
+          <input type="text" id="come" name = "MT_ED_DT" placeholder="날짜를 선택해주세요" data-input>
             
           <h2>여행 제목</h2>
-          <input type="text" id="travel_title" placeholder="여행제목을 입력해주세요" required>
+          <input type="text" id="travel_title" name = "mt_name" placeholder="여행제목을 입력해주세요" required>
         </div>
         <button id="next">next</button>
       </div>

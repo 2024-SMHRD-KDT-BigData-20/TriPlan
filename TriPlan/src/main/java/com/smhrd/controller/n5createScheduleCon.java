@@ -10,9 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.smhrd.model.autoCourseVO;
 import com.smhrd.model.courseDAO;
+import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n5CreateScheduleVO;
 import com.smhrd.model.autoCourseVO;
 
@@ -31,17 +33,18 @@ public class n5createScheduleCon extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int mt_idx = Integer.parseInt(request.getParameter("mt_idx")); 
+		HttpSession session = request.getSession();
+		n1UserVO loginUserVO = (n1UserVO)session.getAttribute("loginUserVO");
+		String user_id = loginUserVO.getUser_id();		
 		String mt_name = request.getParameter("mt_name"); 
 		String mt_preference = request.getParameter("mt_preference");
 		int mt_headcount = Integer.parseInt(request.getParameter("mt_headcount"));
-		String user_id = request.getParameter("user_id");
 		String mt_st_dt = request.getParameter("mt_st_dt");
 		String mt_ed_dt = request.getParameter("mt_ed_dt");
 		String mt_select = request.getParameter("mt_select");
 		
 		courseDAO cDao = new courseDAO();
-		n5CreateScheduleVO ScheduleVO = new n5CreateScheduleVO(mt_idx,mt_name,mt_preference,mt_headcount,user_id,mt_st_dt,mt_ed_dt,mt_select);
+		n5CreateScheduleVO ScheduleVO = new n5CreateScheduleVO(mt_name,user_id,mt_st_dt,mt_ed_dt);
 		int cntMySchedule = cDao.createSchedule(ScheduleVO);
 		List<autoCourseVO> courseDetail =null;
 		courseDetail = cDao.importCourse(Integer.parseInt(mt_select));

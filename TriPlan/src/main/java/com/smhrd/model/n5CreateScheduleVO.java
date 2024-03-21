@@ -13,22 +13,22 @@ import lombok.ToString;
 @RequiredArgsConstructor
 
 public class n5CreateScheduleVO {
-	@NonNull
 	private int d_sche_idx;	
-	@NonNull
 	private int mt_idx;
+	@NonNull
 	private String mt_name;
 	private String mt_preference;
 	private int mt_headcount;
+	@NonNull
 	private String user_id;
+	@NonNull
 	private String mt_st_dt;
 //	private String mt_st_tm;
+	@NonNull
 	private String mt_ed_dt;
 //	private String mt_ed_tm;
 	private String mt_select;
-	@NonNull
 	private int day;
-	@NonNull
 	private String mt_course;
 	public n5CreateScheduleVO(@NonNull int mt_idx, String mt_name, String mt_preference, int mt_headcount, String user_id,
 			String mt_st_dt,String mt_ed_dt, String mt_select) {
