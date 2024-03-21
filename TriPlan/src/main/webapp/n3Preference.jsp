@@ -464,10 +464,6 @@
                   <label for="hotplace">SNS 핫플</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="nature" name="question_2" value="nature" />
-                  <label for="nature">자연과 함께</label>
-                </div>
-                <div class="form-group">
                   <input type="checkbox" class="checkbox" id="famous" name="question_2" value="famous" />
                   <label for="famous">유명 관광지 필수</label>
                 </div>
@@ -480,20 +476,12 @@
                   <label for="Culture-Arts-History">문화/예술/역사</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="travel-destination" name="question_2" value="travel-destination" />
-                  <label for="travel-destination">여행지 느낌 물씬</label>
-                </div>
-                <div class="form-group">
                   <input type="checkbox" class="checkbox" id="shopping" name="question_2" value="shopping" />
                   <label for="shopping">쇼핑은 열정적으로</label>
                 </div>
                 <div class="form-group">
                   <input type="checkbox" class="checkbox" id="eat" name="question_2" value="eat" />
                   <label for="eat">여행보다 먹방</label>
-                </div>
-                <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="wellness" name="question_2" value="wellness" />
-                  <label for="wellness">웰니스</label>
                 </div>
               </div>
               <p class="error-message"></p>
@@ -533,13 +521,14 @@
                   <label for="meat">고기</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="cafe" name="question_3" value="cafe" />
-                  <label for="cafe">카페</label>
-                </div>
-                <div class="form-group">
                   <input type="checkbox" class="checkbox" id="alcohol" name="question_3" value="alcohol" />
                   <label for="alcohol">주류</label>
                 </div>
+                <div class="form-group">
+                  <input type="checkbox" class="checkbox" id="cafe" name="question_3" value="cafe" />
+                  <label for="cafe">카페</label>
+                </div>
+                
               </div>
               <p class="error-message"></p>
             </section>
@@ -568,10 +557,6 @@
                 <div class="form-group">
                   <input type="checkbox" class="checkbox" id="Camping" name="question_4" value="Camping" />
                   <label for="Camping">캠핑</label>
-                </div>
-                <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="anything" name="question_4" value="anything" />
-                  <label for="anything">아무거나</label>
                 </div>
               </div>
             </section>
