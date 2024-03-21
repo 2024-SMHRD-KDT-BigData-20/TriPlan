@@ -25,7 +25,7 @@ public class n3PreferenceCon extends HttpServlet {
 		String pace = request.getParameter("question_1_2");
 		String poi = request.getParameter("question_2");
 		String food = request.getParameter("question_3");
-		String sleep = request.getParameter("sleep");
+		String sleep = request.getParameter("question_4");
 		
 		//VO에 담기 - insert parameter로 활용
 		n3PreferenceVO preferenceVO = new n3PreferenceVO(people,transportation,pace,poi,food,sleep);

@@ -409,7 +409,7 @@
 
         </header>
         <main class="main">
-          <form action="#" method="GET" id="survey-form" class="survey" novalidate>
+          <form action="n3Preference" method="post" id="survey-form" class="survey" novalidate>
             <div class="progressbar" tabindex="0" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-valuetext="Question 1 of 4: 기본 정보">
               <span class="progressbar__step active" aria-hidden="true"></span>
               <span class="progressbar__step" aria-hidden="true"></span>
