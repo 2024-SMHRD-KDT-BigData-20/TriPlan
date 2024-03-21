@@ -73,10 +73,9 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		
 		//장소별 태그 불러오기
 		//create view 
+		//PoiTags
 //		CREATE VIEW view_name AS tags
-//		SELECT poi_idx, poi_name, poi_tag
-//		FROM poi_info
-//		WHERE poi_idx = #{poi1} or poi_idx = #{poi2} or ... or poi_idx = #{poiN};
+
 		
 		for(List<Integer> POIs:IntPOIsInPotentialMatch) {
 			String where = "Where ";

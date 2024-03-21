@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.smhrd.model.n1UserDAO;
+import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n3PreferenceVO;
 
 public class n7ConfirmPreferenceCon extends HttpServlet {
@@ -16,7 +17,11 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("euc-kr");
 		
+		HttpSession session = request.getSession();
+		
 		//변수 받아오기
+		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
+		String user_id = loginMember.getUser_id();
 		int people = Integer.parseInt(request.getParameter("people"));
 		String transportation = request.getParameter("transportation");
 		String pace = request.getParameter("pace");
@@ -25,7 +30,7 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 		String sleep = request.getParameter("sleep");
 		
 		//VO에 담기 - insert parameter로 활용
-		n3PreferenceVO tripPreferenceVO = new n3PreferenceVO(people,transportation,pace,poi,food,sleep);
+		n3PreferenceVO tripPreferenceVO = new n3PreferenceVO(user_id,people,transportation,pace,poi,food,sleep);
 		
 		//update user_preference values #{people}, #{transporation} #{pace}, #{poi}, #{food}, #{sleep}
 		//Dao객체 생성 및 메서드로 업뎃 실행
@@ -36,9 +41,7 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 		
 		//세션...매 서블릿마다 불러와야 하나?
 		if(cnt>0) {
-		HttpSession session = request.getSession();
 		session.setAttribute("tripPreferenceVO", tripPreferenceVO);
-		
 		String targetUrl = "/n7FindMatchingTripCon"; // 대상 서블릿의 URL 경로
 
 		// 리다이렉트할 URL을 생성

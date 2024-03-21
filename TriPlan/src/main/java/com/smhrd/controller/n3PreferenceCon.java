@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.filters.SetCharacterEncodingFilter;
 
 import com.smhrd.model.n1UserDAO;
+import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n3PreferenceVO;
 
 public class n3PreferenceCon extends HttpServlet {
@@ -18,8 +19,11 @@ public class n3PreferenceCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//인코딩
 		request.setCharacterEncoding("euc-kr");
+		HttpSession session = request.getSession();
 		
 		//변수 받아오기
+		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
+		String user_id = loginMember.getUser_id();
 		int people = Integer.parseInt(request.getParameter("question_1"));
 		String transportation = request.getParameter("question_1_1");
 		String pace = request.getParameter("question_1_2");
@@ -42,21 +46,21 @@ public class n3PreferenceCon extends HttpServlet {
 		}
 		
 		//VO에 담기 - insert parameter로 활용
-		n3PreferenceVO preferenceVO = new n3PreferenceVO(people,transportation,pace,poi,food,sleep);
+		n3PreferenceVO preferenceVO = new n3PreferenceVO(user_id,people,transportation,pace,poi,food,sleep);
 		
 		//세션...굳이 필요없을듯? select로 불러오기?
-		HttpSession session = request.getSession();
+		
 		session.setAttribute("PreferenceVO", preferenceVO);
 		//Mapper에 sql
 		//Dao로 실행
-		/* n1UserDAO dao = new n1UserDAO(); */
+		n1UserDAO dao = new n1UserDAO();
 		
 		//테이블 생성 필요
-		/*
-		 * int cnt = dao.insertPreference(preferenceVO);
-		 * 
-		 * System.out.println(cnt);
-		 */
+
+		int cnt = dao.insertPreference(preferenceVO);
+		
+		System.out.println(cnt);
+		
 		System.out.println("확인"+preferenceVO.toString());
 		response.sendRedirect("MyPage.jsp");
 		
