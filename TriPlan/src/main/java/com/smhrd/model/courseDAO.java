@@ -28,6 +28,13 @@ public class courseDAO {
 		session.close();
 		return cnt;
 	}
+	
+	public List<PoiVO> TagsPerPoi(List<Integer> POIs) {
+		SqlSession session = sqlSessionFactory.openSession(true);//auto commit
+		List<PoiVO> TagsPerPOI = session.selectList("com.smhrd.db.courseMapper.PoiTags", session);
+		session.close();
+		return TagsPerPOI;
+	}
 
 	public List<autoCourseVO> importCourse(int bc_idx) {
 		// TODO Auto-generated method stub

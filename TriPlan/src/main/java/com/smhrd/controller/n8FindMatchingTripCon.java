@@ -2,7 +2,9 @@ package com.smhrd.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.smhrd.model.PoiVO;
 import com.smhrd.model.autoCourseVO;
 import com.smhrd.model.courseDAO;
 import com.smhrd.model.n3PreferenceVO;
@@ -76,24 +79,60 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		//PoiTags
 //		CREATE VIEW view_name AS tags
 
-		
-		for(List<Integer> POIs:IntPOIsInPotentialMatch) {
-			String where = "Where ";
-			for(int poi: POIs) {
-				//where += "poi_idx = #{"+(String)poi+"}";
+		Map<Integer, Integer> countMap = new HashMap<>();
+		for(int i = 0; i<IntPOIsInPotentialMatch.size(); i++) {
+			List<Integer> POIs = IntPOIsInPotentialMatch.get(i);
+			/*
+			 * } for(List<Integer> POIs:IntPOIsInPotentialMatch) {
+			 */
+			List<PoiVO> TagsPerPoi = dao.TagsPerPoi(POIs);
+			String tags = "";
+			for(PoiVO t: TagsPerPoi) {
+				tags += "#"+t;
 			}
+			int cnt = 0;
+			
+			for(String p: PoiPreference) {
+				if(tags.contains(p)){
+					cnt+=1;
+				}
+			}
+			System.out.println(allIdx.get(i) + " " + cnt);
+			countMap.put(allIdx.get(i), cnt);
 		}
 		
-		List<String> tagsList = new ArrayList<>();
+		System.out.println(countMap);
 		
-		String tags = "";
+		// 가장 큰 값을 가진 키와 해당 값을 추적하기 위한 변수
+		int maxKey = -1; // 예외 처리를 위해 초기값을 -1로 설정
+		int maxValue = Integer.MIN_VALUE; // 최소값으로 초기화
+
+		// Map 반복하여 최대값 찾기
+		for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
+		    int currentKey = entry.getKey();
+		    int currentValue = entry.getValue();
+		    
+		    // 현재 값이 최대값보다 크면 최대값과 해당 키를 업데이트
+		    if (currentValue > maxValue) {
+		        maxKey = currentKey;
+		        maxValue = currentValue;
+		    }
+		}
+
+		// 최대값을 가진 키 출력
+		System.out.println("가장 큰 값의 키: " + maxKey);
 		
+		session.setAttribute("MatchingCourse", maxKey);
 		
-		//코스별로 장소 유형별로 정리, 비교
-		//매칭하는 경우 cnt++
-		int CntPOI = 0;
-		int CntFood = 0;
-		int CntSleep = 0;
+		/*
+		 * List<String> tagsList = new ArrayList<>();
+		 * 
+		 * String tags = "";
+		 * 
+		 * 
+		 * //코스별로 장소 유형별로 정리, 비교 //매칭하는 경우 cnt++ int CntPOI = 0; int CntFood = 0; int
+		 * CntSleep = 0;
+		 */
 		
 	}
 
