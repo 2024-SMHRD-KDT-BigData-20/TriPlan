@@ -23,9 +23,23 @@ public class n3PreferenceCon extends HttpServlet {
 		int people = Integer.parseInt(request.getParameter("question_1"));
 		String transportation = request.getParameter("question_1_1");
 		String pace = request.getParameter("question_1_2");
-		String poi = request.getParameter("question_2");
-		String food = request.getParameter("question_3");
-		String sleep = request.getParameter("question_4");
+		String[] pois = request.getParameterValues("question_2");
+		String[] foods = request.getParameterValues("question_3");
+		String[] sleeps = request.getParameterValues("question_4");
+		
+		String poi = "";
+		String food = "";
+		String sleep = "";
+		
+		for(String p: pois) {
+			poi += "#" + p + " ";
+		}
+		for(String f: foods) {
+			food += "#" + f + " ";
+		}
+		for(String s: sleeps) {
+			sleep += "#" + s + " ";
+		}
 		
 		//VO에 담기 - insert parameter로 활용
 		n3PreferenceVO preferenceVO = new n3PreferenceVO(people,transportation,pace,poi,food,sleep);
@@ -43,8 +57,7 @@ public class n3PreferenceCon extends HttpServlet {
 		 * 
 		 * System.out.println(cnt);
 		 */
-		System.out.println(preferenceVO.toString());
-		
+		System.out.println("확인"+preferenceVO.toString());
 		response.sendRedirect("MyPage.jsp");
 		
 	

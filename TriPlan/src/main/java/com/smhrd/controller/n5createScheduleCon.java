@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.smhrd.model.autoCourseVO;
 import com.smhrd.model.courseDAO;
-import com.smhrd.model.createScheduleVO;
+import com.smhrd.model.n5CreateScheduleVO;
 import com.smhrd.model.autoCourseVO;
 
 /**
@@ -41,8 +41,8 @@ public class n5createScheduleCon extends HttpServlet {
 		String mt_select = request.getParameter("mt_select");
 		
 		courseDAO cDao = new courseDAO();
-		createScheduleVO vo = new createScheduleVO(mt_idx,mt_name,mt_preference,mt_headcount,user_id,mt_st_dt,mt_ed_dt,mt_select);
-		int cntMySchedule = cDao.createSchedule(vo);
+		n5CreateScheduleVO ScheduleVO = new n5CreateScheduleVO(mt_idx,mt_name,mt_preference,mt_headcount,user_id,mt_st_dt,mt_ed_dt,mt_select);
+		int cntMySchedule = cDao.createSchedule(ScheduleVO);
 		List<autoCourseVO> courseDetail =null;
 		courseDetail = cDao.importCourse(Integer.parseInt(mt_select));
 		System.out.println("코스 디테일");
@@ -53,7 +53,7 @@ public class n5createScheduleCon extends HttpServlet {
 			int day = i+1;
 			String dayCourse = courseDetail.get(i).getBc_course();
 			
-			createScheduleVO dailyVO = new createScheduleVO(d_sche_idx,mt_idx,day,dayCourse);
+			n5CreateScheduleVO dailyVO = new n5CreateScheduleVO(d_sche_idx,mt_idx,day,dayCourse);
 			System.out.println("VO: "+dailyVO.toString());
 			cDao.createDaily(dailyVO);
 		}
@@ -67,6 +67,7 @@ public class n5createScheduleCon extends HttpServlet {
 		// 전달할 요청이 있을 경우, 해당 요청 객체를 생성합니다.
 		// 예를 들어, 다른 서블릿으로 전달할 데이터를 request 속성(attribute)에 저장할 수 있습니다.
 		request.setAttribute("mt_idx", mt_idx);
+		request.setAttribute("scheduleVO", ScheduleVO);
 		// 요청을 전달하고 해당 서블릿으로 리다이렉트합니다.
 		dispatcher.forward(request, response);
 		
