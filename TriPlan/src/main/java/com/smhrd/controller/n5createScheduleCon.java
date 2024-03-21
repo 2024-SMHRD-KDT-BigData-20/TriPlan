@@ -59,7 +59,7 @@ public class n5createScheduleCon extends HttpServlet {
 		}
 		
 		// 현재 서블릿에서 리다이렉트할 서블릿의 URL 경로를 지정합니다.
-		String targetUrl = "/confirPreferenceCon"; // 대상 서블릿의 URL 경로
+		String targetUrl = "/n6PrintPreferenceCon"; // 대상 서블릿의 URL 경로
 
 		// 리다이렉트할 서블릿에 요청을 전달하기 위해 RequestDispatcher를 얻습니다.
 		RequestDispatcher dispatcher = request.getRequestDispatcher(targetUrl);
