@@ -250,7 +250,7 @@
           text-align: center;
           border-radius: 3px;
         }
- 
+        
         .radiobox,
         .radiobox:checked,
         .radiobox:not(:checked),
