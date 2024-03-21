@@ -19,7 +19,7 @@ import com.smhrd.model.autoCourseVO;
 /**
  * Servlet implementation class createScheduelCon
  */
-public class createScheduleCon extends HttpServlet {
+public class n5createScheduleCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -37,13 +37,11 @@ public class createScheduleCon extends HttpServlet {
 		int mt_headcount = Integer.parseInt(request.getParameter("mt_headcount"));
 		String user_id = request.getParameter("user_id");
 		String mt_st_dt = request.getParameter("mt_st_dt");
-		String mt_st_tm = request.getParameter("mt_st_tm");
 		String mt_ed_dt = request.getParameter("mt_ed_dt");
-		String mt_ed_tm = request.getParameter("mt_ed_tm");
 		String mt_select = request.getParameter("mt_select");
 		
 		courseDAO cDao = new courseDAO();
-		createScheduleVO vo = new createScheduleVO(mt_idx,mt_name,mt_preference,mt_headcount,user_id,mt_st_dt,mt_st_tm,mt_ed_dt,mt_ed_tm,mt_select);
+		createScheduleVO vo = new createScheduleVO(mt_idx,mt_name,mt_preference,mt_headcount,user_id,mt_st_dt,mt_ed_dt,mt_select);
 		int cntMySchedule = cDao.createSchedule(vo);
 		List<autoCourseVO> courseDetail =null;
 		courseDetail = cDao.importCourse(Integer.parseInt(mt_select));
@@ -61,7 +59,7 @@ public class createScheduleCon extends HttpServlet {
 		}
 		
 		// 현재 서블릿에서 리다이렉트할 서블릿의 URL 경로를 지정합니다.
-		String targetUrl = "/loadScheduleCon"; // 대상 서블릿의 URL 경로
+		String targetUrl = "/confirPreferenceCon"; // 대상 서블릿의 URL 경로
 
 		// 리다이렉트할 서블릿에 요청을 전달하기 위해 RequestDispatcher를 얻습니다.
 		RequestDispatcher dispatcher = request.getRequestDispatcher(targetUrl);

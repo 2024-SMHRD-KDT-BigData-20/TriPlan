@@ -14,9 +14,7 @@
 		<input name="mt_headcount" value = 2 placeholder = 2>
 		<input name="user_id" dvalue = "jinnie" placeholder = "jinnie">
 		<input name="mt_st_dt" value = "24/04/30" placeholder = "24/04/30">
-		<input name="mt_st_tm" value = "10:00" placeholder = "10:00">
 		<input name="mt_ed_dt" value = "24/05/04" placeholder = "24/05/04">
-		<input name="mt_ed_tm" value = "17:00" placeholder = "17:00">
 		<input name="mt_select" value = 1 placeholder = 1>
 		
 		<button type="submit">코스 더미 1로 나의 여행 30001 생성</button>
