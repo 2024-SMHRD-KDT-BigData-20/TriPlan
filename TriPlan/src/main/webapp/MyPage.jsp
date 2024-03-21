@@ -416,6 +416,11 @@ button {
               </div>
           </div>
           
+		<form action="loadScheduleCon" method="post">
+		<input name="mt_idx" value=30001>
+		<button type="submit">나의 여행 더미 30001</button>
+	</form>
+          
           <%} %>
  
       <script>

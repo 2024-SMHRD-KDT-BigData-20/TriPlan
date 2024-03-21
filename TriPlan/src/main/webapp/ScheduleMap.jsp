@@ -292,7 +292,7 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI");
 							<%=i + 1%>일차
 						</h2>
 					<div class="column">
-						<!-- <div class="item-plus">
+						<!-- <div class="ite/2m-plus">
 							<button>+ 장소추가</button>
 						</div> -->
 						
