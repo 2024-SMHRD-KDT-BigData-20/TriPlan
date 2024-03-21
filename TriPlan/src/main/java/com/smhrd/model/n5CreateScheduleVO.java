@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 
-public class createScheduleVO {
+public class n5CreateScheduleVO {
 	@NonNull
 	private int d_sche_idx;	
 	@NonNull
@@ -30,7 +30,7 @@ public class createScheduleVO {
 	private int day;
 	@NonNull
 	private String mt_course;
-	public createScheduleVO(@NonNull int mt_idx, String mt_name, String mt_preference, int mt_headcount, String user_id,
+	public n5CreateScheduleVO(@NonNull int mt_idx, String mt_name, String mt_preference, int mt_headcount, String user_id,
 			String mt_st_dt,String mt_ed_dt, String mt_select) {
 		super();
 		this.mt_idx = mt_idx;

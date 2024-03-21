@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.smhrd.model.courseDAO;
-import com.smhrd.model.createScheduleVO;
+import com.smhrd.model.n5CreateScheduleVO;
 import com.smhrd.model.PoiVO;
 import com.smhrd.model.autoCourseVO;
 
@@ -38,7 +38,7 @@ public class loadScheduleCon extends HttpServlet {
 		// 4-1. DAO 가서 회원가입 메소드 작성 DataAccessObject
 		// 4-2. DAO 객체 생성
 		courseDAO cDao = new courseDAO();
-		List<createScheduleVO> myCourseDetail = null;
+		List<n5CreateScheduleVO> myCourseDetail = null;
 		myCourseDetail = cDao.importMyCourse(mt_idx);
 		//대체 왜 16개가 나오는지 모르겠음? 전체 4행인데?
 		System.out.println("크기"+myCourseDetail.size());
