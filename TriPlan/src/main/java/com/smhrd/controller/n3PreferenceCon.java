@@ -20,11 +20,11 @@ public class n3PreferenceCon extends HttpServlet {
 		request.setCharacterEncoding("euc-kr");
 		
 		//변수 받아오기
-		int people = Integer.parseInt(request.getParameter("people"));
-		String transportation = request.getParameter("transportation");
-		String pace = request.getParameter("pace");
-		String poi = request.getParameter("poi");
-		String food = request.getParameter("food");
+		int people = Integer.parseInt(request.getParameter("question_1"));
+		String transportation = request.getParameter("question_1_1");
+		String pace = request.getParameter("question_1_2");
+		String poi = request.getParameter("question_2");
+		String food = request.getParameter("question_3");
 		String sleep = request.getParameter("sleep");
 		
 		//VO에 담기 - insert parameter로 활용
