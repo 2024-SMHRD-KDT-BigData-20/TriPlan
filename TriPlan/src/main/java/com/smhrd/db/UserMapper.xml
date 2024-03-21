@@ -19,10 +19,17 @@
 	UserID / 비번 일치하는 것으로 userVO 세션에 전달 -->
 		select * from user_info where user_id=#{user_id} and user_pw=#{user_pw}
 	</select>
-<insert id="user_preference" parameterType="PreferenceVO">
+	<insert id="user_preference" parameterType="PreferenceVO">
 <!-- 	Preference - 최초 입력
 	User_Preference 테이블에 최초 입력 -->
 		insert into user_preference values (USER_PREFERENCE_SEQ.nextval, #{user_id}, #{people}, #{transportation}, #{pace}, #{poi}, #{food}, #{sleep})
 	</insert>
+	<select id="printPreference" parameterType = "String" resultType = "PreferenceVO">
+		select * from user_preference where user_id = #{user_id}
+	</select>
+	
+	<update id="updatePreference" parameterType = "PreferenceVO">
+		update user_preference set people = #{people}, tansportation = #{transportation}, pace = #{pace}, poi = #{poi}, food = #{food}, sleep = #{sleep} where user_id = #{user_id}
+	</update>
 
 </mapper>

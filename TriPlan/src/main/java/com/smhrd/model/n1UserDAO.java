@@ -46,5 +46,22 @@ public class n1UserDAO {
 		sqlSession.close();
 		return cnt;
 	}
+
+	public n3PreferenceVO PreferenceToPrint(String user_id) {
+		n3PreferenceVO prefVOtoPrint = null;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
+		prefVOtoPrint = sqlSession.selectOne("com.smhrd.db.UserMapper.printPreference", user_id);
+		sqlSession.close();
+		return prefVOtoPrint;
+	}
+
+	public int confirmPreference(n3PreferenceVO tripPreferenceVO) {
+		int cnt = 0;
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
+		cnt = sqlSession.update("com.smhrd.db.UserMapper.updatePreference", tripPreferenceVO);
+		sqlSession.close();
+		return 0;
+	}
 	
 }

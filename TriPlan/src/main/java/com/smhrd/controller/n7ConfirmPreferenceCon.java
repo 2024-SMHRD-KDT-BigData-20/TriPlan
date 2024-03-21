@@ -36,8 +36,8 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 		//Dao객체 생성 및 메서드로 업뎃 실행
 		
 		n1UserDAO dao = new n1UserDAO();
-		/* int cnt = dao.confirmPreference(tripPreferenceVO); */
-		int cnt = 1;
+		int cnt = dao.confirmPreference(tripPreferenceVO);
+		
 		
 		//세션...매 서블릿마다 불러와야 하나?
 		if(cnt>0) {
