@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>여행 스타일 조사</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>여행 스타일 조사</title>
     <style>*,
         *::before,
         *::after {
@@ -13,7 +13,6 @@
         }
         
         :root {
-          --gray: #5f605e;
           --orange: #f18a0d;
           --whiteClr: #fff;
           --lightBlue: rgb(255, 255, 255);
@@ -395,11 +394,7 @@
         </style>
 </head>
 <body>
-
-<form action = "n3PreferenceCon" method = "post">
-
-
-<div class="container">
+      <div class="container">
         <header class="header">
           <h1 id="title" class="header__title">여행 스타일 조사</h1> 
           <p id="description" class="header__description">
@@ -409,7 +404,7 @@
 
         </header>
         <main class="main">
-          <form action="n3Preference" method="post" id="survey-form" class="survey" novalidate>
+          <form action="n3PreferenceCon" method="post" id="survey-form" class="survey" novalidate>
             <div class="progressbar" tabindex="0" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-valuetext="Question 1 of 4: 기본 정보">
               <span class="progressbar__step active" aria-hidden="true"></span>
               <span class="progressbar__step" aria-hidden="true"></span>
@@ -593,11 +588,13 @@
           </form>
         </main>
       </div>
-      <script>
+      
+<script>
         function Survey(survey) {
   if (!survey) {
     throw new Error("No Survey Form found!");
   }
+
   
 // select the elements
   
