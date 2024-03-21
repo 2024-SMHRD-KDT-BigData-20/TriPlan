@@ -384,8 +384,8 @@ button {
     <div class="container">
         <div class="restaurant-container">
         <div class="label-container">
-          <h2><span class="">"최재민" 님의</span> 여행일정 목록</h2>
-          <button class="restaurant-arrow-left" href="n5CreateSchedule.jsp" type="button">새로운 일정 생성</button>
+          <h2><span class="">"최재민" <!-- user_info의 닉네임 -->님의</span> 여행일정 목록</h2> 
+          <button class="" onclick="location.href='n5CreateSchedule.jsp'" type="button">새로운 일정 생성</button>
           <button class="restaurant-arrow-left"><i class="bi bi-arrow-left"></i></button>
           <button class="restaurant-arrow-right"><i class="bi bi-arrow-right"></i></button>
         </div>
@@ -395,33 +395,24 @@ button {
           <div class="restaurant-card">
               <div class="image-container">
                   <img src="shoppingImg/100-무기.jpg" alt="테스트">
-                  <div class="discount-badge">D-day 3</div>
+                  <div class="discount-badge">D-day 3<!-- Dday = 현재 시간 - mt_st_dt  --></div>
               </div>
-              <h3 class="restaurant-name"><%=courseResult.get(i).get(0) %></h3>
+              <h3 class="restaurant-name"><%=courseResult.get(i).get(0) %> <!-- MyTripsVO : name --></h3>
               
               
               <!--info-container -->
-              <div class="info-container">
-                  <div class="info-row">
-                      <div class="rating">
-                          <span class="rating-star"><i class="bi bi-star-fill star"></i></span>
-                          <span class="review-count">(4.6)</span>
-                      </div>
-                      <div class="delivery-info">
-                          <i class="bi bi-dot"></i> <%=courseResult.get(i).get(4) %>
-                      </div>
-                  </div>                  
-                  <p><%=courseResult.get(i).get(2) %></p>
-                  <p><%=courseResult.get(i).get(3) %></p>
+              <div class="info-container">                 
+                  <p><%=courseResult.get(i).get(2) %><!-- 여행설명 --></p>
+
               </div>
           </div>
           
+          
+          <%} %>
 		<form action="loadScheduleCon" method="post">
 		<input name="mt_idx" value=30001>
 		<button type="submit">나의 여행 더미 30001</button>
 	</form>
-          
-          <%} %>
  
       <script>
         document.addEventListener("DOMContentLoaded", function () {

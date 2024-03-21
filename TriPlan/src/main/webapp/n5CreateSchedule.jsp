@@ -4,20 +4,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MyPage</title>
+<title>CreateSchedule</title>
+<style>
+		body {
+        text-align: center;
+        background: #eee9e0;
+        }
+        input {
+        border: 2px solid whitesmoke;
+        border-radius: 20px;
+        padding: 12px 10px;
+        text-align: center;
+        width: 250px;
+        margin-bottom: 20px;
+        }
+        button {
+        border: none;
+        border-radius: 3px;
+        padding: 12px 10px;
+        text-align: center;
+        cursor: pointer;
+        background: #f18a0d;
+        color: whitesmoke;
+        }
+</style>
 </head>
 <body>
-	<form action="createScheduleCon" method="post">
-		<input name="mt_idx" value = "30001" placeholder = "제주도">
-		<input name="mt_name" value = "제주도" placeholder = "제주도">
-		<input name="mt_preference" value = "액티비티" placeholder = "액티비티">
-		<input name="mt_headcount" value = 2 placeholder = 2>
-		<input name="user_id" dvalue = "jinnie" placeholder = "jinnie">
-		<input name="mt_st_dt" value = "24/04/30" placeholder = "24/04/30">
-		<input name="mt_ed_dt" value = "24/05/04" placeholder = "24/05/04">
-		<input name="mt_select" value = 1 placeholder = 1>
-		
-		<button type="submit">코스 더미 1로 나의 여행 30001 생성</button>
-	</form>
+	<head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
+      </head>
+	<body>
+        <h1>새로운 일정 생성</h1>
+        <hr>
+        <div>
+          <h2>가는날</h2>
+          <input type="text" id="go" placeholder="날짜를 선택해주세요" data-input>
+      
+          <h2>오는날</h2>
+          <input type="text" id="come" placeholder="날짜를 선택해주세요" data-input>
+            
+          <h2>여행 제목</h2>
+          <input type="text" id="travel_title" placeholder="여행제목을 입력해주세요" required>
+        </div>
+        <button id="next">next</button>
+      </div>
+        
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--  Flatpickr 캘린더  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+      </body>
+
+      <script>
+        $("#go").flatpickr({
+        dateFormat: "Y-m-d"
+        });
+
+        $("#come").flatpickr({
+        dateFormat: "Y-m-d"
+        });
+    </script>
 </body>
 </html>

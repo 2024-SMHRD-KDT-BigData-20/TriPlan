@@ -65,6 +65,12 @@
 		<description></description>
 		<servlet-class>com.smhrd.controller.n8FindMatchingTripCon</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>n14UpdateScheduleCon</servlet-name>
+		<display-name>n14UpdateScheduleCon</display-name>
+		<description></description>
+		<servlet-class>com.smhrd.controller.n14UpdateScheduleCon</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>loadScheduleCon</servlet-name>
 		<url-pattern>/loadScheduleCon</url-pattern>
@@ -104,5 +110,9 @@
 	<servlet-mapping>
 		<servlet-name>n8FindMatchingTripCon</servlet-name>
 		<url-pattern>/n8FindMatchingTripCon</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>n14UpdateScheduleCon</servlet-name>
+		<url-pattern>/n14UpdateScheduleCon</url-pattern>
 	</servlet-mapping>
 </web-app>
