@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="com.google.gson.Gson"%>
 <%@page import="com.smhrd.model.PoiVO"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="java.util.ArrayList"%>
@@ -256,74 +258,12 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 	<script src="assets/js/util.js"></script>
 	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="assets/js/main.js"></script>
-	<script>
-	//jquery 먼저 실행된 다음에 js 코드 사용할 것!!
-	//ajax는 jquery 문법에서 가져옴
-	function saveItemOrder() {
-<%-- 	   	   let updatedItemOrders = [];
-	       	  <%for (int j = 0; j < 4; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
-
-       	        const Items<%=j+1%> = document.querySelectorAll("#Day<%=j+1%>>.list-group-item");
-	       	        
-	       	        let updatedItemOrder<%=j+1%> = []; // 배열 초기화
-	       	        //현재 순서대로 아이템들의 id를 배열에 추가
-	       	        Items<%=j+1%>.forEach((item, index) => {
-	       	            updatedItemOrder<%=j+1%>.push(item.id);
-	       	        });
-				  	console.log(updatedItemOrder<%=j+1%>)
-	       	        updatedItemOrders.push(updatedItemOrder<%=j+1%>);
-			  	<%}%>
-	       	console.log(updatedItemOrders)
-	   			return updatedItemOrders
-	       	  // 서버에 배열을 전송하여 저장하는 등의 작업을 수행할 수 있습니다. --%>
-	       	  console.log("왜 안될까 쓰벌")
-	       	}
-/* 	function updateDailySchedule(){
-   		$.ajax({
-			url : "n14UpdateScheduleCon",
-			type : "get",
-			//보내는 데이터
-			//js 객체 {key:value, key:value}
-			//key 값이 controller에서 name으로 인식
-			//$(선택자)
-			data : {$"updatedSchedule" :JSON.stringify(saveItemOrder())},
-			//받아오는 데이터 타입
-			dataType : "json",
-			success : consol.log("업뎃 성공"),
-			error: function(){
-				alert("통신 실패")
-			}
-		}); //ajax 끝
-		console.log("함수성공")
-	}//updateDailySchedule 함수 끝 */
 	
-	</script>
 
 </head>
 
 <body>
-<script>
-function update(){
- 	$.ajax({
-	url : "n14UpdateScheduleCon",
-	type : "get",
-	//보내는 데이터
-	//js 객체 {key:value, key:value}
-	//key 값이 controller에서 name으로 인식
-	//$(선택자)
-	data : {$"updatedSchedule" :"test"},
-	//받아오는 데이터 타입
-	dataType : "json",
-	success : function(){
-		consol.log("업뎃 성공"),
-	}
-	error: function(){
-		alert("통신 실패")
-	}
-}); //ajax 끝 
-	console.log("업뎃");
-}
-</script>
+
 	<!-- 왼쪽 화면에 지도 출력 -->
 	<div id="left_col">
 		<div id="background">
@@ -423,7 +363,70 @@ function update(){
 			</div>
 		</div>
 	</div>
+<script>
+	//jquery 먼저 실행된 다음에 js 코드 사용할 것!!
+	//ajax는 jquery 문법에서 가져옴
+	<%Gson gson = new Gson();%>
+<%-- 	<%Map<Integer,List<String>> MUpdatedItemOrders = new Map<>();%> --%>
+	function saveItemOrder() {
+			let updatedItemOrders = [];
+	       	  <%for (int j = 0; j < 4; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
 
+       	        const Items<%=j+1%> = document.querySelectorAll("#Day<%=j+1%>>.list-group-item");
+	       	        
+	       	        let updatedItemOrder<%=j+1%> = []; // 배열 초기화
+	       	        //현재 순서대로 아이템들의 id를 배열에 추가
+	       	        Items<%=j+1%>.forEach((item, index) => {
+	       	            updatedItemOrder<%=j+1%>.push(item.id);
+	       	        });
+<%-- 				  	console.log(updatedItemOrder<%=j+1%>) --%>
+	       	        updatedItemOrders.push(updatedItemOrder<%=j+1%>);
+<%-- 	       	        <%MupdatedItemORders.put(j+1,%>updatedItemOrder<%)%>--%>
+			  	<%}%> 
+	       	console.log(updatedItemOrders);
+<%-- 	       	<%String JsonUpdatedItemOrders = gson.toJson(updatedItemOrders);%> --%>
+	   		return updatedItemOrders;
+	       	}
+	function update(){
+	 	$.ajax({
+		url : "n14UpdateScheduleCon",
+		type : "get",
+		//보내는 데이터
+		//js 객체 {key:value, key:value}
+		//key 값이 controller에서 name으로 인식
+		//$(선택자)
+		data : {"updatedSchedule" :JSON.stringify(saveItemOrder())},////
+		//받아오는 데이터 타입
+		dataType : "json",
+		success : function(){
+			console.log("업뎃 성공");
+		},
+		error: function(){
+			alert("통신 실패")
+		}
+	}); //ajax 끝 
+		console.log("업뎃");
+	}
+/* 	function updateDailySchedule(){
+   		$.ajax({
+			url : "n14UpdateScheduleCon",
+			type : "get",
+			//보내는 데이터
+			//js 객체 {key:value, key:value}
+			//key 값이 controller에서 name으로 인식
+			//$(선택자)
+			data : {$"updatedSchedule" :JSON.stringify(saveItemOrder())},
+			//받아오는 데이터 타입
+			dataType : "json",
+			success : consol.log("업뎃 성공"),
+			error: function(){
+				alert("통신 실패")
+			}
+		}); //ajax 끝
+		console.log("함수성공")
+	}//updateDailySchedule 함수 끝 */
+	
+	</script>
 
 	<script>
 	// 아이템들의 초기 순서를 저장할 배열
@@ -471,13 +474,30 @@ function update(){
 	<script>
   
 
-
+/* 	const drag_item = e.target.closest(".list-group-item")
+	
+	drag_item.addEventListener("mousedown",(e) => {
+		current_item = drag_item;
+		current_item.classList.add("insert-animation");
+		iniY=e.clientY;
+	}) */
+	
 	document.addEventListener("mousedown", (e) => {
 		const drag_item = e.target.closest(".list-group-item");
 		current_item = drag_item;
 		current_item.classList.add("insert-animation");
 		iniY = e.clientY;
 	})
+	
+/*        document.addEventListener("mouseup", (e) => {
+          if(currentItem){
+          const drag_item = e.target.closest(".list-group-item");
+          current_item = drag_item;
+          current_item.classList.add("mouseup-success");
+          current_item.classList.remove("insert-animation");
+          }
+
+       }); */
 
 
     const columns = document.querySelectorAll(".column");
@@ -507,12 +527,12 @@ columns.forEach((column) => {
         });
     }); */
     
-    	document.addEventListener("mouseup", (e) => {
+/*     	document.addEventListener("mouseup", (e) => {
     		if(currentItem){
     			console.log("성공");
     		}
 
-    	})
+    	}) */
     
     
     

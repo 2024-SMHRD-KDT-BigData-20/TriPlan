@@ -55,8 +55,8 @@ public class n5CreateScheduleCon extends HttpServlet {
 			
 			
 			/*
-			 * List<autoCourseVO> courseDetail =null; courseDetail =
-			 * cDao.importCourse(Integer.parseInt(mt_select)); System.out.println("코스 디테일");
+			 * List<autoCourseVO> courseDetail =null; 
+			 * courseDetail = cDao.importCourse(Integer.parseInt(mt_select)); System.out.println("코스 디테일");
 			 * System.out.println(courseDetail);
 			 * 
 			 * for(int i = 0; i< courseDetail.size();i++) { int d_sche_idx = 40001+i; int
