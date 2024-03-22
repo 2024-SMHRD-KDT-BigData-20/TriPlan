@@ -854,6 +854,10 @@ panel.classList.contains("survey__panel--impormation")
     question4CheckBoxes.forEach((elem) =>
       elem.addEventListener("change", updateFormData)
     );
+    let {
+        question1People
+      } = inputs;
+      question1People.addEventListener("change", updateFormData);
   }
   nextButton.addEventListener("click", handleNextButton);
   prevButton.addEventListener("click", handleprevButton);
