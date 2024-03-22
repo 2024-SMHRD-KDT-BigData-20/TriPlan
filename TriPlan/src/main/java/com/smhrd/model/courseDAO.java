@@ -50,6 +50,7 @@ public class courseDAO {
 		List<autoCourseVO> dailyCourseList = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		dailyCourseList = sqlSession.selectList("com.smhrd.db.courseMapper.dailyCourseList",bc_idx);
+		sqlSession.close();
 		return dailyCourseList;
 	}
 	
@@ -58,6 +59,7 @@ public class courseDAO {
 		List<n5CreateScheduleVO> dailyCourseList = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		dailyCourseList = sqlSession.selectList("com.smhrd.db.courseMapper.myDailyCourseList",mt_idx);
+		sqlSession.close();
 		return dailyCourseList;
 	}
 	
@@ -66,17 +68,22 @@ public class courseDAO {
 		PoiVO myCoursePoi = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		myCoursePoi = sqlSession.selectOne("com.smhrd.db.courseMapper.myCoursePOI",poiIdx);
+		sqlSession.close();
 		return myCoursePoi;
 	}
 
-	public List<autoCourseVO> courseMatchingBasicReq(int period) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<n7TourCourseVO> courseMatchingBasicReq(int period) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<n7TourCourseVO> courseVO = sqlSession.selectList("com.smhrd.db.courseMapper.PotentialMatches", period);
+		sqlSession.close();
+		return courseVO;
 	}
 
-	public List<String> POIsInPotentialMatch() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<autoCourseVO> POIsInPotentialMatch(int bc_idx) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<autoCourseVO> POIs = sqlSession.selectList("com.smhrd.db.courseMapper.POIs", bc_idx);
+		sqlSession.close();
+		return POIs;
 	}
 
 

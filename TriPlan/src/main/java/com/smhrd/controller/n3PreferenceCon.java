@@ -26,9 +26,9 @@ public class n3PreferenceCon extends HttpServlet {
 		//변수 받아오기
 		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
 		String user_id = loginMember.getUser_id();
-		String people = request.getParameter("question_1");
-		String transportation = request.getParameter("question_1_1");
-		String pace = request.getParameter("question_1_2");
+		String people = request.getParameter("question_1_1");
+		String transportation = request.getParameter("question_1_2");
+		String pace = request.getParameter("question_1_3");
 		String[] pois = request.getParameterValues("question_2");
 		String[] foods = request.getParameterValues("question_3");
 		String[] sleeps = request.getParameterValues("question_4");

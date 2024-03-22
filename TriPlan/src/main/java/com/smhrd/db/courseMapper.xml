@@ -8,7 +8,15 @@
 
 <mapper namespace="com.smhrd.db.courseMapper">
 
-	<select id="MyTrips" parameterType="String" resultType = "createScheduleVO">
+	<select id="POIs" parameterType = "int" resultType = "autoCourseVO">
+		select bc_idx, bc_course from DAILY_SCHEDULE_INFO where bc_idx = #{bc idx}
+	</select>
+
+	<select id="PotentialMatches" parameterType = "int" resultType = "TourCourseVO">
+	select * from tour_course_info where bc_period = #{period}
+	</select>
+
+	<select id="MyTrips" parameterType="String" resultType = "autoCourseVO">
 		<!-- MyTrips MyTourInfo 테이블에서 해당 유저의 여행 리스트 가져오기 -->
 		select * from my_tour_course_info where user_id = #{user_id}
 

@@ -12,9 +12,11 @@
  		<typeAlias type="com.smhrd.model.n1UserVO" alias="UserVO"/>
  		<typeAlias type="com.smhrd.model.autoCourseVO" alias="autoCourseVO"/>
  		<typeAlias type="com.smhrd.model.n5CreateScheduleVO" alias="createScheduleVO"/>
+ 		<typeAlias type="com.smhrd.model.n4MyTripsVO" alias="MyTripsVO"/>
  		<typeAlias type="com.smhrd.model.myScheduleVO" alias="myScheduleVO"/>
  		<typeAlias type="com.smhrd.model.PoiVO" alias="PoiVO"/>
  		<typeAlias type="com.smhrd.model.n3PreferenceVO" alias="PreferenceVO"/>
+ 		<typeAlias type="com.smhrd.model.n7TourCourseVO" alias="TourCourseVO"/>
 	
 	</typeAliases>
 
