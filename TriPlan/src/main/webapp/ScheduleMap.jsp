@@ -507,23 +507,19 @@ columns.forEach((column) => {
         });
     }); */
     
-    function mouse(){
-    	consloe.log("hi");
     	document.addEventListener("mouseup", (e) => {
-    		const drag_item = e.target.closest(".list-group-item");
-    		current_item = drag_item;
-    		current_item.classList.add("mouseup-success");
-    		current_item.classList.remove("insert-animation");
-    		
+    		if(currentItem){
+    			console.log("성공");
+    		}
 
     	})
-    }
     
     
-	$(".list-group-item").mouseup(function(){
+    
+/* 	$(".list-group-item").mouseup(function(){
 		console.log("asdfasdf");
 	});
-	
+ */	
     
     
     
