@@ -15,10 +15,10 @@
         text-align: center;
         }
 
-        details:not([open]) { background: rgba(0,0,255,0.15); }
-        details[open] { background: rgba(255,0,0,0.15); }
-        details:hover { background: rgba(0,255,0,0.15); }
-        .below { background: rgba(255,255,0,0.15); }
+        details:not([open]) { background: #ffffff; }
+        details[open] { background: #ffffff; }
+        details:hover { background: #f18a0d; }
+        .below { background: #f18a0d; }
 
         html, details, summary { line-height: 2.5; }
         details { margin-bottom: 0.25em; line-height: 2.5; }
