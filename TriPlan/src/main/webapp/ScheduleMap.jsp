@@ -211,6 +211,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 
 
 <!-- 지도 함수 스크립트 -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script
 	src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=5xlrQgGGMeW9sjaWtFx1613MYzRTs0x8EaGbs2Da"></script>
 <script type="text/javascript">
@@ -391,7 +392,7 @@ function update(){
 					%>
 
 					<div class="list-group-item" draggable="true"
-						id=<%=poi.getPoi_idx()%>>
+						id=<%=poi.getPoi_idx()%>  onclick="mouse()">
 
 						<!-- 이미지 요소 -->
 						<div class="Img">
@@ -498,6 +499,34 @@ columns.forEach((column) => {
             });
         }
     });
+    
+    
+/*     document.querySelectorAll(".list-group-item.insert-animation").forEach(function(event){
+        event.addEventListener("mouseup", function(){
+        	console.log("마우스 뗌!!");
+        });
+    }); */
+    
+    function mouse(){
+    	consloe.log("hi");
+    	document.addEventListener("mouseup", (e) => {
+    		const drag_item = e.target.closest(".list-group-item");
+    		current_item = drag_item;
+    		current_item.classList.add("mouseup-success");
+    		current_item.classList.remove("insert-animation");
+    		
+
+    	})
+    }
+    
+    
+	$(".list-group-item").mouseup(function(){
+		console.log("asdfasdf");
+	});
+	
+    
+    
+    
 </script>
 </body>
 </html>
