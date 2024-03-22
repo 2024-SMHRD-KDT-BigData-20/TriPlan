@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PoiDAO {
-	private static final String URL = "jdbc:mysql://localhost:3306/gpt20.0.sql";
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
+	private static final String URL = "jdbc:mysql://project-db-campus.smhrd.com:1523/xe";
+    private static final String USERNAME = "sc_21K_bigdata20_p2_3";
+    private static final String PASSWORD = "smhrd3";
 
     public List<PoiVO> getAllPOI() {
         List<PoiVO> poiList = new ArrayList<>();
