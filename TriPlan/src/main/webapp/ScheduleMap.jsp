@@ -215,35 +215,90 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 <!-- 지도 함수 스크립트 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script
-	src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=5xlrQgGGMeW9sjaWtFx1613MYzRTs0x8EaGbs2Da"></script>
-<script type="text/javascript">
-    // 페이지가 로딩이 된 후 호출하는 함수입니다.
-    function initTmap(){
-    var map = new Tmapv3.Map("map_div", {
-        center : new Tmapv3.LatLng(33.5070339, 126.4937486),
-        width : "100%",
-        height : "800px",
-        zoom : 13
-    });
-<%HttpSession session2 = request.getSession();
-List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
-<%for (int i = 0; i < myUniquePOI.size(); i++) {
-   PoiVO poi = (PoiVO) myUniquePOI.get(i);
-   System.out.println(poi);%>
-       var marker = new Tmapv3.Marker({
-           position: new Tmapv3.LatLng(<%=poi.getPoi_lat()%>, <%=poi.getPoi_lng()%>),
-           map: map
-       });   
-<%}%>
-/*     // poiList를 반복하여 각 POI의 위도와 경도 정보를 사용하여 지도에 마커를 추가합니다.
-    poiList.forEach(function(poi) {
-        var marker = new Tmapv3.Marker({
-            position: new Tmapv3.LatLng(poi.getPoi_lat(), poi.getPoi_lng()),
+        src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=rUw2inMtFc3RpPULkR6di5FZAXdX8YtU4H0nJxbF"></script>
+        <script>
+    var map;
+    var markers = []; // 마커와 정보 창을 저장할 배열
+
+    function initTmap() {
+        map = new Tmapv2.Map("map_div", {
+            center: new Tmapv2.LatLng(33.5070339, 126.4937486),
+            width: "100%",
+            height: "100Vh",
+            zoom: 11
+        });
+
+        var positions = [];
+        
+        <%HttpSession session2 = request.getSession();
+        List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
+        
+        <%for (int i = 0; i < myUniquePOI.size(); i++) {
+            PoiVO poi = (PoiVO) myUniquePOI.get(i);%>
+                positions.push({
+                    lat: <%=poi.getPoi_lat()%>,
+                    lng: <%=poi.getPoi_lng()%>,
+                    info: "<div style='padding:5px; white-space: normal;'><%=poi.getPoi_name()%></div>"
+                });
+            <%}%>
+
+        // 마커와 정보 창 생성
+        for (var i = 0; i < positions.length; i++) {
+            var position = new Tmapv2.LatLng(positions[i].lat, positions[i].lng);
+            
+            var marker = new Tmapv2.Marker({
+                position: position,
+                map: map,
+                title: i.toString() // 마커에 표시될 타이틀(숫자)
+            });
+
+            var infoWindow = new Tmapv2.InfoWindow({
+                position: position,
+                content: positions[i].info,
+                border: "1px solid #2c81ba",
+                visible: false,
+                map: map
+            });
+
+            // 마커 클릭 이벤트
+            (function (marker, infoWindow) {
+                marker.addListener("click", function () {
+                    // 다른 모든 마커를 표시하고 모든 정보 창을 숨깁니다.
+                    markers.forEach(function (m) {
+                        m.marker.setVisible(true);
+                        m.infoWindow.setVisible(false);
+                    });
+                    // 현재 마커를 숨기고 정보 창을 표시합니다.
+                    marker.setVisible(false);
+                    infoWindow.setVisible(true);
+                });
+            })(marker, infoWindow);
+
+            markers.push({ marker: marker, infoWindow: infoWindow }); // 배열에 마커와 정보 창 저장
+        }
+
+        // 마커들을 이어주는 선을 그립니다.
+        var linePath = positions.map(function (position) {
+            return new Tmapv2.LatLng(position.lat, position.lng);
+        });
+
+        var polyline = new Tmapv2.Polyline({
+            path: linePath,
+            strokeColor: "#FF0000", // 선의 색깔
+            strokeWeight: 3, // 선의 두께
             map: map
         });
-    }); */
-}
-</script>
+
+        // 지도 클릭 이벤트
+        map.addListener("click", function (evt) {
+            // 모든 정보 창을 숨기고 모든 마커를 표시합니다.
+            markers.forEach(function (m) {
+                m.infoWindow.setVisible(false);
+                m.marker.setVisible(true);
+            });
+        });
+    }
+    </script>
 <!-- 지도 함수 끝 -->
 
 <!-- 드래그 앤 드롭 소스 -->
