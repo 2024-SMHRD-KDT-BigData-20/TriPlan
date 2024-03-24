@@ -9,7 +9,7 @@
 <mapper namespace="com.smhrd.db.courseMapper">
 
 	<select id="POIs" parameterType = "int" resultType = "autoCourseVO">
-		select bc_idx, bc_course from DAILY_SCHEDULE_INFO where bc_idx = #{bc idx}
+		select d_sche_idx, bc_idx, bc_course from DAILY_SCHEDULE_INFO where bc_idx = #{bc idx}
 	</select>
 
 	<select id="PotentialMatches" parameterType = "int" resultType = "TourCourseVO">
@@ -35,11 +35,32 @@
 		values
 		(#{d_sche_idx}, #{mt_idx}, #{day}, #{mt_course})
 	</insert>
+	<select id="PoiTags2" parameterType="int" resultType="PoiVO">
+		SELECT poi_idx, poi_name, poi_tag
+		FROM poi_info 
+		WHERE poi_idx = #{poi_idx}
+		union
+		SELECT hotel_idx, hotel_name, hotel_tag
+		FROM hotel_info 
+		WHERE hotel_idx = #{poi_idx}
+		union
+		SELECT RESTAU_IDX, RESTAU_NAME, RESTAU_TAG
+		FROM RESTAURANT_INFO 
+		WHERE RESTAU_IDX = #{poi_idx}
+		union
+		SELECT shop_idx, shop_name, shop_tag
+		FROM shop_info 
+		WHERE shop_idx = #{poi_idx}
+	</select>
+	<select id="relatedTags" parameterType="String" resultType="tagInfoVO">
+		select cat_name, tag_name from tag_info where cat_name=#{cat_name}
+	</select>
+	
 	<select id="PoiTags" parameterType="java.util.List" resultType="PoiVO">
 		SELECT poi_idx, poi_name, poi_tag
 		FROM poi_info 
 		WHERE poi_idx in (
-		<foreach collection="list" item="item" separator=",">
+		<foreach collection="java.util.List" item="item" separator=",">
 		#{item}
 		</foreach>)
 	</select>

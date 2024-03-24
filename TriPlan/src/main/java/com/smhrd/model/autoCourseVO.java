@@ -17,6 +17,7 @@ import oracle.sql.NUMBER;
 @RequiredArgsConstructor
 
 public class autoCourseVO {
+	@NonNull
 	int d_sche_idx;
 	@NonNull
 	int bc_idx;

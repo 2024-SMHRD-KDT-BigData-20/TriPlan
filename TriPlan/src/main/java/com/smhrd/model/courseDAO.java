@@ -38,9 +38,16 @@ public class courseDAO {
 		return cnt;
 	}
 	
+	public PoiVO TagsPerPoi2(int poi_idx) {
+		SqlSession session = sqlSessionFactory.openSession(true);//auto commit
+		PoiVO TagsPerPOI = session.selectOne("com.smhrd.db.courseMapper.PoiTags2", poi_idx);
+		session.close();
+		return TagsPerPOI;
+	}
+	
 	public List<PoiVO> TagsPerPoi(List<Integer> POIs) {
 		SqlSession session = sqlSessionFactory.openSession(true);//auto commit
-		List<PoiVO> TagsPerPOI = session.selectList("com.smhrd.db.courseMapper.PoiTags", session);
+		List<PoiVO> TagsPerPOI = session.selectList("com.smhrd.db.courseMapper.PoiTags", POIs);
 		session.close();
 		return TagsPerPOI;
 	}
@@ -84,6 +91,13 @@ public class courseDAO {
 		List<autoCourseVO> POIs = sqlSession.selectList("com.smhrd.db.courseMapper.POIs", bc_idx);
 		sqlSession.close();
 		return POIs;
+	}
+
+	public List<tagInfoVO> relatedTags(String pfPOI) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<tagInfoVO> relatedTags = sqlSession.selectList("com.smhrd.db.courseMapper.relatedTags",pfPOI);
+		sqlSession.close();
+		return relatedTags;
 	}
 
 
