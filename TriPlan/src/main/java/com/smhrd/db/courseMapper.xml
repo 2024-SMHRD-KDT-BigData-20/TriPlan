@@ -7,14 +7,17 @@
 	구분 mapper.xml 경로와 동일해야 함 -->
 
 <mapper namespace="com.smhrd.db.courseMapper">
+<update id="myCourseUpdate" parameterType="myCourseVO">
+update my_daily_schedule_info set mt_course = #{mt_course} where mt_idx = #{mt_idx} and DAY_SCHE = #{day_sche}
+</update>
 <select id="loadSchedule" parameterType = "int" resultType = "myCourseVO">
-select  from my_daily_schedule_info where mt_idx = #{mt_idx}
+select * from my_daily_schedule_info where mt_idx = #{mt_idx}
 
 </select>
 
 <insert id="myCourseDetail" parameterType = "myCourseVO" >
 insert into MY_DAILY_SCHEDULE_INFO
-values (MY_DAILY_SCHEDULE_INFO_SEQ.nextval, #{mt_idx}, #{day_sched}, #{mt_course}, #{user_id})
+values (MY_DAILY_SCHEDULE_INFO_SEQ.nextval, #{mt_idx}, #{day_sche}, #{mt_course}, #{user_id})
 		<selectKey keyProperty="d_sche_idx" resultType="int" order="AFTER">
        SELECT MY_DAILY_SCHEDULE_INFO_SEQ.CURRVAL FROM DUAL
  		</selectKey>
@@ -150,7 +153,8 @@ values (MY_DAILY_SCHEDULE_INFO_SEQ.nextval, #{mt_idx}, #{day_sched}, #{mt_course
 		SHOP_ADDR,
 		SHOP_DESC,
 		LAT,
-		LNG
+		LNG,
+		SHOP_PHOTO
 		FROM
 		shop_info
 		WHERE shop_idx = #{poi_idx}

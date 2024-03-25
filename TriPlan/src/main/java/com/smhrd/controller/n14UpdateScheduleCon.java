@@ -1,6 +1,8 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +11,15 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.smhrd.model.PoiVO;
 import com.smhrd.model.courseDAO;
+import com.smhrd.model.myCourseVO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class n14UpdateScheduleCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,22 +35,73 @@ public class n14UpdateScheduleCon extends HttpServlet {
 		 * objectMapper.readValue(request.getInputStream(), new
 		 * TypeReference<List<List<String>>>(){});
 		 */
+		
+		HttpSession session = request.getSession();
+		int mt_idx = (int)session.getAttribute("mt_idx");
 		Gson gson = new Gson();
 		Integer[][] updatedSchedule = gson.fromJson(request.getParameter("updatedSchedule"), Integer[][].class);
 		
 		System.out.println("ArraysRes확인" + Arrays.deepToString(updatedSchedule));
 		
 		courseDAO dao = new courseDAO();
-				
-		for(int j = 0; j<updatedSchedule.length;j++) {
-			int day = j+1;
-			String daySchedule = "";
-			for(int i=0; i<updatedSchedule[j].length; i++) {
-				daySchedule += "-" + updatedSchedule[i];
-			}
-			
-			//update my_daily_schedule_info set mt_course = #{daySchedule} where mt_idx = #{mt_idx} and DAY_SCHE = #{day}
+		
+		myCourseVO myCourseUpdate = new myCourseVO();
+		myCourseUpdate.setMt_idx(mt_idx);
+		int cnt = 0;
+		List<PoiVO> updatedPoiVO =new ArrayList<>();
+		
+		for (int j = 0; j < updatedSchedule.length; j++) {
+		    int day = j + 1;
+		    StringBuilder dayScheduleBuilder = new StringBuilder();
+		    for (int i = 0; i < updatedSchedule[j].length; i++) {
+		        if (i != 0) {
+		            dayScheduleBuilder.append("-");
+		        }
+		        int poi_idx = updatedSchedule[j][i];
+		        dayScheduleBuilder.append(poi_idx);
+		        PoiVO p= dao.myCoursePOI(poi_idx);
+		        updatedPoiVO.add(p);
+		    }
+		    String daySchedule = dayScheduleBuilder.toString().trim();
+		    System.out.println("반복문 확인" + daySchedule);
+		    
+		    // '-'로 시작하지 않도록 수정
+		    if (daySchedule.startsWith("-")) {
+		        daySchedule = daySchedule.substring(1);
+		    }
+		    myCourseUpdate.setDay_sche(day);
+		    myCourseUpdate.setMt_course(daySchedule);
+		    
+		    cnt += dao.updateMyCourse(myCourseUpdate);
+		    // update my_daily_schedule_info set mt_course = #{daySchedule} where mt_idx = #{mt_idx} and DAY_SCHE = #{day}
 		}
+		
+		System.out.println(updatedPoiVO);
+		String res = gson.toJson(updatedPoiVO);
+		System.out.println("json 결과 확인" +res);
+		
+		response.setCharacterEncoding("utf-8");
+
+		//돌려주기 2) 전달할 통로 만들기
+		PrintWriter out = response.getWriter();
+		
+		//예외 처리:리스트에 값이 있는 경우 전달
+		if(cnt==updatedSchedule.length) {
+			// 돌려주기 3) PrintWriter객체에 값 전달 
+			out.print(res);
+			System.out.println("성공이다!!");
+		}else {
+			System.out.println("검색 실패");
+		}
+		
+
+		
+		
+
+		
+		
+		
+		
 		
 
 		

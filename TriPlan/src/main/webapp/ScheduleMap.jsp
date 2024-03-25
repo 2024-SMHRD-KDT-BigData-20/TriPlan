@@ -454,7 +454,7 @@ flex-direction: row;
 						}
 						// 해당 POI가 발견되면 출력합니다.
 						if (poi != null) {
-							System.out.println(poi.getPoi_desc());
+							System.out.println(poi.getPoi_name());
 					%>
 
 					<div class="list-group-item" draggable="true"
@@ -516,6 +516,8 @@ flex-direction: row;
 <%-- 	       	<%String JsonUpdatedItemOrders = gson.toJson(updatedItemOrders);%> --%>
 	   		return updatedItemOrders;
 	       	}
+	let updatedCourseDetail = saveItemOrder();
+	
 	function update(){
 	 	$.ajax({
 		url : "n14UpdateScheduleCon",
@@ -526,9 +528,9 @@ flex-direction: row;
 		//$(선택자)
 		data : {"updatedSchedule" :JSON.stringify(saveItemOrder())},////
 		//받아오는 데이터 타입
-		dataType : "json",
-		success : function(){
-			console.log("업뎃 성공");
+ 		dataType : "json", 
+		success : function(res){
+			console.log(res)
 		},
 		error: function(){
 			alert("통신 실패")
@@ -536,24 +538,9 @@ flex-direction: row;
 	}); //ajax 끝 
 		console.log("업뎃");
 	}
-/* 	function updateDailySchedule(){
-   		$.ajax({
-			url : "n14UpdateScheduleCon",
-			type : "get",
-			//보내는 데이터
-			//js 객체 {key:value, key:value}
-			//key 값이 controller에서 name으로 인식
-			//$(선택자)
-			data : {$"updatedSchedule" :JSON.stringify(saveItemOrder())},
-			//받아오는 데이터 타입
-			dataType : "json",
-			success : consol.log("업뎃 성공"),
-			error: function(){
-				alert("통신 실패")
-			}
-		}); //ajax 끝
-		console.log("함수성공")
-	}//updateDailySchedule 함수 끝 */
+	
+
+
 	
 	</script>
 
@@ -620,7 +607,7 @@ flex-direction: row;
 		iniY = e.clientY;
 	})
 	    document.addEventListener("drop", (e) => {
-            if(current_item){
+        if(current_item){
                 current_item.classList.remove("insert-animation");
 		if(search_item != null){
 		search_item.classList.remove("search");

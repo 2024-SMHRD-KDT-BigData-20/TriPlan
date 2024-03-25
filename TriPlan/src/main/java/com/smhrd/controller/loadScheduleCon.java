@@ -48,6 +48,7 @@ public class loadScheduleCon extends HttpServlet {
 		// 4-2. DAO 객체 생성
 		courseDAO cDao = new courseDAO();
 		List<myCourseVO> myCourse = cDao.loadMyCourse(mt_idx);
+		System.out.println("왜 null이야?" + myCourse);
 		//장소 순서대로 (스플릿 결과) int idx 리스트 담을 리스트
 		List<List<Integer>> intMyCourses = new ArrayList<>();
 		
@@ -103,6 +104,7 @@ public class loadScheduleCon extends HttpServlet {
 		
 		
 		System.out.println(intMyCourses);
+		session.setAttribute("mt_idx", mt_idx);
 		session.setAttribute("allDayCourses", intMyCourses);
 		session.setAttribute("myUniquePOI", myUniquePOI);
 		response.sendRedirect("ScheduleMap.jsp");

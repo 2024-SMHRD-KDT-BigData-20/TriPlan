@@ -44,7 +44,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		String startDate = scheduleVO.getMt_st_dt();
 		String endDate = scheduleVO.getMt_ed_dt();
 		int mt_idx = scheduleVO.getMt_idx();
-		int period = 4;//수정 필요
+		int period = 3;//수정 필요
 		System.out.println("날짜 빼기 해서 period 구하는 식으로 수정!!");
 
 		courseDAO dao = new courseDAO();
@@ -232,7 +232,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
         myCourseDetail.setMt_idx(mt_idx);//maxKey말고 마이투어 인덱스로 해야되는데 시퀀스로 생성된 걸 어떻게 가져오지?
         int cnt = 0;
         for(int i=0; i< courseDetail.size();i++) {
-        	myCourseDetail.setDay_sched((i+1));
+        	myCourseDetail.setDay_sche((i+1));
         	myCourseDetail.setMt_course(courseDetail.get(i).getBc_course());
         	System.out.println(myCourseDetail.toString());
         	cnt += dao.insertCourseDetail(myCourseDetail);

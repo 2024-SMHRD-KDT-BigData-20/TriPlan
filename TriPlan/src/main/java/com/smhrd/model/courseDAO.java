@@ -117,8 +117,16 @@ public class courseDAO {
 	public List<myCourseVO> loadMyCourse(int mt_idx) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		List<myCourseVO> myCourse = sqlSession.selectList("com.smhrd.db.courseMapper.loadSchedule", mt_idx);
+		System.out.println("Dao에서 null 확인: " + myCourse);
 		sqlSession.close();
-		return null;
+		return myCourse;
+	}
+
+	public int updateMyCourse(myCourseVO myCourseUpdate) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int cnt = sqlSession.update("com.smhrd.db.courseMapper.myCourseUpdate", myCourseUpdate);
+		sqlSession.close();
+		return cnt;
 	}
 
 
