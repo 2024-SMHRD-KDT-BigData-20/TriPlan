@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.smhrd.model.PoiVO;
 import com.smhrd.model.autoCourseVO;
 import com.smhrd.model.courseDAO;
+import com.smhrd.model.myCourseVO;
 import com.smhrd.model.n1UserDAO;
 import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n3PreferenceVO;
@@ -37,7 +38,8 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		n1UserVO loginUser = (n1UserVO)session.getAttribute("loginUserVO");
 		//		n3PreferenceVO preferenceVO = (n3PreferenceVO)session.getAttribute("tripPreferenceVO");//confirmPreference완료 되면 주석 풀기
 		n1UserDAO userDao = new n1UserDAO();
-		n3PreferenceVO preferenceVO = (n3PreferenceVO) userDao.PreferenceToPrint(loginUser.getUser_id());
+		String user_id = loginUser.getUser_id();
+		n3PreferenceVO preferenceVO = (n3PreferenceVO) userDao.PreferenceToPrint(user_id);
 
 		String startDate = scheduleVO.getMt_st_dt();
 		String endDate = scheduleVO.getMt_ed_dt();
@@ -57,7 +59,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		String[] SleepPreference = preferenceVO.getSleep().split("#");
 		String people = preferenceVO.getPeople();
 		System.out.println("프리 확인 " + Arrays.toString(PoiPreference));
-
+		System.out.println("people null?" + people);
 		ArrayList<Integer> allIdx = new ArrayList<>();
 		for(n7TourCourseVO p : PotentialMatches) {
 			allIdx.add(p.getBc_idx());
@@ -214,6 +216,31 @@ public class n8FindMatchingTripCon extends HttpServlet {
         }
 
         System.out.println("가장 큰 값의 키: " + maxKey);
+        
+        int matchingTrip = maxKey;
+        
+        List<autoCourseVO> courseDetail = dao.importCourseDetail(matchingTrip);
+        
+        for(autoCourseVO course:courseDetail) {
+        	System.out.println(course.getBc_course());
+        }
+        
+        myCourseVO myCourseDetail = new myCourseVO();
+        myCourseDetail.setUser_id(user_id);
+        myCourseDetail.setBc_idx(maxKey);
+        int cnt = 0;
+        for(int i=0; i< courseDetail.size();i++) {
+        	myCourseDetail.setD_sche_idx((i+1));
+        	myCourseDetail.setBc_course(courseDetail.get(i).getBc_course());
+        	cnt += dao.insertCourseDetail(myCourseDetail);
+        }
+        
+        if(cnt==courseDetail.size()) {
+        	//unique poi list
+        	System.out.println("성공");
+        }
+        
+        //
 
 		/*
 		 * System.out.println(400001/100000);

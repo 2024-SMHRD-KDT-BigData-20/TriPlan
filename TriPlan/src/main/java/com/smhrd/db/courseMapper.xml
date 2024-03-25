@@ -7,16 +7,26 @@
 	구분 mapper.xml 경로와 동일해야 함 -->
 
 <mapper namespace="com.smhrd.db.courseMapper">
-
-	<select id="POIs" parameterType = "int" resultType = "autoCourseVO">
-		select d_sche_idx, bc_idx, bc_course from DAILY_SCHEDULE_INFO where bc_idx = #{bc idx}
+	<select id="courseDetail" parameterType="int" resultType="autoCourseVO">
+		select a.bc_idx, a.bc_period, b.day, b.bc_course
+		from TOUR_COURSE_INFO a
+		join DAILY_SCHEDULE_INFO b
+		on a.bc_idx = b.bc_idx
+		where a.bc_idx=#{maxKey};
+	</select>
+	<select id="POIs" parameterType="int" resultType="autoCourseVO">
+		select
+		d_sche_idx, bc_idx, bc_course from DAILY_SCHEDULE_INFO where bc_idx =
+		#{bc idx}
 	</select>
 
-	<select id="PotentialMatches" parameterType = "int" resultType = "TourCourseVO">
-	select * from tour_course_info where bc_period = #{period}
+	<select id="PotentialMatches" parameterType="int"
+		resultType="TourCourseVO">
+		select * from tour_course_info where bc_period = #{period}
 	</select>
 
-	<select id="MyTrips" parameterType="String" resultType = "autoCourseVO">
+	<select id="MyTrips" parameterType="String"
+		resultType="autoCourseVO">
 		<!-- MyTrips MyTourInfo 테이블에서 해당 유저의 여행 리스트 가져오기 -->
 		select * from my_tour_course_info where user_id = #{user_id}
 
@@ -24,9 +34,11 @@
 
 	<insert id="createMySchedule" parameterType="createScheduleVO">
 		insert into
-		MY_TOUR_COURSE_INFO (mt_idx, mt_name, mt_preference, user_id, mt_st_dt, mt_ed_dt)
+		MY_TOUR_COURSE_INFO (mt_idx, mt_name, mt_preference, user_id,
+		mt_st_dt, mt_ed_dt)
 		values
-		(MY_TOUR_COURSE_INFO_SEQ.nextval, #{mt_name}, #{mt_preference},
+		(MY_TOUR_COURSE_INFO_SEQ.nextval, #{mt_name},
+		#{mt_preference},
 		#{user_id},
 		#{mt_st_dt}, #{mt_ed_dt})
 	</insert>
@@ -36,33 +48,40 @@
 		(#{d_sche_idx}, #{mt_idx}, #{day}, #{mt_course})
 	</insert>
 	<select id="PoiTags2" parameterType="int" resultType="PoiVO">
-		SELECT poi_idx, poi_name, poi_tag
-		FROM poi_info 
+		SELECT
+		poi_idx, poi_name, poi_tag
+		FROM poi_info
 		WHERE poi_idx = #{poi_idx}
 		union
 		SELECT hotel_idx, hotel_name, hotel_tag
-		FROM hotel_info 
+		FROM
+		hotel_info
 		WHERE hotel_idx = #{poi_idx}
 		union
 		SELECT RESTAU_IDX, RESTAU_NAME, RESTAU_TAG
-		FROM RESTAURANT_INFO 
+		FROM RESTAURANT_INFO
 		WHERE RESTAU_IDX = #{poi_idx}
 		union
 		SELECT shop_idx, shop_name, shop_tag
-		FROM shop_info 
+		FROM
+		shop_info
 		WHERE shop_idx = #{poi_idx}
 	</select>
-	<select id="relatedTags" parameterType="String" resultType="tagInfoVO">
-		select cat_name, tag_name from tag_info where cat_name=#{cat_name}
+	<select id="relatedTags" parameterType="String"
+		resultType="tagInfoVO">
+		select cat_name, tag_name from tag_info where
+		cat_name=#{cat_name}
 	</select>
-	
-	<select id="PoiTags" parameterType="java.util.List" resultType="PoiVO">
+
+	<select id="PoiTags" parameterType="java.util.List"
+		resultType="PoiVO">
 		SELECT poi_idx, poi_name, poi_tag
-		FROM poi_info 
+		FROM poi_info
 		WHERE poi_idx in (
 		<foreach collection="java.util.List" item="item" separator=",">
-		#{item}
-		</foreach>)
+			#{item}
+		</foreach>
+		)
 	</select>
 	<select id="dailyCourseList" parameterType="int"
 		resultType="autoCourseVO">
@@ -78,6 +97,6 @@
 		select *
 		from TestPoiInfo where poi_idx=#{poiIdx}
 	</select>
-	
+
 
 </mapper>
