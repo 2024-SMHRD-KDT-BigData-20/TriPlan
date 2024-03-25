@@ -7,12 +7,25 @@
 	구분 mapper.xml 경로와 동일해야 함 -->
 
 <mapper namespace="com.smhrd.db.courseMapper">
+<select id="loadSchedule" parameterType = "int" resultType = "myCourseVO">
+select  from my_daily_schedule_info where mt_idx = #{mt_idx}
+
+</select>
+
+<insert id="myCourseDetail" parameterType = "myCourseVO" >
+insert into MY_DAILY_SCHEDULE_INFO
+values (MY_DAILY_SCHEDULE_INFO_SEQ.nextval, #{mt_idx}, #{day_sched}, #{mt_course}, #{user_id})
+		<selectKey keyProperty="d_sche_idx" resultType="int" order="AFTER">
+       SELECT MY_DAILY_SCHEDULE_INFO_SEQ.CURRVAL FROM DUAL
+ 		</selectKey>
+
+</insert>
 	<select id="courseDetail" parameterType="int" resultType="autoCourseVO">
 		select a.bc_idx, a.bc_period, b.day, b.bc_course
 		from TOUR_COURSE_INFO a
 		join DAILY_SCHEDULE_INFO b
 		on a.bc_idx = b.bc_idx
-		where a.bc_idx=#{maxKey};
+		where a.bc_idx=#{matchingTrip}
 	</select>
 	<select id="POIs" parameterType="int" resultType="autoCourseVO">
 		select
@@ -41,6 +54,9 @@
 		#{mt_preference},
 		#{user_id},
 		#{mt_st_dt}, #{mt_ed_dt})
+		<selectKey keyProperty="mt_idx" resultType="int" order="AFTER">
+       SELECT MY_TOUR_COURSE_INFO_SEQ.CURRVAL FROM DUAL
+ 		</selectKey>
 	</insert>
 	<insert id="createMyDaily" parameterType="createScheduleVO">
 		insert into testMyDaily
@@ -94,8 +110,50 @@
 	</select>
 
 	<select id="myCoursePOI" parameterType="int" resultType="PoiVO">
-		select *
-		from TestPoiInfo where poi_idx=#{poiIdx}
+		SELECT		
+		POI_IDX,
+		POI_NAME,
+		POI_ADDR,
+		POI_DESC,
+		POI_LAT,
+		POI_LNG,
+		POI_PHOTO
+		FROM poi_info
+		WHERE poi_idx = #{poi_idx}
+		union
+		SELECT
+		HOTEL_IDX,
+		HOTEL_NAME,
+		HOTEL_ADDR,
+		HOTEL_COMMENT,
+		LAT,
+		LNG,
+		HOTEL_PHOTO
+		FROM
+		hotel_info
+		WHERE hotel_idx = #{poi_idx}
+		union
+		SELECT
+		RESTAU_IDX,
+		RESTAU_NAME,
+		RESTAU_ADDR,
+		RESTAU_DESC,
+		LAT,
+		LNG,
+		RESTAU_PHOTO1
+		FROM RESTAURANT_INFO
+		WHERE RESTAU_IDX = #{poi_idx}
+		union
+		SELECT
+		SHOP_IDX,
+		SHOP_NAME,
+		SHOP_ADDR,
+		SHOP_DESC,
+		LAT,
+		LNG
+		FROM
+		shop_info
+		WHERE shop_idx = #{poi_idx}
 	</select>
 
 

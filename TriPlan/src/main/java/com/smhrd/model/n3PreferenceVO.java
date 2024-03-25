@@ -12,23 +12,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class n3PreferenceVO {
-	int pf_idx;
+	private int pf_idx;
 	@NonNull
-	String user_id;
+	private String user_id;
 	@NonNull
-	String people;
+	private String people;
 	@NonNull
-	String transportation; 
+	private String transportation; 
 	@NonNull
-	String pace; 
+	private String pace; 
 	@NonNull
-	String poi;
+	private String poi;
 	@NonNull
-	String food; 
+	private String food; 
 	@NonNull
-	String sleep;
-	@NonNull
-	private String checkboxValue;
-	@NonNull
-    private String radioValue;
+	private String sleep;
+	
+	
 }

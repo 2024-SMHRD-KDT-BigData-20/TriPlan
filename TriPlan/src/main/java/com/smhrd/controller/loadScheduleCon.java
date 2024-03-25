@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.smhrd.model.courseDAO;
+import com.smhrd.model.myCourseVO;
 import com.smhrd.model.n5CreateScheduleVO;
 import com.smhrd.model.PoiVO;
 import com.smhrd.model.autoCourseVO;
@@ -32,28 +33,29 @@ public class loadScheduleCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("[loadScheduleCon]");
+		HttpSession session = request.getSession();
+		int mt_idx;
+		System.out.println(session.getAttribute("mt_idx"));
+		if(session.getAttribute("mt_idx")!=null) {//findMatchingTrip에서 오는 경우
+		mt_idx = (int) session.getAttribute("mt_idx");
+		}else {//MyPage에서 오는 경우
+			mt_idx=218;
+			/* mt_idx = Integer.parseInt(request.getParameter("mt_idx")); */
+		}
 
-		int mt_idx = Integer.parseInt(request.getParameter("mt_idx"));
 		System.out.println("mt_idx" + mt_idx);
 		// 4-1. DAO 가서 회원가입 메소드 작성 DataAccessObject
 		// 4-2. DAO 객체 생성
 		courseDAO cDao = new courseDAO();
-		List<n5CreateScheduleVO> myCourseDetail = null;
-		myCourseDetail = cDao.importMyCourse(mt_idx);
-		//대체 왜 16개가 나오는지 모르겠음? 전체 4행인데?
-		System.out.println("크기"+myCourseDetail.size());
-		System.out.println(myCourseDetail.toString());
+		List<myCourseVO> myCourse = cDao.loadMyCourse(mt_idx);
+		//장소 순서대로 (스플릿 결과) int idx 리스트 담을 리스트
+		List<List<Integer>> intMyCourses = new ArrayList<>();
 		
-
 		
-
-		// 4-3. 
-		//		autoCourseVO courseVO = cDao.importCourse(courseID);
-		
-		List<List<Integer>> allDayCourses = new ArrayList<>();
 		Set<Integer> allPlaces = new HashSet<>();
-		for (int i = 0; i < myCourseDetail.size(); i++) {
-		    String daily = myCourseDetail.get(i).getMt_course();
+		//코스에 속한 장소들 형변환해서 리스트에 담기
+		for (int i = 0; i < myCourse.size(); i++) {
+		    String daily = myCourse.get(i).getMt_course();
 		    String[] dayCourseStr = daily.split("-");
 		    List<Integer> dayCourse = new ArrayList<>();
 		    for (String place : dayCourseStr) {
@@ -61,27 +63,47 @@ public class loadScheduleCon extends HttpServlet {
 		        dayCourse.add(poi_idx);
 		        allPlaces.add(poi_idx);
 		    }		    
-		    allDayCourses.add(dayCourse);
+		    intMyCourses.add(dayCourse);
 		}
 		
 		List<Integer> uniquePlaces = new ArrayList<>(allPlaces);
 		
 		List<PoiVO> myUniquePOI = new ArrayList<>();
 		
-		for (Integer poiIdx : uniquePlaces) {
-		    // POIINFOTEST 테이블에서 해당 장소 정보를 가져오는 메서드를 호출합니다.
-			PoiVO poiInfo = cDao.myCoursePOI(poiIdx);
-		    if (poiInfo != null) {
-		    	myUniquePOI.add(poiInfo);
-		    }
-		}
-
-		
+		/*
+		 * List<n5CreateScheduleVO> myCourseDetail = null; myCourseDetail =
+		 * cDao.importMyCourse(mt_idx); //대체 왜 16개가 나오는지 모르겠음? 전체 4행인데?
+		 * System.out.println("크기"+myCourseDetail.size());
+		 * System.out.println(myCourseDetail.toString());
+		 * 
+		 * 
+		 * 
+		 * 
+		 * // 4-3. // autoCourseVO courseVO = cDao.importCourse(courseID);
+		 * 
+		 * List<List<Integer>> allDayCourses = new ArrayList<>(); Set<Integer> allPlaces
+		 * = new HashSet<>(); for (int i = 0; i < myCourseDetail.size(); i++) { String
+		 * daily = myCourseDetail.get(i).getMt_course(); String[] dayCourseStr =
+		 * daily.split("-"); List<Integer> dayCourse = new ArrayList<>(); for (String
+		 * place : dayCourseStr) { int poi_idx = Integer.parseInt(place);
+		 * dayCourse.add(poi_idx); allPlaces.add(poi_idx); }
+		 * allDayCourses.add(dayCourse); }
+		 * 
+		 * List<Integer> uniquePlaces = new ArrayList<>(allPlaces);
+		 * 
+		 * 
+		 *  */
+		for (Integer poiIdx : uniquePlaces) { // POIINFOTEST 테이블에서 해당 장소 정보를 가져오는 메서드를 호출합니다. 
+			PoiVO poiInfo = cDao.myCoursePOI(poiIdx); 
+			if (poiInfo != null) {
+				myUniquePOI.add(poiInfo); } }
+		 
+		 
 		System.out.println(myUniquePOI);
 		
-		System.out.println(allDayCourses);
-		HttpSession session = request.getSession();
-		session.setAttribute("allDayCourses", allDayCourses);
+		
+		System.out.println(intMyCourses);
+		session.setAttribute("allDayCourses", intMyCourses);
 		session.setAttribute("myUniquePOI", myUniquePOI);
 		response.sendRedirect("ScheduleMap.jsp");
 	}

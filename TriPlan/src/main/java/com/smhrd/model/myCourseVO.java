@@ -14,11 +14,11 @@ import lombok.RequiredArgsConstructor;
 public class myCourseVO {
 	private int d_sche_idx;
 	@NonNull
-	private int bc_idx;
+	private int mt_idx;
 	@NonNull
-	private int day;
+	private int day_sched;
 	@NonNull
-	private String bc_course;
+	private String mt_course;
 	@NonNull
 	private String user_id;
 }

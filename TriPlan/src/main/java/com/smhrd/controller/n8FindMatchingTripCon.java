@@ -40,10 +40,10 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		n1UserDAO userDao = new n1UserDAO();
 		String user_id = loginUser.getUser_id();
 		n3PreferenceVO preferenceVO = (n3PreferenceVO) userDao.PreferenceToPrint(user_id);
-
+		System.out.println(preferenceVO);
 		String startDate = scheduleVO.getMt_st_dt();
 		String endDate = scheduleVO.getMt_ed_dt();
-
+		int mt_idx = scheduleVO.getMt_idx();
 		int period = 4;//수정 필요
 		System.out.println("날짜 빼기 해서 period 구하는 식으로 수정!!");
 
@@ -59,7 +59,6 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		String[] SleepPreference = preferenceVO.getSleep().split("#");
 		String people = preferenceVO.getPeople();
 		System.out.println("프리 확인 " + Arrays.toString(PoiPreference));
-		System.out.println("people null?" + people);
 		ArrayList<Integer> allIdx = new ArrayList<>();
 		for(n7TourCourseVO p : PotentialMatches) {
 			allIdx.add(p.getBc_idx());
@@ -223,15 +222,19 @@ public class n8FindMatchingTripCon extends HttpServlet {
         
         for(autoCourseVO course:courseDetail) {
         	System.out.println(course.getBc_course());
+        	
         }
+        
+        
         
         myCourseVO myCourseDetail = new myCourseVO();
         myCourseDetail.setUser_id(user_id);
-        myCourseDetail.setBc_idx(maxKey);
+        myCourseDetail.setMt_idx(mt_idx);//maxKey말고 마이투어 인덱스로 해야되는데 시퀀스로 생성된 걸 어떻게 가져오지?
         int cnt = 0;
         for(int i=0; i< courseDetail.size();i++) {
-        	myCourseDetail.setD_sche_idx((i+1));
-        	myCourseDetail.setBc_course(courseDetail.get(i).getBc_course());
+        	myCourseDetail.setDay_sched((i+1));
+        	myCourseDetail.setMt_course(courseDetail.get(i).getBc_course());
+        	System.out.println(myCourseDetail.toString());
         	cnt += dao.insertCourseDetail(myCourseDetail);
         }
         
@@ -239,6 +242,16 @@ public class n8FindMatchingTripCon extends HttpServlet {
         	//unique poi list
         	System.out.println("성공");
         }
+        
+        System.out.println(mt_idx);
+        session.setAttribute("mt_idx", mt_idx);
+		String targetUrl = "/loadScheduleCon"; // 대상 서블릿의 URL 경로
+
+		// 리다이렉트할 URL을 생성합니다.
+		String redirectUrl = response.encodeRedirectURL(request.getContextPath() + targetUrl);
+
+		// 생성한 URL로 리다이렉트합니다.
+		response.sendRedirect(redirectUrl);
         
         //
 

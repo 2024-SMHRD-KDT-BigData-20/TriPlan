@@ -18,6 +18,7 @@
  		<typeAlias type="com.smhrd.model.n3PreferenceVO" alias="PreferenceVO"/>
  		<typeAlias type="com.smhrd.model.n7TourCourseVO" alias="TourCourseVO"/>
  		<typeAlias type="com.smhrd.model.tagInfoVO" alias="tagInfoVO"/>
+ 		<typeAlias type="com.smhrd.model.myCourseVO" alias="myCourseVO"/>
 	
 	</typeAliases>
 

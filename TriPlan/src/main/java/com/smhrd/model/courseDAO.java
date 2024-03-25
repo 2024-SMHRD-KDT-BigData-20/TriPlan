@@ -114,6 +114,13 @@ public class courseDAO {
 		return cnt;
 	}
 
+	public List<myCourseVO> loadMyCourse(int mt_idx) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<myCourseVO> myCourse = sqlSession.selectList("com.smhrd.db.courseMapper.loadSchedule", mt_idx);
+		sqlSession.close();
+		return null;
+	}
+
 
 
 }
