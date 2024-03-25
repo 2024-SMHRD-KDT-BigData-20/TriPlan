@@ -50,5 +50,17 @@
     <button id="modify">수정하기</button>
     <button id="create">여행 일정 생성하기</button>
     </div>
+    
+<%
+    n3PreferenceVO preferenceVO = new n3PreferenceVO();
+    preferenceVO.setCheckboxValue("true");
+    preferenceVO.setRadioValue("value1");
+
+    request.setAttribute("preferenceVO", preferenceVO);
+%>
+
+<a href="n3Preference.jsp">수정하기</a>
+
+    
 </body>
 </html>

@@ -872,5 +872,53 @@ survey.addEventListener("submit", handleFormSubmit);
 const survey = Survey(document.querySelector(".survey"));
 
     </script>
+
+    <%
+	// 세션에서 저장값 가져오기
+    String checkboxValue = (String) session.getAttribute("checkboxValue");
+    String radioValue = (String) session.getAttribute("radioValue");
+	%>
+	      
+
+	
+	<script>
+
+	function displayPreviousData() { // 회원가입시 입력했던 내용 표시
+	  const question1_1 = formData[1].answer.question_1_1;
+	  const question1_2 = formData[1].answer.question_1_2;
+	  const question1_3 = formData[1].answer.question_1_3;
+	  const question2 = formData[2].answer.question_2;
+	  const question3 = formData[3].answer.question_3;
+	  const question4 = formData[4].answer.question_4;
+
+  // 각 질문에 대한 응답을 화면에 표시
+  document.querySelector(`input[name='question_1_1'][value='${question1_1}']`).checked = true;
+  document.querySelector(`input[name='question_1_2'][value='${question1_2}']`).checked = true;
+  document.querySelector(`input[name='question_1_3'][value='${question1_3}']`).checked = true;
+
+  question2.forEach(value => {
+    document.querySelector(`input[name='question_2'][value='${value}']`).checked = true;
+  });
+
+  question3.forEach(value => {
+    document.querySelector(`input[name='question_3'][value='${value}']`).checked = true;
+  });
+
+  question4.forEach(value => {
+    document.querySelector(`input[name='question_4'][value='${value}']`).checked = true;
+  });
+}
+	
+
+
+// 페이지 로드 시 이전에 입력한 데이터 표시
+window.onload = function() {
+  displayPreviousData();
+};
+</script>
+
+<a href="#">수정완료</a>
+
+
 </body>
 </html>

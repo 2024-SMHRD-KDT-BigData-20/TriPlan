@@ -27,5 +27,8 @@ public class n3PreferenceVO {
 	String food; 
 	@NonNull
 	String sleep;
-
+	@NonNull
+	private String checkboxValue;
+	@NonNull
+    private String radioValue;
 }
