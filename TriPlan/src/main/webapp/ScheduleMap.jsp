@@ -130,11 +130,26 @@ body {
 	font-weight: 500;
 	color: black;
 }
+.name.search {
+	width: 100%;
+	text-align: center;
+	font-family: poppins;
+	font-size: 14px;
+	font-weight: 500;
+	color: black;
+}
+.tag-name {
+	margin-top: 10px;
+	font-size: 10px;
+	color: #757575;
+	text-align: center;
+}
 /* 설명 및 운영 시간 스타일 */
-.description, .operation-time {
+.description, .operation-time, .address {
 	margin-top: 10px;
 	font-size: 14px;
 	color: #757575;
+	text-align: center;
 }
 
 .item span {
@@ -173,9 +188,20 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 .list-group-item {
 	background: #fff;
 	margin: 20px;
-	padding: 20px;
+	padding: 10px;
 	border-radius: 5px;
 	cursor: pointer;
+display: flex;
+flex-direction: row;
+}
+.list-group-item.search {
+background: #fff;
+margin: 20px;
+padding: 10px;
+border-radius: 5px;
+cursor: pointer;
+display: flex;
+flex-direction: row;
 }
 
 .daycount {
@@ -190,9 +216,21 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	float: right;
 }
 
-.Img {
-	float: left;
+.Img{
+	width: 70%;	
+	height: 100%;
+	object-fit: cover;
+	display: flex;	
+	margin-right: 10px;
 }
+.Img.search{
+	width: 10%;	
+	height: 5%;
+	object-fit: cover;
+	display: flex;	
+	margin-right: 10px;
+}
+
 
 .material-icons-round {
 	display: flex;
@@ -206,6 +244,16 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	transform: translate(-50%, 0) scale(1.15);
 	pointer-events: none;
 	z-index: 1000;
+      }
+.searchBox{
+	width: 70%;
+	height: 40px;
+}
+.place-info{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	
 }
 
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
@@ -348,6 +396,29 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 			</div> -->
 			<!-- 일정 장소별 드래그 앤 드롭 -->
 			<div class="container">
+			
+								<div class="column"><h1>장소검색</h1> <!-- 장소검색하는 컬럼생성 -->
+						<br>
+						<!-- 검색창 출력 -->
+						<input type="text" class="search">
+						<!-- 검색결과에 따른 항목 출력 -->
+						<div class="list-group-item search">
+							<div class="Img search">
+								<img src="hotelImg/100-코델리아리조트.jpg" alt="테스트"
+								width="100%" height="100%">
+							</div>
+							<!-- 장소정보 출력 -->
+							<div class="place-info">	
+							<div class="name search">스마트인재개발원</div> <!-- 장소이름 -->
+							<div class="tag-name" id="Tag">숙소ㆍ음식점<!-- ㆍ = 구분자? 이곳에 장소에 해당하는 태그 명 들어가야 함 --></div> <!-- 장소설명-->
+							<div class="address" style="display : none">주소 들어가야함 <!-- 마우스 드롭하면 보임 --></div>
+						</div>	
+						<span class="material-icons-round">drag_indicator</span>
+						</div>
+						</div>
+			
+			
+			
 
 				<%
 				List<List<Integer>> allDayCourses = (List<List<Integer>>) session2.getAttribute("allDayCourses");
@@ -391,17 +462,20 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 
 						<!-- 이미지 요소 -->
 						<div class="Img">
-							<img src=<%="poiImgs/" + poi.getPoi_img_location()%> width=150px
-								height="110px" alt=<%=poi.getPoi_name()%>>
+							<img src=<%="poiImgs/" + poi.getPoi_img_location()%> width=100%
+								height="100%" alt=<%=poi.getPoi_name()%>>
 						</div>
+						<div class="place-info">
 						<div class="name"><%=poi.getPoi_name()%></div>
 						<div class="description"><%=poi.getPoi_desc()%></div>
-						<div class="operation-time"><%=poi.getPoi_runingtime()%></div>
+						<div class="addrees"><%= poi.getPoi_addr() %></div>
+						<%-- <div class="operation-time"><%=poi.getPoi_runingtime()%></div> --%>
 
 						<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
-						<div class="operation-time"><%=poi.getPoi_lat()%></div>
+						<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div>
 						<div class="operation-time"><%=poi.getPoi_lng()%></div>
 						--%>
+						</div>
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<span class="material-icons-round">drag_indicator</span>
 					</div>
@@ -539,10 +613,29 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	
 	document.addEventListener("mousedown", (e) => {
 		const drag_item = e.target.closest(".list-group-item");
+		const drag_search = e.target.closest(".list-group-item.search");
 		current_item = drag_item;
+		search_item = drag_search;
 		current_item.classList.add("insert-animation");
 		iniY = e.clientY;
 	})
+	    document.addEventListener("drop", (e) => {
+            if(current_item){
+                current_item.classList.remove("insert-animation");
+		if(search_item != null){
+		search_item.classList.remove("search");
+		document.querySelector(".name.search").classList.remove("search");
+		document.querySelector(".Img.search").classList.remove("search");
+		document.getElementById('Tag').innerText = ""
+		document.querySelector(".address").style.display = 'block';
+		/* document.querySelector(".tag-name").innerText = "우리집이요"; */
+		/* document.querySelector(".tag-name").classList.replace("tag-name", "description") */
+		}
+                update();
+                console.log("드래그종료");
+                e.preventDefault();
+            }
+        });
 	
 /*        document.addEventListener("mouseup", (e) => {
           if(currentItem){
