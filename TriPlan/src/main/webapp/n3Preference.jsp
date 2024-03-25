@@ -466,7 +466,7 @@
             
             <div class="survey__panel__impormation"></div>
             <div class="survey__group">
-            <label for="style" id="style" class="style">ø©«‡¿ª ¥Ÿ¥“∂ß?</label><br>
+            <label for="pace" id="pace" class="pace">ø©«‡¿ª ¥Ÿ¥“∂ß?</label><br>
               <div class="form-group">
                 <input id="slow" type="radio" name="question_1_3" value="slow" />
                 <label for="slow">¥¿±ﬂ«œ∞‘ ¥Ÿ≥‡ø‰</label>

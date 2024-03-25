@@ -50,7 +50,5 @@
     <button id="modify">수정하기</button>
     <button id="create">여행 일정 생성하기</button>
     </div>
-
-
 </body>
 </html>

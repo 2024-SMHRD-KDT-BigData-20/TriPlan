@@ -16,7 +16,7 @@ public class n3PreferenceVO {
 	@NonNull
 	String user_id;
 	@NonNull
-	String people;
+	String companion;
 	@NonNull
 	String transportation; 
 	@NonNull
