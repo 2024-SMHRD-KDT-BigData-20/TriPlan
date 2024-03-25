@@ -379,7 +379,7 @@ button {
 				/* String endDate = new SimpleDateFormat("yyyy-MM-dd").format(courseInfo.get(6));
 				 */
 		        
-%>		        
+%>		     
 				
     <div class="container">
         <div class="restaurant-container">
