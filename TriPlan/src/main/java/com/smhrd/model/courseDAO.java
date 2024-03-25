@@ -100,6 +100,20 @@ public class courseDAO {
 		return relatedTags;
 	}
 
+	public List<autoCourseVO> importCourseDetail(int matchingTrip) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<autoCourseVO> courseDetail = sqlSession.selectList("com.smhrd.db.courseMapper.courseDetail",matchingTrip);
+		sqlSession.close();
+		return courseDetail;
+	}
+
+	public int insertCourseDetail(myCourseVO myCourseDetail) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int cnt = sqlSession.insert("com.smhrd.db.courseMapper.myCourseDetail", myCourseDetail);
+		sqlSession.close();
+		return cnt;
+	}
+
 
 
 }

@@ -2,29 +2,23 @@ package com.smhrd.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import oracle.sql.NUMBER;
-
 
 @Data
-
 @NoArgsConstructor
-
-@AllArgsConstructor//모든 파라미터
+@AllArgsConstructor
 @RequiredArgsConstructor
 
-public class autoCourseVO {
+public class myCourseVO {
+	private int d_sche_idx;
 	@NonNull
-	int d_sche_idx;
+	private int bc_idx;
 	@NonNull
-	int bc_idx;
-	int day;
+	private int day;
 	@NonNull
-	String bc_course;
-	/*
-	 * String bc_name; int bc_period; String bc_theme;
-	 */
+	private String bc_course;
+	@NonNull
+	private String user_id;
 }
