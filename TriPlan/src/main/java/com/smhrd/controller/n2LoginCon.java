@@ -29,7 +29,7 @@ public class n2LoginCon extends HttpServlet {
 
 		n1UserVO loginUserVO = dao.Login(login);
 		
-		System.out.println("확인" +dao.PrefIdx(user_id).toString());
+//		System.out.println("확인" +dao.PrefIdx(user_id).toString());
 		HttpSession session = request.getSession();
 		//loginVO가 잘 불러와지면 loginVO session에 저장해 다음 페이지로, 안 되면 로그인 페이지로 돌아가기
 		if (loginUserVO!=null) {
