@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.mapper.SearchMapper">
+
+
+    <!-- POI 정보 조회 -->
+    <select id="selectPoiInfo" resultType="com.smhrd.model.PoiVO">
+        SELECT poi_idx, poi_name, poi_tag
+        FROM poi_info
+        LEFT JOIN poi_tags ON poi.id = poi_tags.poi_id
+        WHERE name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+</mapper>

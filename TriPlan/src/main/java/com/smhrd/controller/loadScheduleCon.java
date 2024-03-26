@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.smhrd.model.courseDAO;
 import com.smhrd.model.myCourseVO;
+import com.smhrd.model.n4MyTripsVO;
 import com.smhrd.model.n5CreateScheduleVO;
 import com.smhrd.model.PoiVO;
 import com.smhrd.model.autoCourseVO;
@@ -46,6 +47,7 @@ public class loadScheduleCon extends HttpServlet {
 		// 4-1. DAO 가서 회원가입 메소드 작성 DataAccessObject
 		// 4-2. DAO 객체 생성
 		courseDAO cDao = new courseDAO();
+		n4MyTripsVO currentTrip = cDao.currentTrip(mt_idx);
 		List<myCourseVO> myCourse = cDao.loadMyCourse(mt_idx);
 		System.out.println("왜 null이야?" + myCourse);
 		//장소 순서대로 (스플릿 결과) int idx 리스트 담을 리스트
@@ -104,6 +106,7 @@ public class loadScheduleCon extends HttpServlet {
 		
 		System.out.println(intMyCourses);
 		session.setAttribute("mt_idx", mt_idx);
+		session.setAttribute("currentTrip", currentTrip);
 		session.setAttribute("allDayCourses", intMyCourses);
 		session.setAttribute("myUniquePOI", myUniquePOI);
 		response.sendRedirect("ScheduleMap.jsp");

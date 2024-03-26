@@ -7,6 +7,76 @@
 	구분 mapper.xml 경로와 동일해야 함 -->
 
 <mapper namespace="com.smhrd.db.courseMapper">
+<select id="searchResult" parameterType="String" resultType="PoiVO">
+SELECT idx,
+       name,
+       tag,
+       addr,
+       desc1,
+       lat,
+       lng,
+       photo
+FROM (
+    SELECT POI_IDX AS idx,
+           POI_NAME AS name,
+           poi_tag AS tag,
+           POI_ADDR AS addr,
+           POI_DESC AS desc1,
+           POI_LAT AS lat,
+           POI_LNG AS lng,
+           POI_PHOTO AS photo,
+           (REGEXP_COUNT(POI_NAME, #{search}) * 3 + REGEXP_COUNT(poi_tag, #{search}) * 2 + REGEXP_COUNT(poi_desc, #{search})) AS count_sum
+    FROM poi_info
+
+    UNION ALL
+
+    SELECT HOTEL_IDX,
+           HOTEL_NAME,
+           hotel_tag,
+           HOTEL_ADDR,
+           HOTEL_COMMENT,
+           LAT,
+           LNG,
+           HOTEL_PHOTO,
+           (REGEXP_COUNT(HOTEL_NAME, #{search}) * 3 + REGEXP_COUNT(hotel_tag, #{search}) * 2 + REGEXP_COUNT(HOTEL_COMMENT, #{search})) AS count_sum
+    FROM hotel_info
+
+    UNION ALL
+
+    SELECT RESTAU_IDX,
+           RESTAU_NAME,
+           RESTAU_TAG,
+           RESTAU_ADDR,
+           RESTAU_DESC,
+           LAT,
+           LNG,
+           RESTAU_PHOTO1,
+           (REGEXP_COUNT(RESTAU_NAME, #{search}) * 3 + REGEXP_COUNT(RESTAU_TAG, #{search}) * 2 + REGEXP_COUNT(RESTAU_desc, #{search})) AS count_sum
+    FROM RESTAURANT_INFO
+
+    UNION ALL
+
+    SELECT SHOP_IDX,
+           SHOP_NAME,
+           SHOP_TAG,
+           SHOP_ADDR,
+           SHOP_DESC,
+           LAT,
+           LNG,
+           SHOP_PHOTO,
+           (REGEXP_COUNT(SHOP_NAME, #{search}) * 3 + REGEXP_COUNT(SHOP_desc, #{search}) * 2 + REGEXP_COUNT(SHOP_TAG, #{search})) AS count_sum
+    FROM shop_info
+    ORDER BY count_sum DESC
+
+)
+WHERE ROWNUM &lt;= 5;
+
+</select>
+
+<select id="currentTrip" parameterType = "int" resultType = "MyTripsVO">
+select * from my_tour_course_info where mt_idx = #{mt_idx}
+</select>
+
 <update id="myCourseUpdate" parameterType="myCourseVO">
 update my_daily_schedule_info set mt_course = #{mt_course} where mt_idx = #{mt_idx} and DAY_SCHE = #{day_sche}
 </update>

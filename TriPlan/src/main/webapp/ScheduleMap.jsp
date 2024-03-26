@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.smhrd.model.n4MyTripsVO"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="com.smhrd.model.PoiVO"%>
@@ -320,7 +323,9 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
         var positions = [];
         
         <%HttpSession session2 = request.getSession();
-List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
+List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");
+n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
+%>
         <%-- 
         <%for (int i = 0; i < myUniquePOI.size(); i++) {
 			PoiVO poi = (PoiVO) myUniquePOI.get(i);%>
@@ -437,9 +442,15 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
     </div>
 		<div id="right_col_inner">
 			<div class="fixed-element">
-				<h2><%="여행주제"%></h2>
-				poiList확인<%=myUniquePOI.size()%>
-				<p>2024-03-19 ~ 2024-03-20 (1박2일)</p>
+				<h2><%=currentTrip.getMt_name()%></h2>
+				<%SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+				Date startDate = sdf.parse(currentTrip.getMt_st_dt());
+				Date endDate = sdf.parse(currentTrip.getMt_ed_dt());
+				long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
+				double diffDays = (double) diffSec / (60 * 60 * 24);
+				int period = (int) Math.ceil(diffDays);
+				%>
+				<p><%=startDate%> ~ <%=endDate%> (<%=period-1%>박<%=period%>일)</p>
 				<button type="button" onclick="checkPOI()">저장</button>
 			</div>
 			<!-- <h3>
@@ -456,7 +467,8 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 					<!-- 장소검색하는 컬럼생성 -->
 					<br>
 					<!-- 검색창 출력 -->
-					<input type="text" class="search">
+					<input type="text" class="search" name = "search">
+					<button onclick=search()>검색</button>
 					<!-- 검색결과에 따른 항목 출력 -->
 					<div class="list-group-item search">
 						<div class="Img search">
@@ -714,7 +726,83 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 	    drawPolyline(newData.map(function (data) { return {lat: data.poi_lat, lng: data.poi_lng}; }), map);
 	}
 	</script>
-
+	<script type="text/javascript">
+	let searchResult = []
+	function search(){
+	 	$.ajax({
+		url : "searchCon",
+		type : "get",
+		//보내는 데이터
+		//js 객체 {key:value, key:value}
+		//key 값이 controller에서 name으로 인식
+		//$(선택자)
+		data : {"search" :$("input[name=search]").val()},////
+		//받아오는 데이터 타입
+ 		dataType : "json", 
+		success : function(res){
+			console.log(res)
+			console.log(typeof(res));
+			for(let i=0; i<5;i++){
+				searchResult.push(res[i]);
+			}
+			console.log("검색 결과",searchResult);
+		},
+		error: function(){
+			alert("통신 실패")
+		}
+	}); //ajax 끝 
+		console.log("서치 결과 나옴");
+		return searchResult;
+	}
+	function printSearch(){
+	    let res = search();
+	    let resultList = document.getElementById("searchResultList"); // 검색 결과를 표시할 리스트 요소를 가져옴
+	    resultList.innerHTML = ""; // 이전 검색 결과를 초기화
+	    
+	    for(let poi of res){
+	        let listItem = document.createElement("div"); // 새로운 리스트 아이템 생성
+	        listItem.classList.add("list-group-item", "search"); // 클래스 추가
+	        
+	        let imgDiv = document.createElement("div"); // 이미지 요소를 감싸는 div
+	        imgDiv.classList.add("Img", "search");
+	        let img = document.createElement("img"); // 이미지 요소 생성
+	        img.src = "hotelImg/" + poi.poi_img; // 이미지 경로 설정
+	        img.alt = poi.poi_name; // 대체 텍스트 설정
+	        img.width = "100%";
+	        img.height = "100%";
+	        imgDiv.appendChild(img); // 이미지를 감싸는 div에 추가
+	        listItem.appendChild(imgDiv); // 리스트 아이템에 이미지를 감싸는 div 추가
+	        
+	        let placeInfoDiv = document.createElement("div"); // 장소 정보를 담는 div
+	        placeInfoDiv.classList.add("place-info");
+	        
+	        let nameDiv = document.createElement("div"); // 장소 이름
+	        nameDiv.classList.add("name", "search");
+	        nameDiv.textContent = poi.poi_name;
+	        placeInfoDiv.appendChild(nameDiv);
+	        
+	        let tagNameDiv = document.createElement("div"); // 태그 명
+	        tagNameDiv.classList.add("tag-name");
+	        tagNameDiv.textContent = poi.poi_tag;
+	        placeInfoDiv.appendChild(tagNameDiv);
+	        
+	        let addressDiv = document.createElement("div"); // 장소 주소
+	        addressDiv.classList.add("address");
+	        addressDiv.textContent = poi.address;
+	        addressDiv.style.display = "none";
+	        placeInfoDiv.appendChild(addressDiv);
+	        
+	        listItem.appendChild(placeInfoDiv); // 리스트 아이템에 장소 정보를 담는 div 추가
+	        
+	        let dragIndicatorSpan = document.createElement("span"); // 드래그 인디케이터
+	        dragIndicatorSpan.classList.add("material-icons-round");
+	        dragIndicatorSpan.textContent = "drag_indicator";
+	        listItem.appendChild(dragIndicatorSpan); // 리스트 아이템에 드래그 인디케이터 추가
+	        
+	        resultList.appendChild(listItem); // 리스트에 아이템 추가
+	    }
+	}
+	</script>
 	<script>
 	// 아이템들의 초기 순서를 저장할 배열
 	let itemOrders = [];

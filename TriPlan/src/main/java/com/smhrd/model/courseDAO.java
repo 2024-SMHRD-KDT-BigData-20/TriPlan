@@ -129,6 +129,20 @@ public class courseDAO {
 		return cnt;
 	}
 
+	public n4MyTripsVO currentTrip(int mt_idx) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		n4MyTripsVO vo = sqlSession.selectOne("com.smhrd.db.courseMapper.currentTrip", mt_idx);
+		sqlSession.close();
+		return vo;
+	}
+
+	public List<PoiVO> search(String search) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<PoiVO> searchResult = sqlSession.selectList("com.smhrd.db.courseMapper.currentTrip", search);
+		sqlSession.close();
+		return searchResult;
+	}
+
 
 
 }

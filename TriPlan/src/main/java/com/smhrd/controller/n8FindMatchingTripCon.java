@@ -118,7 +118,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		//Str -> Int idx 형변환
 		for(int i = 0; i<POIsAllCourses.size();i++) {
 			String [] strIdx = POIsAllCourses.get(i);
-			System.out.println("반복문2 " + (i+1)+"번쨰" + Arrays.toString(strIdx));
+			System.out.println("반복문2 " + (i+1)+"번쨰" + allIdx.get(i) + Arrays.toString(strIdx));
 			Integer[] intIdx = new Integer[strIdx.length];
 			for(int j = 0; j< strIdx.length; j++) {
 				System.out.println("반복문3 " + (j+1) +"번째");
@@ -260,6 +260,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
         	//unique poi list
         	System.out.println("성공");
         	String res = gson.toJson(cnt);
+        	out.print(res);
         }
         
         System.out.println(mt_idx);

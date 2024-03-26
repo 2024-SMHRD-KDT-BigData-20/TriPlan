@@ -21,7 +21,7 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="assets/css/loading.css">
 
-<title>Insert title here</title>
+<title>여행 생성 중</title>
 </head>
 <body>
 <!-- <?xml version="1.0" encoding="utf-8"?> -->
@@ -126,7 +126,7 @@ function findMatchignTrip(){
 			console.log(res)
 			console.log(typeof(res));
 			if(parseInt(res) > 0){
-                window.location.href = "loadscheduleCon";
+                window.location.href = "loadScheduleCon";
             }
 		},
 		error: function(){
