@@ -12,6 +12,13 @@
 System.out.println(preferenceVO.toString());
 System.out.println(preferenceVO.getPeople());
 String people = preferenceVO.getPeople();
+String transportation = preferenceVO.getTransportation();
+String pace = preferenceVO.getPace();
+String poi = preferenceVO.getPoi();
+String food = preferenceVO.getFood();
+String sleep = preferenceVO.getSleep();
+
+
 %>
 </head>
 <body>
@@ -42,7 +49,7 @@ String people = preferenceVO.getPeople();
               
               <label for="companion" id="companion" class="companion">동행</label><br>
                 <div class="form-group1">
-                <%if(preferenceVO.getPeople().contains("혼자")) {%>
+                <%if(people.contains("혼자")) {%>
                   <input id="alone" type="radio" name="question_1_1" value="혼자" checked="checked"/>
                   <%}else{ %>
                   <input id="alone" type="radio" name="question_1_1" value="혼자"/>
@@ -58,7 +65,7 @@ String people = preferenceVO.getPeople();
                   <label for="couple">커플</label>
                 </div>
                 <div class="form-group1">
-                <%if(preferenceVO.getPeople().contains("친구")) {%>
+                <%if(people.contains("친구")) {%>
                   <input id="friend" type="radio" name="question_1_1" value="친구" checked="checked"/>
                   <%}else{ %>
                   <input id="friend" type="radio" name="question_1_1" value="친구"/>
@@ -66,15 +73,27 @@ String people = preferenceVO.getPeople();
                   <label for="friend">친구</label>
                 </div>
                 <div class="form-group1">
+                <%if(people.contains("부모")) {%>
+                  <input id="parents" type="radio" name="question_1_1" value="부모" checked="checked" />
+                  <%}else{ %>
                   <input id="parents" type="radio" name="question_1_1" value="부모" />
+                  <%} %>
                   <label for="parents">부모</label>
                 </div>
                 <div class="form-group1">
+                <%if(people.contains("반려동물")) {%>
+                  <input id="pet" type="radio" name="question_1_1" value="반려동물" checked= "checked"/>
+                  <%}else{ %>
                   <input id="pet" type="radio" name="question_1_1" value="반려동물" />
+                  <%} %>
                   <label for="pet">반려동물</label>
                 </div>
                <div class="form-group1">
+               <%if(people.contains("아이")) {%>
+                  <input id="child" type="radio" name="question_1_1" value="어린이" checked= "checked"/>
+                  <%}else{ %>
                   <input id="child" type="radio" name="question_1_1" value="어린이" />
+                  <%} %>
                   <label for="child">아이</label>
                 </div>
               
@@ -85,15 +104,27 @@ String people = preferenceVO.getPeople();
               <div class="survey__group">
               <label for="transportation" id="transportation" class="transportation">이동수단</label><br>
                 <div class="form-group1">
+                  <%if(transportation.contains("뚜벅이")) {%>
+                  <input id="walk" type="radio" name="question_1_2" value="뚜벅이" checked= "checked" />
+                  <%}else{ %>
                   <input id="walk" type="radio" name="question_1_2" value="뚜벅이" />
+                  <%} %>
                   <label for="walk">뚜벅이</label>
                 </div>
                 <div class="form-group1">
+                <%if(transportation.contains("대중교통")) {%>
+                  <input id="public-transport" type="radio" name="question_1_2" value="대중교통" checked="checked"/>
+                  <%}else{ %>
                   <input id="public-transport" type="radio" name="question_1_2" value="대중교통" />
+                  <%} %>
                   <label for="public-transport">대중교통</label>
                 </div>
                 <div class="form-group1">
+                <%if(transportation.contains("주차")) {%>
+                  <input id="car" type="radio" name="question_1_2" value="주차" checked= "checked"/>
+                  <%}else{ %>
                   <input id="car" type="radio" name="question_1_2" value="주차" />
+                  <%} %>
                   <label for="car">자동차</label>
                 </div>
               </div>
@@ -103,11 +134,19 @@ String people = preferenceVO.getPeople();
               <div class="survey__group">
               <label for="pace" id="pace" class="pace">여행을 다닐때?</label><br>
                 <div class="form-group1">
+                 <%if(pace.contains("slow")) {%>
+                  <input id="slow" type="radio" name="question_1_3" value="slow" checked= "checked"/>
+                  <%}else{ %>
                   <input id="slow" type="radio" name="question_1_3" value="slow" />
+                  <%} %>
                   <label for="slow">느긋하게 다녀요</label>
                 </div>
                 <div class="form-group1">
+                <%if(pace.contains("fast")) {%>
+                  <input id="fast" type="radio" name="question_1_3" value="fast" checked= "checked"/>
+                  <%}else{ %>
                   <input id="fast" type="radio" name="question_1_3" value="fast" />
+                  <%} %>
                   <label for="fast">부지런히 다녀요</label>
                 </div>
               </div>
@@ -120,7 +159,7 @@ String people = preferenceVO.getPeople();
               </h2>
               <div class="survey__panel__tourism">
                 <div class="form-group">
-                <%if(preferenceVO.getPoi().contains("체험/액티비티")) {%>
+                <%if(poi.contains("체험/액티비티")) {%>
                   <input type="checkbox" class="checkbox" id="activity" name="question_2" value="체험/액티비티" checked = checked/>
                   <%}else {%>
                   <input type="checkbox" class="checkbox" id="activity" name="question_2" value="체험/액티비티" />
@@ -128,27 +167,51 @@ String people = preferenceVO.getPeople();
                   <label for="activity">체험/액티비티</label>
                 </div>
                 <div class="form-group">
+                <%if(poi.contains("SNS 핫플")) {%>
+                  <input type="checkbox" class="checkbox" id="hotplace" name="question_2" value="SNS 핫플"  checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="hotplace" name="question_2" value="SNS 핫플" />
+                  <%} %>
                   <label for="hotplace">SNS 핫플</label>
                 </div>
                 <div class="form-group">
+                <%if(poi.contains("유명 관광지 필수")) {%>
+                  <input type="checkbox" class="checkbox" id="famous" name="question_2" value="유명 관광지 필수"  checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="famous" name="question_2" value="유명 관광지 필수" />
+                  <%} %>
                   <label for="famous">유명 관광지 필수</label>
                 </div>
                 <div class="form-group">
+                <%if(poi.contains("여유롭게 힐링")) {%>
+                  <input type="checkbox" class="checkbox" id="healing" name="question_2" value="여유롭게 힐링" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="healing" name="question_2" value="여유롭게 힐링" />
+                  <%} %>
                   <label for="healing">여유롭게 힐링</label>
                 </div>
                 <div class="form-group">
+                <%if(poi.contains("문화/예술/역사")) {%>
+                  <input type="checkbox" class="checkbox" id="Culture-Arts-History" name="question_2" value="문화/예술/역사"  checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="Culture-Arts-History" name="question_2" value="문화/예술/역사" />
+                  <%} %>
                   <label for="Culture-Arts-History">문화/예술/역사</label>
                 </div>
                 <div class="form-group">
+                <%if(poi.contains("쇼핑은 열정적으로")) {%>
+                  <input type="checkbox" class="checkbox" id="shopping" name="question_2" value="쇼핑은 열정적으로" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="shopping" name="question_2" value="쇼핑은 열정적으로" />
+                  <%} %>
                   <label for="shopping">쇼핑은 열정적으로</label>
                 </div>
                 <div class="form-group">
+                <%if(poi.contains("여행보다 먹방")) {%>
+                  <input type="checkbox" class="checkbox" id="eat" name="question_2" value="여행보다 먹방" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="eat" name="question_2" value="여행보다 먹방" />
+                  <%} %>
                   <label for="eat">여행보다 먹방</label>
                 </div>
               </div>
@@ -161,39 +224,75 @@ String people = preferenceVO.getPeople();
               </h2>
               <div class="survey__panel__food">
                 <div class="form-group">
+                <%if(food.contains("한식")) {%>
+                  <input type="checkbox" class="checkbox" id="Korean-food" name="question_3" value="한식" checked= "checked" />
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="Korean-food" name="question_3" value="한식" />
+                  <%} %>
                   <label for="Korean-food">한식</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("일식")) {%>
+                  <input type="checkbox" class="checkbox" id="Japanese-food" name="question_3" value="일식" checked= "checked" />
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="Japanese-food" name="question_3" value="일식" />
+                  <%} %>
                   <label for="Japanese-food">일식</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("중식")) {%>
+                  <input type="checkbox" class="checkbox" id="Chinese-food" name="question_3" value="중식" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="Chinese-food" name="question_3" value="중식" />
+                  <%} %>
                   <label for="Chinese-food">중식</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("양식")) {%>
+                  <input type="checkbox" class="checkbox" id="Western-food" name="question_3" value="양식" checked="checked" />
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="Western-food" name="question_3" value="양식" />
+                  <%} %>
                   <label for="Western-food">양식</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("세계음식")) {%>
+                  <input type="checkbox" class="checkbox" id="world-food" name="question_3" value="세계음식" checked="checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="world-food" name="question_3" value="세계음식" />
+                  <%} %>
                   <label for="world-food">세계음식</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("해산물")) {%>
+                  <input type="checkbox" class="checkbox" id="seafood" name="question_3" value="해산물" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="seafood" name="question_3" value="해산물" />
+                  <%} %>
                   <label for="seafood">해산물</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("고기")) {%>
+                  <input type="checkbox" class="checkbox" id="meat" name="question_3" value="고기" checked= "checked" />
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="meat" name="question_3" value="고기" />
+                  <%} %>
                   <label for="meat">고기</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("주류")) {%>
+                  <input type="checkbox" class="checkbox" id="alcohol" name="question_3" value="주류" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="alcohol" name="question_3" value="주류" />
+                  <%} %>
                   <label for="alcohol">주류</label>
                 </div>
                 <div class="form-group">
+                <%if(food.contains("카페")) {%>
+                  <input type="checkbox" class="checkbox" id="cafe" name="question_3" value="카페" checked= "checked" />
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="cafe" name="question_3" value="카페" />
+                  <%} %>
                   <label for="cafe">카페</label>
                 </div>
               </div>
@@ -206,23 +305,43 @@ String people = preferenceVO.getPeople();
               </h2>
               <div class="survey__panel__sleep">
                 <div class="form-group">
+                <%if(sleep.contains("호텔")) {%>
+                  <input type="checkbox" class="checkbox" id="hotel" name="question_4" value="호텔" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="hotel" name="question_4" value="호텔" />
+                  <%} %>
                   <label for="hotel">호텔</label>
                 </div>
                 <div class="form-group">
+                <%if(sleep.contains("리조트")) {%>
+                  <input type="checkbox" class="checkbox" id="resort" name="question_4" value="리조트" checked= "checked" />
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="resort" name="question_4" value="리조트" />
+                  <%} %>
                   <label for="resort">리조트</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="pension" name="question_4" value="펜션" />
+                <%if(sleep.contains("펜션")) {%>
+                  <input type="checkbox" class="checkbox" id="pension" name="question_4" value="펜션" checked= "checked"/>
+                  <%}else {%>
+                  <input type="checkbox" class="checkbox" id="pension" name="question_4" value="펜션"/>
+                  <%} %>
                   <label for="pension">펜션</label>
                 </div>
                 <div class="form-group">
+                <%if(sleep.contains("게스트하우스")) {%>
+                  <input type="checkbox" class="checkbox" id="guest-house" name="question_4" value="게스트하우스" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="guest-house" name="question_4" value="게스트하우스" />
+                  <%} %>
                   <label for="guest-house">게스트하우스</label>
                 </div>
                 <div class="form-group">
+                <%if(sleep.contains("캠핑")) {%>
+                  <input type="checkbox" class="checkbox" id="Camping" name="question_4" value="캠핑" checked= "checked"/>
+                  <%}else {%>
                   <input type="checkbox" class="checkbox" id="Camping" name="question_4" value="캠핑" />
+                  <%} %>
                   <label for="Camping">캠핑</label>
                 </div>
               </div>
