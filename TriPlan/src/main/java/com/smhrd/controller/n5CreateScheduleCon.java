@@ -3,7 +3,10 @@ package com.smhrd.controller;
 import java.io.IOException;
 import java.util.List;
 import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,7 +33,7 @@ public class n5CreateScheduleCon extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		n1UserVO loginUserVO = (n1UserVO)session.getAttribute("loginUserVO");
-			
+		SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 			
 			String user_id = loginUserVO.getUser_id();		
 			String mt_name = request.getParameter("mt_name"); 
@@ -44,6 +47,14 @@ public class n5CreateScheduleCon extends HttpServlet {
 			 */
 			String mt_st_dt = request.getParameter("mt_st_dt");
 			String mt_ed_dt = request.getParameter("mt_ed_dt");
+			try {
+				Date startDate = dates.parse(mt_st_dt);
+				Date endDate = dates.parse(mt_ed_dt);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			/* String mt_select = request.getParameter("mt_select"); */
 			
 			courseDAO cDao = new courseDAO();
@@ -76,8 +87,8 @@ public class n5CreateScheduleCon extends HttpServlet {
 			String redirectUrl = response.encodeRedirectURL(request.getContextPath() + targetUrl);
 
 			// 생성한 URL로 리다이렉트합니다.
-			response.sendRedirect(redirectUrl);
-		
+			//response.sendRedirect(redirectUrl);
+			response.sendRedirect("loading.jsp");
 	}
 
 }

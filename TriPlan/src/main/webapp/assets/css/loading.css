@@ -1,0 +1,26 @@
+@charset "EUC-KR";
+
+body {
+	background-color: black;
+	padding-top: 200px;
+	background: #fff;}
+
+#awyloading {width: 200px; margin: 0 auto; margin-top: 40px; }
+
+.gray-bg{fill:#C4C4C4;}
+
+
+#colorchange {
+    animation: flying 6s;
+}
+
+#plane{
+  fill:#111111;
+  animation: flying 6s;
+}
+
+@keyframes flying {
+  0%{transform: 
+    translate(-80px, 0px)}}
+
+.white-fill{fill:#FFFFFF;}

@@ -1,8 +1,12 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.smhrd.model.PoiVO;
 import com.smhrd.model.autoCourseVO;
 import com.smhrd.model.courseDAO;
@@ -32,6 +37,8 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		System.out.println("[FindMatchingTrip]");
 
 		HttpSession session = request.getSession();
+		SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
+		Gson gson = new Gson();
 		System.out.println("[Session오픈]");
 		n5CreateScheduleVO scheduleVO = (n5CreateScheduleVO)session.getAttribute("scheduleVO");
 		System.out.println("[scheduleVO]");
@@ -41,11 +48,22 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		String user_id = loginUser.getUser_id();
 		n3PreferenceVO preferenceVO = (n3PreferenceVO) userDao.PreferenceToPrint(user_id);
 		System.out.println(preferenceVO);
-		String startDate = scheduleVO.getMt_st_dt();
-		String endDate = scheduleVO.getMt_ed_dt();
+		String start = scheduleVO.getMt_st_dt();
+		String end = scheduleVO.getMt_ed_dt();
+		int period = 0;
+		try {
+			Date startDate = dates.parse(start);
+			Date endDate = dates.parse(end);
+			long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
+			double diffDays = (double) diffSec / (60 * 60 * 24);
+		    period = (int) Math.ceil(diffDays);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int mt_idx = scheduleVO.getMt_idx();
-		int period = 3;//수정 필요
-		System.out.println("날짜 빼기 해서 period 구하는 식으로 수정!!");
+		
+		System.out.println("period 확인: "+period);
 
 		courseDAO dao = new courseDAO();
 		System.out.println("코스 다오 불러옴");
@@ -226,7 +244,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
         }
         
         
-        
+        PrintWriter out = response.getWriter();
         myCourseVO myCourseDetail = new myCourseVO();
         myCourseDetail.setUser_id(user_id);
         myCourseDetail.setMt_idx(mt_idx);//maxKey말고 마이투어 인덱스로 해야되는데 시퀀스로 생성된 걸 어떻게 가져오지?
@@ -241,6 +259,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
         if(cnt==courseDetail.size()) {
         	//unique poi list
         	System.out.println("성공");
+        	String res = gson.toJson(cnt);
         }
         
         System.out.println(mt_idx);
@@ -251,7 +270,8 @@ public class n8FindMatchingTripCon extends HttpServlet {
 		String redirectUrl = response.encodeRedirectURL(request.getContextPath() + targetUrl);
 
 		// 생성한 URL로 리다이렉트합니다.
-		response.sendRedirect(redirectUrl);
+//		response.sendRedirect(redirectUrl);
+        
         
         //
 
