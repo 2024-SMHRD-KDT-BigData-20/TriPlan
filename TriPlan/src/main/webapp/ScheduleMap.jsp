@@ -10,6 +10,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<link rel="stylesheet" href="style.css">
 <!DOCTYPE html>
 <html>
 <head>
@@ -259,6 +260,21 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	flex-direction: column;
 	width: 100%;
 }
+.delete{
+	position: absolute;
+	right: 20px;
+	height: 20px;
+	font-size: 15px;
+	display: flex;
+	text-align: center;
+	flex-direction: row;
+	background-color: #ddd;
+	justify-content: center;
+	border-radius: 50px;
+	width: 10%;
+	margin: 0;
+	margin-right: 15px;
+}
 
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
@@ -365,6 +381,7 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 <script src="assets/js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
+<script src="https://kit.fontawesome.com/5366f35670.js" crossorigin="anonymous"></script>
 
 
 </head>
@@ -385,6 +402,20 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 
 
 	<div id="right_col">
+		    <div class="navbar">
+        <div class="navbar___logo">
+            <i class="fa-brands fa-wordpress"></i>
+            <a href="">TriPlan</a>
+        </div>
+
+        <ul class="navbar___menu">
+            <li><a href="">홈</a></li>
+            <li><a href="">일정목록</a></li>
+            <li><a href="">스케쥴메이커</a></li>
+            <li><a href="">설정</a></li>
+            <li><a href="">블라블라</a></li>
+        </ul>
+    </div>
 		<div id="right_col_inner">
 			<div class="fixed-element">
 				<h2><%="여행주제"%></h2>
@@ -473,7 +504,7 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 
 					<div class="list-group-item" draggable="true"
 						id=<%=poi.getPoi_idx()%> onclick="mouse()">
-
+						<p class="delete" id="del" type="button" onclick="deletePoi()">삭제</p>
 						<!-- 이미지 요소 -->
 						<div class="Img">
 							<img src=<%="poiImgs/" + poi.getPoi_img_location()%> width=100%
@@ -685,16 +716,6 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 			console.log(testOrder); */
 	</script>
 	<script>
-  
-
-/* 	const drag_item = e.target.closest(".list-group-item")
-	
-	drag_item.addEventListener("mousedown",(e) => {
-		current_item = drag_item;
-		current_item.classList.add("insert-animation");
-		iniY=e.clientY;
-	}) */
-	
 	document.addEventListener("mousedown", (e) => {
 		const drag_item = e.target.closest(".list-group-item");
 		const drag_search = e.target.closest(".list-group-item.search");
@@ -707,14 +728,17 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
         if(current_item){
                 current_item.classList.remove("insert-animation");
 		if(search_item != null){
+			if(document.querySelector("#result1").parentElement.innerText.includes("장소검색")){
+				alert("원하는 일정으로 드래그 해주세요")
+			}else{
 		search_item.classList.remove("search");
 		document.querySelector(".name.search").classList.remove("search");
 		document.querySelector(".Img.search").classList.remove("search");
-		document.getElementById('Tag').innerText = ""
+		document.getElementById('Tag').innerText = "";
 		document.querySelector(".address").style.display = 'block';
-		/* document.querySelector(".tag-name").innerText = "우리집이요"; */
-		/* document.querySelector(".tag-name").classList.replace("tag-name", "description") */
+			}
 		}
+		
                 saveItemOrder();//일정 순서 바뀐대로 가져오기
 				update();//해당 PoiVO가져오기
 				checkPOI();//가져온 정보로 맵 출력
@@ -722,16 +746,23 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
                 e.preventDefault();
             }
         });
-	
-/*        document.addEventListener("mouseup", (e) => {
-          if(currentItem){
-          const drag_item = e.target.closest(".list-group-item");
-          current_item = drag_item;
-          current_item.classList.add("mouseup-success");
-          current_item.classList.remove("insert-animation");
-          }
+			 document.addEventListener('DOMContentLoaded', function() {
+			  // 상위 요소에 이벤트 리스너를 추가합니다. 여기서는 document를 사용했지만,
+			  // 성능을 위해 가능한 한 가까운 부모 요소에 추가하는 것이 좋습니다.
+			  document.addEventListener('click', function(e) {
+			    // 클릭된 요소가 삭제 버튼인지 확인합니다.
+			    if (e.target && e.target.classList.contains('delete')) {
+			      // 삭제 버튼의 부모 요소를 찾아 삭제합니다.
+			      // 이 예제에서는 'list-group-item' 클래스를 가진 부모 요소를 삭제하려고 합니다.
+			      // 이를 위해 closest 메소드를 사용하여 가장 가까운 해당 클래스 요소를 찾습니다.
+			      var toDelete = e.target.closest('.list-group-item');
+			      if (toDelete) {
+			        toDelete.remove(); // 요소를 삭제합니다.
+			      }
+			    }
+			  });
+			});
 
-       }); */
 
 
     const columns = document.querySelectorAll(".column");
@@ -752,31 +783,7 @@ columns.forEach((column) => {
                 event.preventDefault();
             });
         }
-    });
-    
-    
-/*     document.querySelectorAll(".list-group-item.insert-animation").forEach(function(event){
-        event.addEventListener("mouseup", function(){
-        	console.log("마우스 뗌!!");
-        });
-    }); */
-    
-/*     	document.addEventListener("mouseup", (e) => {
-    		if(currentItem){
-    			console.log("성공");
-    		}
-
-    	}) */
-    
-    
-    
-/* 	$(".list-group-item").mouseup(function(){
-		console.log("asdfasdf");
-	});
- */	
-    
-    
-    
+    });  
 </script>
 </body>
 </html>
