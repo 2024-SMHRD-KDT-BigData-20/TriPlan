@@ -71,7 +71,7 @@ public class n5CreateScheduleCon extends HttpServlet {
 
 			session.setAttribute("scheduleVO", ScheduleVO);
 //			String targetUrl = "/n6PrintPreferenceCon"; // 대상 서블릿의 URL 경로
-			String targetUrl = "/n8FindMatchingTripCon";
+			String targetUrl = "/n6PrintPreferenceCon";
 			// 리다이렉트할 URL을 생성합니다.
 			String redirectUrl = response.encodeRedirectURL(request.getContextPath() + targetUrl);
 
