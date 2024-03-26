@@ -284,7 +284,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
         
         <%HttpSession session2 = request.getSession();
 List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
-        
+        <%-- 
         <%for (int i = 0; i < myUniquePOI.size(); i++) {
 			PoiVO poi = (PoiVO) myUniquePOI.get(i);%>
                 positions.push({
@@ -348,7 +348,7 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
                 m.infoWindow.setVisible(false);
                 m.marker.setVisible(true);
             });
-        });
+        }); --%>
     }
     </script>
 <!-- 지도 함수 끝 -->
@@ -578,12 +578,67 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 		            poi_lng = detail.poi_lng;
 		            console.log(poi_lat," ",poi_lng);
 		            //여기에 맵 추가?
-		            
+	                addMarkerToMap(poi_lat, poi_lng, detail.poi_name);
+
 		        }
 		    }
 		}
 	}
 
+	function createMarkerAndInfoWindow(position, info, map) {
+	    let marker = new Tmapv2.Marker({
+	        position: new Tmapv2.LatLng(position.lat, position.lng),
+	        map: map
+	    });
+
+	    let infoWindow = new Tmapv2.InfoWindow({
+	        position: new Tmapv2.LatLng(position.lat, position.lng),
+	        content: info,
+	        border: "1px solid #2c81ba",
+	        visible: false,
+	        map: map
+	    });
+
+	    marker.addListener("click", function () {
+	        markers.forEach(function (m) {
+	            m.infoWindow.setVisible(false);
+	            m.marker.setVisible(true);
+	        });
+	        marker.setVisible(false);
+	        infoWindow.setVisible(true);
+	    });
+
+	    markers.push({ marker: marker, infoWindow: infoWindow });
+	}
+
+	function drawPolyline(positions, map) {
+	    let linePath = positions.map(function (position) {
+	        return new Tmapv2.LatLng(position.lat, position.lng);
+	    });
+
+	    new Tmapv2.Polyline({
+	        path: linePath,
+	        strokeColor: "#FF0000",
+	        strokeWeight: 3,
+	        map: map
+	    });
+	}
+
+	function updateMarkersAndPolylines(newData) {
+	    // 기존 마커와 폴리라인 제거
+	    markers.forEach(function (m) {
+	        m.marker.setMap(null);
+	        m.infoWindow.setMap(null);
+	    });
+	    markers = [];
+
+	    // 새로운 마커와 폴리라인 생성
+	    newData.forEach(function (data) {
+	        createMarkerAndInfoWindow({lat: data.poi_lat, lng: data.poi_lng}, data.poi_info, map);
+	    });
+
+	    drawPolyline(newData.map(function (data) { return {lat: data.poi_lat, lng: data.poi_lng}; }), map);
+	}
 	</script>
 
 	<script>
