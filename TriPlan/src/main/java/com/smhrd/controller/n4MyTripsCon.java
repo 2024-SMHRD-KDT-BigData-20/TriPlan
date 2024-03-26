@@ -18,17 +18,20 @@ public class n4MyTripsCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[MyTripsCon]");
 		HttpSession session = request.getSession();
 		n1UserVO loginUserVO = (n1UserVO)session.getAttribute("loginUserVO");
 		System.out.println(loginUserVO);
 		
 		String user_id = loginUserVO.getUser_id();
-		
+		System.out.println("아이디 확인: "+user_id);
 		courseDAO dao = new courseDAO();
 		
 		List<n4MyTripsVO> myTrips = dao.MyTrips(user_id);
 		
 		session.setAttribute("myTrips", myTrips);
+		System.out.println(myTrips);
+		System.out.println("세션 확인" + session.getAttribute("myTrips"));
 		
 		response.sendRedirect("MyPage.jsp");
 		

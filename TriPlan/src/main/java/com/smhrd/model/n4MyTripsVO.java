@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class n4MyTripsVO {
 	
 	private int mt_idx;
-	private String name;
+	private String mt_name;
 	private String mt_preference;
 	private String user_id;
 	private String mt_st_dt;

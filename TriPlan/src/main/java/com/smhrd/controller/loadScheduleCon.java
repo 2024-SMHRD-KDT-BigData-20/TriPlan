@@ -39,8 +39,7 @@ public class loadScheduleCon extends HttpServlet {
 		if(session.getAttribute("mt_idx")!=null) {//findMatchingTrip에서 오는 경우
 		mt_idx = (int) session.getAttribute("mt_idx");
 		}else {//MyPage에서 오는 경우
-			mt_idx=218;
-			/* mt_idx = Integer.parseInt(request.getParameter("mt_idx")); */
+			mt_idx = Integer.parseInt(request.getParameter("mt_idx"));
 		}
 
 		System.out.println("mt_idx" + mt_idx);

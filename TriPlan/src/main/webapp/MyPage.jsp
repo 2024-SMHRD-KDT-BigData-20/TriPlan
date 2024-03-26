@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.model.n4MyTripsVO"%>
 <%@page import="com.smhrd.model.n1UserVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Calendar"%>
@@ -15,409 +16,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-@import url("https://fonts.cdnfonts.com/css/proxima-nova-condensed");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  height: 100%; 
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-button {
-  border: none;
-  cursor: pointer;
-}
-
-.container{
-  max-width: 1200px;
-  margin: auto;
-  padding: 10px;
-}
-
-.card-slider {
-  display: flex;
-  white-space: nowrap;
-  overflow-x: auto;
-  margin-top: 10px;
-  gap: 30px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.card-slider::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-.label-container {
-  display: flex;
-  align-items: center;
-}
-
-
-.label-container {
-  display: flex;
-  align-items: center;
-}
-
-.label-container h2 {
-  color: #111;
-  font-family: Poppins, serif;
-  margin-right: auto;
-  font-weight: 600;
-}
-
-.label-container .bi {
-  font-size: 18px;
-}
-
-.label-container button {
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  color: #111;
-  cursor: pointer;
-  padding: 10px;
-  width: fit-content;
-  margin-left: 5px;
-}
-
-.label-container button:disabled {
-  background-color: whitesmoke;
-  cursor: not-allowed;
-  border: none;
-}
-
-.restaurant-card {
-  transition: transform 0.3s ease-in-out;
-  font-family: "Arial", sans-serif;
-  background: transparent;
-}
-
-.restaurant-card:hover {
-  cursor: pointer;
-  transform: scale(0.95);
-}
-
-.image-container {
-  position: relative;
-  display: inline-block;
-}
-
-.image-container img {
-  width: 350px;
-  height: 240px;
-  display: block;
-  border-radius: 20px;
-  object-fit: cover;
-  image-rendering: pixelated;
-}
-
-.image-container::after {
-    content: "";
-    position: absolute;
-    top: 80%;
-    left: 0;
-    right: 0;
-    border: none;
-    border-radius: 0 0 20px 20px;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1)100%);
-}
-
-.discount-badge {
-  position: absolute;
-  color: #fff;
+<link rel="stylesheet" href="assets/css/MyPage.css">
+<style type="text/css">
+.cloudBackground{
+  opacity: 0.5;
+  top: 0;
+  left: 0;
   bottom: 0;
-  left: 10px;
-  padding: 5px;
-  z-index: 2;
-  font-weight: bold;
-  font-size: 24px;
-  font-family: "Proxima Nova Condensed", sans-serif;
+  right: 0;
+  position: absolute; 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' style='margin:auto;background:%237aceff;display:block;z-index:1;position:relative' width='1440' height='1200' preserveAspectRatio='xMidYMid' viewBox='0 0 1440 1200'%3E%3Cg transform=''%3E%3Cg transform='translate(1348.44 656.766)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 656.7658733252151;1440 656.7658733252151' dur='1000s' repeatCount='indefinite' begin='-928.5396197453488s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23bddeff' transform='scale(1.31)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(1003.95 82.2574)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 82.25744745041163;1440 82.25744745041163' dur='1000s' repeatCount='indefinite' begin='-704.8486614428091s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23bddeff' transform='scale(1.31)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(1362.78 298.593)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 298.5927284673415;1440 298.5927284673415' dur='1000s' repeatCount='indefinite' begin='-937.8531963752952s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23bddeff' transform='scale(1.31)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(-79.8387 25.6018)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 25.601835455703004;1440 25.601835455703004' dur='500s' repeatCount='indefinite' begin='-994.5409426551965s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23ffffff' transform='scale(1.54)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(-94.0475 306.697)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 306.696526743258;1440 306.696526743258' dur='500s' repeatCount='indefinite' begin='-989.9277050705398s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23ffffff' transform='scale(1.54)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(1062.69 740.308)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 740.3075527649227;1440 740.3075527649227' dur='500s' repeatCount='indefinite' begin='-865.4903954633284s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23ffffff' transform='scale(1.54)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(299.249 65.7802)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 65.78019416043847;1440 65.78019416043847' dur='333.3333333333333s' repeatCount='indefinite' begin='-407.7459696307133s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23f1f2f3' transform='scale(1.77)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(972.038 1039.03)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 1039.0284866589266;1440 1039.0284866589266' dur='333.3333333333333s' repeatCount='indefinite' begin='-886.7045599125473s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23f1f2f3' transform='scale(1.77)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(996.115 67.7639)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 67.7639117712208;1440 67.7639117712208' dur='333.3333333333333s' repeatCount='indefinite' begin='-558.5827166190247s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23f1f2f3' transform='scale(1.77)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(610.802 551.707)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 551.7067758712957;1440 551.7067758712957' dur='250s' repeatCount='indefinite' begin='-603.3849595526771s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23bddeff' transform='scale(2)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(188.233 631.08)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 631.0801920078885;1440 631.0801920078885' dur='250s' repeatCount='indefinite' begin='-784.7861727902692s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23bddeff' transform='scale(2)'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(809.044 781.176)'%3E%3CanimateTransform attributeName='transform' type='translate' keyTimes='0;1' values='-100 781.1763704177683;1440 781.1763704177683' dur='250s' repeatCount='indefinite' begin='-635.5671233696152s'%3E%3C/animateTransform%3E%3Cpath d='M84.717,33.597c0.791-2.503,1.186-5.138,1.186-7.773C85.903,11.594,74.308,0,60.079,0 c-9.881,0-18.445,5.534-22.793,13.702c-1.581-0.527-3.426-0.791-5.138-0.791c-9.486,0-17.128,7.642-17.128,17.128 c0,1.186,0.132,2.372,0.395,3.426C6.719,34.783,0,42.424,0,51.515C0,61.66,8.169,69.829,18.314,69.829h63.373 C91.831,69.829,100,61.66,100,51.515C99.868,42.556,93.281,35.046,84.717,33.597z' fill='%23bddeff' transform='scale(2)'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
 }
+</style>  
+<!--  	${loginUserVO.user_id}-->
+<%System.out.println("[MyPage]");
+List<n4MyTripsVO> MyTrips = (List<n4MyTripsVO>)session.getAttribute("myTrips"); 
+n1UserVO userVO = (n1UserVO)session.getAttribute("loginUserVO");
+System.out.println("MyTrips확인: "+MyTrips);
 
-.restaurant-name {
-  font-weight: bold;
-  font-size: 24px;
-  margin: 0;
-}
-
-.info-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 16px;
-}
-
-.rating {
-  display: flex;
-  align-items: start;
-  margin-top: 5px;
-  font-weight: semi-bold;
-}
-
-.review-count {
-  margin-left: 5px;
-  font-weight: semi-bold;
-}
-
-.delivery-info {
-  display: flex;
-  font-size: 16px;
-  align-items: center;
-}
-
-.bi-star-fill {
-  color: green;
-}
-
-.bi-dot {
-  font-size: 26px;
-}
+SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 
 
-@media only screen and (min-width: 320px) and (max-width: 767px) {
-
-    .container {
-        max-width: 350px;
-        margin: auto;
-        padding: 10px;
-      }
-      
-      /* Card Slider */
-      
-      .label-container h2 {
-        color: #111;
-        font-family: Poppins, serif;
-        margin-right: auto;
-        font-size: 18px;
-        font-weight: bold;
-      }
-      
-      .label-container i {
-        font-size: 14px;
-      }
-      
-      /* Card Slider */
-      
-      /* Restaurant Card */
-      .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        height: fit-content;
-        gap: 10px;
-        margin-top: 10px;
-      }
-      
-       .image-container img {
-        width: 180px;
-        height: 140px;
-        display: block;
-        border-radius: 20px;
-        object-fit: cover;
-        image-rendering: pixelated;
-      }
-      
-      .image-container::after {
-        content: "";
-        position: absolute;
-        top: 80%;
-        left: 0;
-        right: 0;
-        border: none;
-        border-radius: 0 0 20px 20px;
-        bottom: 0;
-        background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 0.8) 100%
-        );
-      }
-      
-      .discount-badge {
-        position: absolute;
-        color: #fff;
-        bottom: 0;
-        left: 10px;
-        padding: 5px;
-        z-index: 2;
-        font-weight: bold;
-        font-size: 12px;
-        font-family: "Proxima Nova Condensed", sans-serif;
-      }
-      
-      .restaurant-name {
-        font-weight: bold;
-        font-size: 16px;
-        margin: 0;
-      }
-      
-      .info-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 10px;
-      }
-      
-      .rating {
-        display: flex;
-        align-items: start;
-        margin-top: 3px;
-        font-weight: semi-bold;
-      }
-      
-      .review-count {
-        margin-left: 3px;
-        font-weight: semi-bold;
-      }
-      
-      p{
-        font-size: 10px;
-      }
-  
-      .delivery-info {
-        display: flex;
-        font-size: 10px;
-        align-items: center;
-      }
-      
-      .bi-dot {
-        font-size: 16px;
-      }
-      /* Restaurant Card */
-}
-
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1320px;
-  }
-}
-
-    </style>
-    
-	${loginUserVO.user_id}
-<% %>
+%>
 </head>
 <body>
-		<%      
-		
-		List<String> courseInfo = new ArrayList<>();
-		courseInfo.add("제주도 깔끼하네");
-		courseInfo.add("첫번째 여행");
-		courseInfo.add("제주도 여행입니다아아아아아");
-		courseInfo.add("제주도");
-		courseInfo.add("3박 4일");
-		courseInfo.add("2024년-03월-22일");
-		courseInfo.add("2024년-03월-25일");
-
-		
-
-				
-		        List<List<String>> courseResult = new ArrayList<>();
-		        for(int i=0; i<5; i++){
-		        courseResult.add(courseInfo);
-		        }
-				System.out.println(courseResult.size());
-				
-				
-				
-				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy년-MM월-dd일");
-				//Calendar now = Calendar.getInstance(); 
-				Date startDate = sdf1.parse(courseInfo.get(5));
-				Date endDate = sdf1.parse(courseInfo.get(6));
-				Date now = new Date();
-				long diffSec = (startDate.getTime() - now.getTime()) / 1000;
-				long Dday = diffSec / (24*60*60);
-					
-				Calendar sd = Calendar.getInstance(); 
-				Calendar ed = Calendar.getInstance(); 
-				// Calendar Dday = Calendar.getInstance(); 
-				
-				String nowDate = sdf1.format(now.getTime());
-				
-				sd.setTime(startDate);
-				ed.setTime(endDate);
-				//cal1.add(Calendar.MONTH , cal2.get(Calendar.MONTH) + 1); // 월 더하기 - get(Calendar.MONTH)의 결과값이 0~11 이기 때문에 1을 더한다 
-				//cal1.add(Calendar.DATE, cal2.get(Calendar.DATE)); // 일 더하기
-				
-				System.out.println("오늘날짜 : " + now);
-				System.out.println("여행 시작날짜 : " + startDate);
-				System.out.println("여행 마지막날짜 : " + endDate);
-				System.out.println("연산시간 : " + Dday);
-				/* String endDate = new SimpleDateFormat("yyyy-MM-dd").format(courseInfo.get(6));
-				 */
-		        
-%>		     
-				
+	     
+<!-- <div class="cloudBackground"> -->
+<%if(MyTrips.size()>0){%>
     <div class="container">
         <div class="restaurant-container">
         <div class="label-container">
-          <h2><span class="">"최재민" <!-- user_info의 닉네임 -->님의</span> 여행일정 목록</h2> 
+          <h2><span class=""><%=userVO.getUser_nick()%>님의</span> 여행일정 목록</h2> 
           <button class="" onclick="location.href='n5CreateSchedule.jsp'" type="button">새로운 일정 생성</button>
           <button class="restaurant-arrow-left"><i class="bi bi-arrow-left"></i></button>
           <button class="restaurant-arrow-right"><i class="bi bi-arrow-right"></i></button>
         </div>
         <div class="card-slider">
 
-		    <% for(int i=0; i<courseResult.size(); i++){%>        
+		    		    
+		    <%for(int i=0; i<MyTrips.size(); i++){%>     
+		    <a href=loadScheduleCon?mt_idx=<%=MyTrips.get(i).getMt_idx()%>>   
           <div class="restaurant-card">
               <div class="image-container">
-                  <img src="shoppingImg/100-무기.jpg" alt="테스트">
-                  <div class="discount-badge">D-day 3<!-- Dday = 현재 시간 - mt_st_dt  --></div>
+                  <img src="poiImgs/18-애월해안도로.jpg" alt="내 투어">
+                  <%Date startDate = dates.parse(MyTrips.get(i).getMt_st_dt());
+					Date endDate = dates.parse(MyTrips.get(i).getMt_ed_dt());
+					Date now = new Date();
+					long diffSec = (startDate.getTime() - now.getTime()) / 1000;
+					double diffDays = (double) diffSec / (60 * 60 * 24);
+				    long Dday = (long) Math.ceil(diffDays);
+					System.out.println(diffSec);
+					System.out.println("나눔"+(long)(diffSec/(24*60*60)));
+					System.out.println((24*60*60));
+					 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd E");
+					%>
+                  <div class="discount-badge">D-<%=Dday%><!-- Dday = 현재 시간 - mt_st_dt  --></div>
               </div>
-              <h3 class="restaurant-name"><%=courseResult.get(i).get(0) %> <!-- MyTripsVO : name --></h3>
-              
+              <h3 class="restaurant-name"><%=MyTrips.get(i).getMt_name()%></h3>
               
               <!--info-container -->
-              <div class="info-container">                 
-                  <p><%=courseResult.get(i).get(2) %><!-- 여행설명 --></p>
+               <div class="info-container">                 
+                  <p>여행 시작일 <%=sdf.format(startDate)%></p>
+                  <p>여행 종료일 <%=sdf.format(endDate)%></p>
 
               </div>
-          </div>
-          
-          
+          </div> 
+          </a>         
+          <%}
+		   }else{%>
+		       <div class="container">
+        <div class="restaurant-container">
+        <div class="label-container">
+          <h2><span class=""><%=userVO.getUser_nick()%>님의</span> 첫 여행을 만들어보세요</h2> 
+          <button class="" onclick="location.href='n5CreateSchedule.jsp'" type="button">새로운 일정 생성</button>
+          <button class="restaurant-arrow-left"><i class="bi bi-arrow-left"></i></button>
+          <button class="restaurant-arrow-right"><i class="bi bi-arrow-right"></i></button>
+        </div>
+        <div class="card-slider">
+		   <a href=n5CreateSchedule.jsp>
+		             <div class="restaurant-card">
+              <div class="image-container">
+                  <img src="assets/01CreateTrip.jpg" alt="여행을 생성해보세요">
+                  <div class="discount-badge"><!-- Dday = 현재 시간 - mt_st_dt  --></div>
+              </div>
+              <h3 class="restaurant-name">새로운 여행 생성하기</h3>
+              
+              <!--info-container -->
+               <div class="info-container">                 
+
+              </div>
+          </div> 
+          </a>
           <%} %>
-		<form action="loadScheduleCon" method="post">
-		<input name="mt_idx" value=30001>
-		<button type="submit">나의 여행 더미 30001</button>
-	</form>
- 
+<!-- 		   </div> -->
       <script>
         document.addEventListener("DOMContentLoaded", function () {
     const restaurantContainer = document.querySelector(".card-slider");
