@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>CreateSchedule</title>
+<link rel="stylesheet" href="navStyle.css">
+<script src="https://kit.fontawesome.com/5366f35670.js" crossorigin="anonymous"></script>
 <style>
 		body {
         text-align: center;
@@ -30,6 +32,18 @@
 </style>
 </head>
 <body>
+		    <div class="navbar">
+        <div class="navbar___logo">
+            <i class="fa-brands fa-wordpress"></i>
+            <a href="">TriPlan</a>
+        </div>
+        <ul class="navbar___menu">
+            <li><a href="n3Preference.jsp">내 여행프로필</a></li>
+            <li><a href="MyPage.jsp">마이페이지</a></li>
+            <li><a href="ScheduleMap.jsp">스케쥴메이커</a></li>
+            <li><a href="n5CreateSchedule.jsp">일정생성</a></li>
+        </ul>
+    </div>
 	<head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">

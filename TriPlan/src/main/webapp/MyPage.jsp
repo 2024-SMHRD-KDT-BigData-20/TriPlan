@@ -17,7 +17,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <link rel="stylesheet" href="assets/css/MyPage.css">
+<link rel="stylesheet" href="navStyle.css">
+<script src="https://kit.fontawesome.com/5366f35670.js" crossorigin="anonymous"></script>
 <style type="text/css">
+
 .cloudBackground{
   opacity: 0.5;
   top: 0;
@@ -41,7 +44,18 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 %>
 </head>
 <body>
-	     
+			    <div class="navbar">
+        <div class="navbar___logo">
+            <i class="fa-brands fa-wordpress"></i>
+            <a href="">TriPlan</a>
+        </div>
+        <ul class="navbar___menu">
+            <li><a href="n3Preference.jsp">내 여행프로필</a></li>
+            <li><a href="MyPage.jsp">마이페이지</a></li>
+            <li><a href="ScheduleMap.jsp">스케쥴메이커</a></li>
+            <li><a href="n5CreateSchedule.jsp">일정생성</a></li>
+        </ul>
+    </div>     
 <!-- <div class="cloudBackground"> -->
 <%-- <%if(MyTrips.size()>0){%> --%>
 <%if(MyTrips.size()>0){%>

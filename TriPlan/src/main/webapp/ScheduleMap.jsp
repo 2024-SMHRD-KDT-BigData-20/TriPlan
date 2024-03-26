@@ -10,13 +10,14 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<link rel="stylesheet" href="style.css">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>TriPlan 일정</title>
+
 <!--Google Fonts and Icons-->
+	<link rel="stylesheet" href="navStyle.css">
 <link
 	href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
 	rel="stylesheet" />
@@ -71,7 +72,6 @@ body {
 }
 
 #right_col_inner {
-	padding-left: 20px;
 	color: black;
 	text-align: center;
 }
@@ -79,13 +79,14 @@ body {
 .fixed-element {
 	position: sticky;
 	text-align: center;
-	top: 0;
+	top: 85px;
 	right: 0;
 	width: 100%;
 	background-color: #f0f0f0;
 	padding: 10px;
 	box-sizing: border-box;
 	z-index: 1000;
+	border-radius: 10px;
 }
 
 .center {
@@ -276,10 +277,30 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	margin-right: 15px;
 }
 
+    swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 <!-- 지도 함수 스크립트 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script
@@ -407,13 +428,11 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
             <i class="fa-brands fa-wordpress"></i>
             <a href="">TriPlan</a>
         </div>
-
         <ul class="navbar___menu">
-            <li><a href="">홈</a></li>
-            <li><a href="">일정목록</a></li>
-            <li><a href="">스케쥴메이커</a></li>
-            <li><a href="">설정</a></li>
-            <li><a href="">블라블라</a></li>
+            <li><a href="n3Preference.jsp">내 여행프로필</a></li>
+            <li><a href="MyPage.jsp">마이페이지</a></li>
+            <li><a href="ScheduleMap.jsp">스케쥴메이커</a></li>
+            <li><a href="n5CreateSchedule.jsp">일정생성</a></li>
         </ul>
     </div>
 		<div id="right_col_inner">
@@ -521,8 +540,14 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 						<div class="operation-time"><%=poi.getPoi_lng()%></div>
 						--%>
 						</div>
+						<!--    <swiper-container class="mySwiper" navigation="true">
+    						<swiper-slide>Slide 1</swiper-slide>
+    						<swiper-slide>Slide 2</swiper-slide>
+   						 </swiper-container> -->
+    
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<span class="material-icons-round">drag_indicator</span>
+						
 					</div>
 					<%
 					}
@@ -538,6 +563,18 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 		</div>
 	</div>
 	<script>
+/*  	$(document).ready(function(){
+		.navbar position: fixed;
+
+		#right_col_inner margin-top: 85px;
+
+		.fixed-element :85px
+
+		 $("#right_col_inner").css("margin-top","15px"); 
+		 $(".fixed-element").css("top","85px");
+	});  */
+	
+	
 	//jquery 먼저 실행된 다음에 js 코드 사용할 것!!
 	//ajax는 jquery 문법에서 가져옴
 	<%Gson gson = new Gson();%>
@@ -585,9 +622,15 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 			}
 			console.log("업데이트 일정",newPOI);
 		},
-		error: function(){
+		 error: function(){
 			alert("통신 실패")
-		}
+		} 
+/* 		 error: function(xhr, status, error){
+		     console.log(xhr);
+		     console.log(status);
+		    // console.log(error);
+			 alert("Error!" + xhr.status);
+		    }, */
 	}); //ajax 끝 
 		console.log("업뎃");
 	}
