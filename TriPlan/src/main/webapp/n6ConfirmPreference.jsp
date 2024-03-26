@@ -7,6 +7,14 @@
 <meta charset="EUC-KR">
 <title>ConfirmPreference</title>
     <style>
+    	ul {
+    	list-style-type : none;
+    	}
+    	
+    	li {
+    	list-style-type : none;
+    	}
+    	
         body {
         background: #eee9e0;
         }
@@ -15,10 +23,9 @@
         text-align: center;
         }
         
-        details:not([open]) { background: #ffffff; }
-        details[open] { background: #ffffff; }
-        details:hover { background: #f18a0d; }
-        .below { background: #f18a0d; }
+        details {
+        background : #fff;
+        }
 
         html, details, summary { line-height: 2.5; }
         details { margin-bottom: 0.25em; line-height: 2.5; }
@@ -29,8 +36,15 @@
 
 		.button-container button {
 	    display: inline-block;
-	    padding: 10px 20px;
+	    padding: 10px 25px;
+	    background : #f18a0d;
+	    color : #fff;
+	    border : 2px solid  #f18a0d;
+	    border-radius: 8px;
 	    margin: 10px;
+	    line-height : 1.15;
+	
+	    
 		}
     </style>
 
@@ -49,6 +63,11 @@
     <div class="button-container">
     <button id="modify">수정하기</button>
     <button id="create">여행 일정 생성하기</button>
-    </div>   
+    </div>  
+    
+    <script>
+    // -nickname 가져오기
+    // -여행스타일 가져오기
+    </script> 
 </body>
 </html>
