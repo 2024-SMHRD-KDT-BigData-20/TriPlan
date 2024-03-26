@@ -693,7 +693,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		//js 객체 {key:value, key:value}
 		//key 값이 controller에서 name으로 인식
 		//$(선택자)
-		data : {"updatedSchedule" :$("input[name=search]").val()},////
+		data : {"search" :$("input[name=search]").val()},////
 		//받아오는 데이터 타입
  		dataType : "json", 
 		success : function(res){

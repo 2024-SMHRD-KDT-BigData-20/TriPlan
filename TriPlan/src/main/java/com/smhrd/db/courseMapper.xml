@@ -7,6 +7,131 @@
 	구분 mapper.xml 경로와 동일해야 함 -->
 
 <mapper namespace="com.smhrd.db.courseMapper">
+<select id="searchResult" parameterType="String" resultType="PoiVO">
+SELECT
+    POI_IDX as idx,
+    POI_NAME as place,
+    REGEXP_COUNT(POI_NAME, #{search}) AS name_count,
+    poi_tag as tag,
+    REGEXP_COUNT(poi_tag, #{search}) AS tag_count,
+    POI_ADDR as addr,
+    POI_DESC as description,
+    REGEXP_COUNT(poi_desc, #{search}) AS desc_count,
+    POI_LAT as lat,
+    POI_LNG as lng,
+    POI_PHOTO as photo,
+    (REGEXP_COUNT(POI_NAME, #{search}) + REGEXP_COUNT(poi_tag, #{search})) AS count_sum
+FROM poi_info
+UNION ALL
+SELECT
+    HOTEL_IDX as idx,
+    HOTEL_NAME as place,
+    REGEXP_COUNT(HOTEL_NAME, #{search}) AS name_count,
+    hotel_tag as tag,
+    REGEXP_COUNT(HOTEL_tag, #{search}) AS tag_count,
+    HOTEL_ADDR as addr,
+    HOTEL_COMMENT as description,
+    REGEXP_COUNT(HOTEL_comment, #{search}) AS desc_count,
+    LAT as lat,
+    LNG as lng,
+    HOTEL_PHOTO as photo,
+    (REGEXP_COUNT(hotel_NAME, #{search}) * 3 + REGEXP_COUNT(hotel_tag, #{search}) * 2 + REGEXP_COUNT(hotel_desc, #{search})) AS count_sum
+FROM
+    hotel_info
+UNION ALL
+SELECT
+    RESTAU_IDX as idx,
+    RESTAU_NAME as place,
+    REGEXP_COUNT(restau_NAME, #{search}) AS name_count,
+    RESTAU_TAG as tag,
+    REGEXP_COUNT(RESTAU_tag, #{search}) AS tag_count,
+    RESTAU_ADDR as addr,
+    RESTAU_DESC as description,
+    REGEXP_COUNT(RESTAU_DESC, #{search}) AS desc_count,
+    LAT as lat,
+    LNG as lng,
+    RESTAU_PHOTO1 as photo,
+    (REGEXP_COUNT(restau_NAME, #{search}) * 3 + REGEXP_COUNT(RESTAU_tag, #{search}) * 2 + REGEXP_COUNT(RESTAU_DESC, #{search})) AS count_sum
+FROM
+    RESTAURANT_INFO
+UNION ALL
+SELECT
+    SHOP_IDX as idx,
+    SHOP_NAME as place,
+    REGEXP_COUNT(SHOP_NAME, #{search}) AS name_count,
+    SHOP_TAG as tag,
+    REGEXP_COUNT(SHOP_TAG, #{search}) AS tag_count,
+    SHOP_ADDR as addr,
+    SHOP_DESC as description,
+    REGEXP_COUNT(SHOP_DESC, #{search}) AS desc_count,
+    LAT as lat,
+    LNG as lng,
+    SHOP_PHOTO as photo,
+    (REGEXP_COUNT(SHOP_NAME, #{search}) * 3 + REGEXP_COUNT(SHOP_TAG, #{search}) * 2 + REGEXP_COUNT(SHOP_DESC, #{search})) AS count_sum
+FROM
+    shop_info
+ORDER BY count_sum DESC;
+
+
+SELECT POI_IDX AS idx,
+       POI_NAME AS name,
+       poi_tag AS tag,
+       POI_ADDR AS addr,
+       POI_DESC AS desc1,
+       POI_LAT AS lat,
+       POI_LNG AS lng,
+       POI_PHOTO AS photo,
+       (REGEXP_COUNT(POI_NAME, #{search})*3 + REGEXP_COUNT(poi_tag, #{search})*2+ REGEXP_COUNT(poi_desc, #{search})) AS count_sum
+FROM poi_info
+
+UNION
+
+SELECT HOTEL_IDX,
+       HOTEL_NAME,
+       hotel_tag,
+       HOTEL_ADDR,
+       HOTEL_COMMENT,
+       LAT,
+       LNG,
+       HOTEL_PHOTO,
+       (REGEXP_COUNT(HOTEL_NAME, #{search})*3 + REGEXP_COUNT(hotel_tag, #{search})*2 + REGEXP_COUNT(HOTEL_COMMENT, #{search})) AS count_sum
+FROM hotel_info
+
+UNION all
+
+SELECT RESTAU_IDX,
+       RESTAU_NAME,
+       RESTAU_TAG,
+       RESTAU_ADDR,
+       RESTAU_DESC,
+       LAT,
+       LNG,
+       RESTAU_PHOTO1,
+       (REGEXP_COUNT(RESTAU_NAME, #{search})*3 + REGEXP_COUNT(RESTAU_TAG, #{search})*2+ REGEXP_COUNT(RESTAU_desc, #{search})) AS count_sum
+FROM RESTAURANT_INFO
+
+UNION
+
+SELECT SHOP_IDX,
+       SHOP_NAME,
+       SHOP_TAG,
+       SHOP_ADDR,
+       SHOP_DESC,
+       LAT,
+       LNG,
+       SHOP_PHOTO,
+       (REGEXP_COUNT(SHOP_NAME, #{search})*3 + REGEXP_COUNT(SHOP_TAG, #{search})*2+ REGEXP_COUNT(SHOP_TAG, #{search})) AS count_sum
+FROM shop_info
+
+ORDER BY count_sum DESC;
+
+
+</select>
+
+<select id="currentTrip" parameterType = "int" resultType = "MyTripsVO">
+select * from my_tour_course_info where mt_idx = #{mt_idx}
+</select>
+
 <update id="myCourseUpdate" parameterType="myCourseVO">
 update my_daily_schedule_info set mt_course = #{mt_course} where mt_idx = #{mt_idx} and DAY_SCHE = #{day_sche}
 </update>
