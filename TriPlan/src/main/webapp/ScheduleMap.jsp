@@ -467,7 +467,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 					<!-- 장소검색하는 컬럼생성 -->
 					<br>
 					<!-- 검색창 출력 -->
-					<input type="text" class="search" name = "search">
+					<input type="text" class="searchBox" name = "search">
 					<button onclick=search()>검색</button>
 					<!-- 검색결과에 따른 항목 출력 -->
 					<div class="list-group-item search">
