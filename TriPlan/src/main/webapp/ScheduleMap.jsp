@@ -130,6 +130,7 @@ body {
 	font-weight: 500;
 	color: black;
 }
+
 .name.search {
 	width: 100%;
 	text-align: center;
@@ -138,6 +139,7 @@ body {
 	font-weight: 500;
 	color: black;
 }
+
 .tag-name {
 	margin-top: 10px;
 	font-size: 10px;
@@ -191,17 +193,18 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	padding: 10px;
 	border-radius: 5px;
 	cursor: pointer;
-display: flex;
-flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
+
 .list-group-item.search {
-background: #fff;
-margin: 20px;
-padding: 10px;
-border-radius: 5px;
-cursor: pointer;
-display: flex;
-flex-direction: row;
+	background: #fff;
+	margin: 20px;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
 }
 
 .daycount {
@@ -216,21 +219,21 @@ flex-direction: row;
 	float: right;
 }
 
-.Img{
-	width: 70%;	
+.Img {
+	width: 70%;
 	height: 100%;
 	object-fit: cover;
-	display: flex;	
-	margin-right: 10px;
-}
-.Img.search{
-	width: 10%;	
-	height: 5%;
-	object-fit: cover;
-	display: flex;	
+	display: flex;
 	margin-right: 10px;
 }
 
+.Img.search {
+	width: 10%;
+	height: 5%;
+	object-fit: cover;
+	display: flex;
+	margin-right: 10px;
+}
 
 .material-icons-round {
 	display: flex;
@@ -244,16 +247,17 @@ flex-direction: row;
 	transform: translate(-50%, 0) scale(1.15);
 	pointer-events: none;
 	z-index: 1000;
-      }
-.searchBox{
+}
+
+.searchBox {
 	width: 70%;
 	height: 40px;
 }
-.place-info{
+
+.place-info {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	
 }
 
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
@@ -263,8 +267,8 @@ flex-direction: row;
 <!-- 지도 함수 스크립트 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script
-        src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=rUw2inMtFc3RpPULkR6di5FZAXdX8YtU4H0nJxbF"></script>
-        <script>
+	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=rUw2inMtFc3RpPULkR6di5FZAXdX8YtU4H0nJxbF"></script>
+<script>
     var map;
     var markers = []; // 마커와 정보 창을 저장할 배열
 
@@ -279,10 +283,10 @@ flex-direction: row;
         var positions = [];
         
         <%HttpSession session2 = request.getSession();
-        List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
+List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
         
         <%for (int i = 0; i < myUniquePOI.size(); i++) {
-            PoiVO poi = (PoiVO) myUniquePOI.get(i);%>
+			PoiVO poi = (PoiVO) myUniquePOI.get(i);%>
                 positions.push({
                     lat: <%=poi.getPoi_lat()%>,
                     lng: <%=poi.getPoi_lng()%>,
@@ -354,14 +358,14 @@ flex-direction: row;
 	src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"
 	integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/skel.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-	<script src="assets/js/main.js"></script>
-	
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="assets/js/main.js"></script>
+
 
 </head>
 
@@ -396,33 +400,43 @@ flex-direction: row;
 			</div> -->
 			<!-- 일정 장소별 드래그 앤 드롭 -->
 			<div class="container">
-			
-								<div class="column"><h1>장소검색</h1> <!-- 장소검색하는 컬럼생성 -->
-						<br>
-						<!-- 검색창 출력 -->
-						<input type="text" class="search">
-						<!-- 검색결과에 따른 항목 출력 -->
-						<div class="list-group-item search">
-							<div class="Img search">
-								<img src="hotelImg/100-코델리아리조트.jpg" alt="테스트"
-								width="100%" height="100%">
+
+				<div class="column">
+					<h1>장소검색</h1>
+					<!-- 장소검색하는 컬럼생성 -->
+					<br>
+					<!-- 검색창 출력 -->
+					<input type="text" class="search">
+					<!-- 검색결과에 따른 항목 출력 -->
+					<div class="list-group-item search">
+						<div class="Img search">
+							<img src="hotelImg/100-코델리아리조트.jpg" alt="테스트" width="100%"
+								height="100%">
+						</div>
+						<!-- 장소정보 출력 -->
+						<div class="place-info">
+							<div class="name search">스마트인재개발원</div>
+							<!-- 장소이름 -->
+							<div class="tag-name" id="Tag">
+								숙소ㆍ음식점
+								<!-- ㆍ = 구분자? 이곳에 장소에 해당하는 태그 명 들어가야 함 -->
 							</div>
-							<!-- 장소정보 출력 -->
-							<div class="place-info">	
-							<div class="name search">스마트인재개발원</div> <!-- 장소이름 -->
-							<div class="tag-name" id="Tag">숙소ㆍ음식점<!-- ㆍ = 구분자? 이곳에 장소에 해당하는 태그 명 들어가야 함 --></div> <!-- 장소설명-->
-							<div class="address" style="display : none">주소 들어가야함 <!-- 마우스 드롭하면 보임 --></div>
-						</div>	
+							<!-- 장소설명-->
+							<div class="address" style="display: none">
+								주소 들어가야함
+								<!-- 마우스 드롭하면 보임 -->
+							</div>
+						</div>
 						<span class="material-icons-round">drag_indicator</span>
-						</div>
-						</div>
-			
-			
-			
+					</div>
+				</div>
+
+
+
 
 				<%
 				List<List<Integer>> allDayCourses = (List<List<Integer>>) session2.getAttribute("allDayCourses");
-				
+
 				/* List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI"); */
 
 				System.out.println("유니크POI 확인: " + myUniquePOI);
@@ -458,7 +472,7 @@ flex-direction: row;
 					%>
 
 					<div class="list-group-item" draggable="true"
-						id=<%=poi.getPoi_idx()%>  onclick="mouse()">
+						id=<%=poi.getPoi_idx()%> onclick="mouse()">
 
 						<!-- 이미지 요소 -->
 						<div class="Img">
@@ -466,13 +480,13 @@ flex-direction: row;
 								height="100%" alt=<%=poi.getPoi_name()%>>
 						</div>
 						<div class="place-info">
-						<div class="name"><%=poi.getPoi_name()%></div>
-						<div class="description"><%=poi.getPoi_desc()%></div>
-						<div class="addrees"><%= poi.getPoi_addr() %></div>
-						<%-- <div class="operation-time"><%=poi.getPoi_runingtime()%></div> --%>
+							<div class="name"><%=poi.getPoi_name()%></div>
+							<div class="description"><%=poi.getPoi_desc()%></div>
+							<div class="addrees"><%=poi.getPoi_addr()%></div>
+							<%-- <div class="operation-time"><%=poi.getPoi_runingtime()%></div> --%>
 
-						<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
-						<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div>
+							<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
+							<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div>
 						<div class="operation-time"><%=poi.getPoi_lng()%></div>
 						--%>
 						</div>
@@ -492,28 +506,30 @@ flex-direction: row;
 			</div>
 		</div>
 	</div>
-<script>
+	<script>
 	//jquery 먼저 실행된 다음에 js 코드 사용할 것!!
 	//ajax는 jquery 문법에서 가져옴
 	<%Gson gson = new Gson();%>
 <%-- 	<%Map<Integer,List<String>> MUpdatedItemOrders = new Map<>();%> --%>
+	newCourseOrder = [];
 	function saveItemOrder() {
-			let updatedItemOrders = [];
+	let updatedItemOrders = [];
 	       	  <%for (int j = 0; j < 4; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
 
-       	        const Items<%=j+1%> = document.querySelectorAll("#Day<%=j+1%>>.list-group-item");
+       	        const Items<%=j + 1%> = document.querySelectorAll("#Day<%=j + 1%>>.list-group-item");
 	       	        
-	       	        let updatedItemOrder<%=j+1%> = []; // 배열 초기화
+	       	        let updatedItemOrder<%=j + 1%> = []; // 배열 초기화
 	       	        //현재 순서대로 아이템들의 id를 배열에 추가
-	       	        Items<%=j+1%>.forEach((item, index) => {
-	       	            updatedItemOrder<%=j+1%>.push(item.id);
+	       	        Items<%=j + 1%>.forEach((item, index) => {
+	       	            updatedItemOrder<%=j + 1%>.push(item.id);
 	       	        });
 <%-- 				  	console.log(updatedItemOrder<%=j+1%>) --%>
-	       	        updatedItemOrders.push(updatedItemOrder<%=j+1%>);
+	       	        updatedItemOrders.push(updatedItemOrder<%=j + 1%>);
 <%-- 	       	        <%MupdatedItemORders.put(j+1,%>updatedItemOrder<%)%>--%>
 			  	<%}%> 
 	       	console.log(updatedItemOrders);
 <%-- 	       	<%String JsonUpdatedItemOrders = gson.toJson(updatedItemOrders);%> --%>
+			newCourseOrder=updatedItemOrders;
 	   		return updatedItemOrders;
 	       	}
 	let updatedCourseDetail = saveItemOrder();
@@ -546,8 +562,26 @@ flex-direction: row;
 	}
 	
 	function checkPOI(){
-	console.log("사용가능한지", newPOI)
-		
+		console.log("사용가능한지", newPOI)
+		let poi_lat = 0;
+		let poi_lng = 0;
+		console.log("선언 확인",poi_lat);
+		console.log("newCourseOrder[0]확인: ",newCourseOrder[0])
+		for (let poi of newCourseOrder[0]) {
+			console.log("poi확인: "+poi)
+		    for (let detail of newPOI) {
+			console.log("detail확인: "+detail.poi_idx)
+		        if (poi == detail.poi_idx) {
+		        	console.log("매치!", poi, "<3", detail.poi_idx)
+		        	console.log("detail.poi_lat")
+		            poi_lat = detail.poi_lat;
+		            poi_lng = detail.poi_lng;
+		            console.log(poi_lat," ",poi_lng);
+		            //여기에 맵 추가?
+		            
+		        }
+		    }
+		}
 	}
 
 	</script>
@@ -626,7 +660,9 @@ flex-direction: row;
 		/* document.querySelector(".tag-name").innerText = "우리집이요"; */
 		/* document.querySelector(".tag-name").classList.replace("tag-name", "description") */
 		}
-                update();
+                saveItemOrder();
+				update();
+				checkPOI();
                 console.log("드래그종료");
                 e.preventDefault();
             }
