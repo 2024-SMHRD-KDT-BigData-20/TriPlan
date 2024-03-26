@@ -8,7 +8,14 @@
 
 <mapper namespace="com.smhrd.db.courseMapper">
 <select id="searchResult" parameterType="String" resultType="PoiVO">
-SELECT *
+SELECT idx,
+       name,
+       tag,
+       addr,
+       desc1,
+       lat,
+       lng,
+       photo
 FROM (
     SELECT POI_IDX AS idx,
            POI_NAME AS name,
@@ -57,12 +64,12 @@ FROM (
            LAT,
            LNG,
            SHOP_PHOTO,
-           (REGEXP_COUNT(SHOP_NAME, #{search}) * 3 + REGEXP_COUNT(SHOP_TAG, #{search}) * 2 + REGEXP_COUNT(SHOP_TAG, #{search})) AS count_sum
+           (REGEXP_COUNT(SHOP_NAME, #{search}) * 3 + REGEXP_COUNT(SHOP_desc, #{search}) * 2 + REGEXP_COUNT(SHOP_TAG, #{search})) AS count_sum
     FROM shop_info
     ORDER BY count_sum DESC
 
 )
-WHERE ROWNUM &lt; 5
+WHERE ROWNUM &lt;= 5;
 
 </select>
 
