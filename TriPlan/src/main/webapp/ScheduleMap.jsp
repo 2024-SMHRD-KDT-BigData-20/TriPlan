@@ -386,7 +386,7 @@ flex-direction: row;
 				<h2><%="여행주제"%></h2>
 				poiList확인<%=myUniquePOI.size()%>
 				<p>2024-03-19 ~ 2024-03-20 (1박2일)</p>
-				<button type="button" onclick="update()">저장</button>
+				<button type="button" onclick="checkPOI()">저장</button>
 			</div>
 			<!-- <h3>
 				드래그 & 드롭 박스는 div.item입니다. <br>div.center > div.container > div.
@@ -517,6 +517,7 @@ flex-direction: row;
 	   		return updatedItemOrders;
 	       	}
 	let updatedCourseDetail = saveItemOrder();
+	let newPOI = [];
 	
 	function update(){
 	 	$.ajax({
@@ -531,6 +532,11 @@ flex-direction: row;
  		dataType : "json", 
 		success : function(res){
 			console.log(res)
+			console.log(typeof(res));
+			for(let i=0; i<res.length;i++){
+				newPOI.push(res[i]);
+			}
+			console.log("업데이트 일정",newPOI);
 		},
 		error: function(){
 			alert("통신 실패")
@@ -539,9 +545,11 @@ flex-direction: row;
 		console.log("업뎃");
 	}
 	
+	function checkPOI(){
+	console.log("사용가능한지", newPOI)
+		
+	}
 
-
-	
 	</script>
 
 	<script>

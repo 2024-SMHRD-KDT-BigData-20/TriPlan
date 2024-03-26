@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.model.n1UserVO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -329,6 +330,9 @@ button {
 }
 
     </style>
+    
+	${loginUserVO.user_id}
+<% %>
 </head>
 <body>
 		<%      
