@@ -37,5 +37,6 @@
   <mappers>
     <mapper resource="com/smhrd/db/courseMapper.xml"/>
     <mapper resource="com/smhrd/db/UserMapper.xml"/>
+    <mapper resource="com/smhrd/db/SearchMapper.xml"/>
   </mappers>
 </configuration>
