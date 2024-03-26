@@ -660,9 +660,9 @@ List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");%>
 		/* document.querySelector(".tag-name").innerText = "우리집이요"; */
 		/* document.querySelector(".tag-name").classList.replace("tag-name", "description") */
 		}
-                saveItemOrder();
-				update();
-				checkPOI();
+                saveItemOrder();//일정 순서 바뀐대로 가져오기
+				update();//해당 PoiVO가져오기
+				checkPOI();//가져온 정보로 맵 출력
                 console.log("드래그종료");
                 e.preventDefault();
             }
