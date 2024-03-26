@@ -6,326 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>여행 스타일 조사</title>
-    <style>
-        *,
-        *::before,
-        *::after {
-          box-sizing: border-box;
-        }
-   
-        body {
-          min-height: 100vh;
-          margin: 0;
-          padding: 1rem;
-          font-family: "Roboto", sans-serif;
-          color: var(--gray);
-          background-color: #eee9e0;
-        }
-        
-        .container {
-          min-height: 100vh;
-          display: grid;
-          grid-gap: 40px;
-          align-content: center;
-        }
-        
-        .main {
-          display: block;
-          align-self: start;
-        }
-        
-        button,
-        input,
-        select 
-        {
-          font-family: inherit;
-          font-size: 100%;
-          line-height: 1.15;
-          margin: 0;
-        }
-        
-        button,
-        input {
-          overflow: visible;
-        }
-        
-        button,
-        select {
-          text-transform: none;
-        }
- 
-        [type="checkbox"],
-        [type="radio"] {
-          box-sizing: border-box;
-          padding: 0;
-        }
-        
-        .header {
-          align-self: center;
-          text-align: center;
-        }
-        
-        .header__title {
-          margin: 0;
-          font-size: 2em;
-          line-height: 1.2;
-        }
-        
-        .header__description {
-          margin-bottom: 0.5rem;
-          font-size: 1em;
-          line-height: 1.4;
-        }
-        
-        .form-group1 {
-          display: inline-block;
-          margin-right: 30px;
-        }
-
-        .illustration {
-          width: 100%;
-          border-style: none;
-        }
-        
-        /* progressbar */
-        @media (min-width: 700px) { 
-          .container {
-            grid-template-columns: 1fr 1fr;
-            max-width: 1400px;
-            margin: 0 auto;
-            align-items: center;
-          }
-        
-          .header,
-          .main {
-            grid-row: 1;
-          }
-        }
-        
-        .progressbar {
-          margin: 2rem 1rem 2rem;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          counter-reset: list;
-          height: 20px;
-        }
-        
-        .progressbar__step {
-          position: relative;
-          width: 20%;
-          line-height: 1.4;
-        }
-        
-        .progressbar__step.active:before {
-          background-color: #f18a0d;
-        }
-        
-        .progressbar__step:nth-child(2)::after,
-        .progressbar__step:nth-child(3)::after,
-        .progressbar__step:nth-child(4)::after 
-        {
-          content: "";
-          position: absolute;
-          left: -100%;
-          top: 12px;
-          z-index: -1;
-          width: 100%;
-          height: 2px;
-          background-color: #fff;
-        }
-        
-        .progressbar__step.active:nth-child(2)::after,
-        .progressbar__step.active:nth-child(3)::after,
-        .progressbar__step.active:nth-child(4)::after
-
-        {
-          background-color: #f18a0d;
-        }
-        
-        .progressbar__step:before {
-          counter-increment: list;
-          content: counter(list);
-          position: absolute;
-          display: block;
-          width: 25px;
-          height: 25px;
-          font-size: 0.85rem;
-          background-color: #fff;
-          text-align: center;
-          border: 3px solid #fff;
-          border-radius: 100%;
-        }
-        
-        .survey {
-          display: flex;
-          flex-direction: column;
-        }
-        
-        .survey__panel {
-          display: none;
-          padding: 1rem;
-        }
-        
-        .survey__panel--impormation {
-          display: block;
-        }
-        
-        .survey__panel__question {
-          margin: 0 0 1.5rem;
-          font-size: 1.35em;
-          line-height: 1.2;
-        }
-        
-        .error-message {
-          height: 14px;
-          margin-bottom: 0;
-          margin-top: 5px;
-          font-size: 0.85rem;
-          color: #d61616;
-        }
-        
-        [role="alert"] {
-          display: block;
-        }
-        
-        .radio,
-        .radio:checked,
-        .radio:not(:checked),
-        .checkbox,
-        .checkbox:not(:checked) {
-          opacity: 0;
-        }
-        
-        .radio:checked + label,
-        .radio:not(:checked) + label,
-        .checkbox:checked + label,
-        .checkbox:not(:checked) + label {
-          position: relative;
-          padding-left: 30px;
-        }
-        
-        .radio:checked + label:before,
-        .radio:not(:checked) + label:before,
-        .checkbox:checked + label:before,
-        .checkbox:not(:checked) + label:before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 18px;
-          height: 18px;
-          border: 1px solid #ddd;
-          border-radius: 100%;
-          background-color: #fff;
-        }
-        
-        .radio:not(:checked) + label:after,
-        .checkbox:not(:checked) + label:after {
-          opacity: 0;
-          transform: scale(0);
-        }
-        
-        .radio:checked + label:after,
-        .checkbox:checked + label:after {
-          opacity: 1;
-          transform: scale(1);
-        }
-        
-        .survey__panel--impormation label,
-        .survey__panel__tourism label,
-        .survey__panel__food label,
-        .survey__panel__sleep label {
-          line-height: 2.3;
-        }
-      
-        .survey__panel .radio {
-          margin-left: 10px;
-        }
-        
-        .checkbox:checked + label:before,
-        .checkbox:not(:checked) + label:before {
-          border-radius: 0;
-        }
-        
-        .checkbox:checked + label:before {
-          background-color: #f18a0d ;
-        }
-        
-        /* 체크박스 체크 모양 */
-        .checkbox:checked + label:after,
-        .checkbox:not(:checked) + label:after {
-          content: "";
-          position: absolute;
-          left: 4px;
-          top: 7px;
-          width: 2px;
-          height: 2px;
-          background-color: #fff;
-          box-shadow: 2px 0 0 #fff, 4px 0 0 #fff,
-            4px -2px 0 #fff, 4px -4px 0 #fff,
-            4px -6px 0 #fff, 4px -8px 0 #fff;
-          transform: rotate(45deg);
-          transition: transform 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86),
-            opacity 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86),
-            background-color 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-        }
-        input[type="radio"] {
-          appearance: none;
-        }
-
-        input[type="radio"]::before {
-          content: "";
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          border: 1px solid #ddd;
-          background-color: #fff; 
-          margin-right: 5px;
-        }
-
-        input[type="radio"]:checked::before {
-          background-color:#f18a0d; 
-          width: 12px; 
-          height: 12px;
-          border: 2px solid #fff;
-          margin: 3px;
-        }
- 
-        .button {
-          display: inline-block;
-          padding: 10px 25px;
-          background-color: #f18a0d;
-          color: #fff;
-          border: 2px solid #f18a0d;
-          border-radius: 3px;
-          font-size: 0.875rem;
-          font-family: inherit;
-          cursor: pointer;
-        }
-        
-        button[disabled] {
-          display: none;
-        }
-        
-        .button {
-          margin: 0 0.5rem;
-        }
-      
-        .visuallyhidden {
-          border: 0;
-          clip: rect(0 0 0 0);
-          height: 1px;
-          margin: -1px;
-          overflow: hidden;
-          padding: 0;
-          position: absolute;
-          white-space: nowrap;
-          width: 1px;
-        }
-        
-  </style>
+<link rel="stylesheet" href="assets/css/n3Preference.css">
 </head>
 <body>
     <div class="container">
@@ -354,27 +35,27 @@
               <div class="survey__group">
               <label for="companion" id="companion" class="companion">동행</label><br>
                 <div class="form-group1">
-                  <input id="alone" type="radio" name="question_1_1" value="alone" />
+                  <input id="alone" type="radio" name="question_1_1" value="혼자" />
                   <label for="alone">혼자</label>
                 </div>
                 <div class="form-group1">
-                  <input id="couple" type="radio" name="question_1_1" value="couple" />
+                  <input id="couple" type="radio" name="question_1_1" value="커플" />
                   <label for="couple">커플</label>
                 </div>
                 <div class="form-group1">
-                  <input id="friend" type="radio" name="question_1_1" value="friend" />
+                  <input id="friend" type="radio" name="question_1_1" value="친구" />
                   <label for="friend">친구</label>
                 </div>
                 <div class="form-group1">
-                  <input id="parents" type="radio" name="question_1_1" value="parents" />
+                  <input id="parents" type="radio" name="question_1_1" value="부모" />
                   <label for="parents">부모</label>
                 </div>
                 <div class="form-group1">
-                  <input id="pet" type="radio" name="question_1_1" value="pet" />
+                  <input id="pet" type="radio" name="question_1_1" value="반려동물" />
                   <label for="pet">반려동물</label>
                 </div>
                <div class="form-group1">
-                  <input id="child" type="radio" name="question_1_1" value="child" />
+                  <input id="child" type="radio" name="question_1_1" value="어린이" />
                   <label for="child">아이</label>
                 </div>
               
@@ -385,15 +66,15 @@
               <div class="survey__group">
               <label for="transportation" id="transportation" class="transportation">이동수단</label><br>
                 <div class="form-group1">
-                  <input id="walk" type="radio" name="question_1_2" value="walk" />
+                  <input id="walk" type="radio" name="question_1_2" value="뚜벅이" />
                   <label for="walk">뚜벅이</label>
                 </div>
                 <div class="form-group1">
-                  <input id="public-transport" type="radio" name="question_1_2" value="public-transport" />
+                  <input id="public-transport" type="radio" name="question_1_2" value="대중교통" />
                   <label for="public-transport">대중교통</label>
                 </div>
                 <div class="form-group1">
-                  <input id="car" type="radio" name="question_1_2" value="car" />
+                  <input id="car" type="radio" name="question_1_2" value="주차" />
                   <label for="car">자동차</label>
                 </div>
               </div>
@@ -420,31 +101,31 @@
               </h2>
               <div class="survey__panel__tourism">
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="activity" name="question_2" value="activity" />
+                  <input type="checkbox" class="checkbox" id="activity" name="question_2" value="체험/액티비티" />
                   <label for="activity">체험/액티비티</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="hotplace" name="question_2" value="hotplace" />
+                  <input type="checkbox" class="checkbox" id="hotplace" name="question_2" value="SNS 핫플" />
                   <label for="hotplace">SNS 핫플</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="famous" name="question_2" value="famous" />
+                  <input type="checkbox" class="checkbox" id="famous" name="question_2" value="유명 관광지 필수" />
                   <label for="famous">유명 관광지 필수</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="healing" name="question_2" value="healing" />
+                  <input type="checkbox" class="checkbox" id="healing" name="question_2" value="여유롭게 힐링" />
                   <label for="healing">여유롭게 힐링</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="Culture-Arts-History" name="question_2" value="Culture-Arts-History" />
+                  <input type="checkbox" class="checkbox" id="Culture-Arts-History" name="question_2" value="문화/예술/역사" />
                   <label for="Culture-Arts-History">문화/예술/역사</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="shopping" name="question_2" value="shopping" />
+                  <input type="checkbox" class="checkbox" id="shopping" name="question_2" value="쇼핑은 열정적으로" />
                   <label for="shopping">쇼핑은 열정적으로</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="eat" name="question_2" value="eat" />
+                  <input type="checkbox" class="checkbox" id="eat" name="question_2" value="여행보다 먹방" />
                   <label for="eat">여행보다 먹방</label>
                 </div>
               </div>
@@ -457,39 +138,39 @@
               </h2>
               <div class="survey__panel__food">
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="Korean-food" name="question_3" value="Korean-food" />
+                  <input type="checkbox" class="checkbox" id="Korean-food" name="question_3" value="한식" />
                   <label for="Korean-food">한식</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="Japanese-food" name="question_3" value="Japanese-food" />
+                  <input type="checkbox" class="checkbox" id="Japanese-food" name="question_3" value="일식" />
                   <label for="Japanese-food">일식</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="Chinese-food" name="question_3" value="Chinese-food" />
+                  <input type="checkbox" class="checkbox" id="Chinese-food" name="question_3" value="중식" />
                   <label for="Chinese-food">중식</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="Western-food" name="question_3" value="Western-food" />
+                  <input type="checkbox" class="checkbox" id="Western-food" name="question_3" value="양식" />
                   <label for="Western-food">양식</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="world-food" name="question_3" value="world-food" />
+                  <input type="checkbox" class="checkbox" id="world-food" name="question_3" value="세계음식" />
                   <label for="world-food">세계음식</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="seafood" name="question_3" value="seafood" />
+                  <input type="checkbox" class="checkbox" id="seafood" name="question_3" value="해산물" />
                   <label for="seafood">해산물</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="meat" name="question_3" value="meat" />
+                  <input type="checkbox" class="checkbox" id="meat" name="question_3" value="고기" />
                   <label for="meat">고기</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="alcohol" name="question_3" value="alcohol" />
+                  <input type="checkbox" class="checkbox" id="alcohol" name="question_3" value="주류" />
                   <label for="alcohol">주류</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="cafe" name="question_3" value="cafe" />
+                  <input type="checkbox" class="checkbox" id="cafe" name="question_3" value="카페" />
                   <label for="cafe">카페</label>
                 </div>
               </div>
@@ -502,23 +183,23 @@
               </h2>
               <div class="survey__panel__sleep">
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="hotel" name="question_4" value="hotel" />
+                  <input type="checkbox" class="checkbox" id="hotel" name="question_4" value="호텔" />
                   <label for="hotel">호텔</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="resort" name="question_4" value="resort" />
+                  <input type="checkbox" class="checkbox" id="resort" name="question_4" value="리조트" />
                   <label for="resort">리조트</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="pension" name="question_4" value="pension" />
+                  <input type="checkbox" class="checkbox" id="pension" name="question_4" value="펜션" />
                   <label for="pension">펜션</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="guest-house" name="question_4" value="guest-house" />
+                  <input type="checkbox" class="checkbox" id="guest-house" name="question_4" value="게스트하우스" />
                   <label for="guest-house">게스트하우스</label>
                 </div>
                 <div class="form-group">
-                  <input type="checkbox" class="checkbox" id="Camping" name="question_4" value="Camping" />
+                  <input type="checkbox" class="checkbox" id="Camping" name="question_4" value="캠핑" />
                   <label for="Camping">캠핑</label>
                 </div>
               </div>

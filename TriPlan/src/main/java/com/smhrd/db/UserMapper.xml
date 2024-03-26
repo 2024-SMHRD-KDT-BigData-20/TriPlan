@@ -10,9 +10,9 @@
 	<!-- Join
 	User정보 User info 테이블에 최초 입력 -->
 		insert into
-		user_info (user_id, user_pw,user_name,user_email,user_gender,user_nick) values
+		user_info values
 		(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_gender},
-		#{user_nick})
+		#{user_birthdate},#{user_nick},default,default)
 	</insert>
  	<select id="Login" parameterType="UserVO" resultType = "UserVO">
 <!-- 	Login

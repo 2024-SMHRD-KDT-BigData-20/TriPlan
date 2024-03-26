@@ -1,5 +1,6 @@
 package com.smhrd.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,10 +14,9 @@ public class courseDAO {
 	
 	public List<n4MyTripsVO> MyTrips(String user_id) {
 
-		List<n4MyTripsVO> myTrips = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
-		myTrips = sqlSession.selectList("com.smhrd.db.courseMapper.MyTrips",user_id);
-		
+		List<n4MyTripsVO> myTrips = sqlSession.selectList("com.smhrd.db.courseMapper.MyTrips",user_id);
+		sqlSession.close();
 		return myTrips;
 	}
 

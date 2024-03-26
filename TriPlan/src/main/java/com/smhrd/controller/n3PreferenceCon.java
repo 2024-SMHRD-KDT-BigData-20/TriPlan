@@ -1,6 +1,8 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.apache.catalina.filters.SetCharacterEncodingFilter;
 import com.smhrd.model.n1UserDAO;
 import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n3PreferenceVO;
+import com.smhrd.model.n4MyTripsVO;
 
 public class n3PreferenceCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -59,13 +62,15 @@ public class n3PreferenceCon extends HttpServlet {
 		
 		//테이블 생성 필요
 
-		int cnt = dao.insertPreference(preferenceVO);
-		
-		System.out.println(cnt);
-		
+		int cnt = dao.insertPreference(preferenceVO);		
 		System.out.println("확인"+preferenceVO.toString());
-		response.sendRedirect("MyPage.jsp");
 		
+		if(cnt>0) {
+		response.sendRedirect("MyPage.jsp");
+		}else {
+			response.sendRedirect("n3Preference.jsp");
+			
+		}
 	
 	}
 
