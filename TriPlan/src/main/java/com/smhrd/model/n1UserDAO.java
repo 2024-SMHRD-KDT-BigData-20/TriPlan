@@ -59,11 +59,10 @@ public class n1UserDAO {
 	}
 
 	public int confirmPreference(n3PreferenceVO tripPreferenceVO) {
-		int cnt = 0;
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
-		cnt = sqlSession.update("com.smhrd.db.UserMapper.updatePreference", tripPreferenceVO);
+		int cnt = sqlSession.update("com.smhrd.db.UserMapper.updatePreference", tripPreferenceVO);
 		sqlSession.close();
-		return 0;
+		return cnt;
 	}
 	
 }

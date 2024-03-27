@@ -88,7 +88,7 @@ public class n5CreateScheduleCon extends HttpServlet {
 
 			// 생성한 URL로 리다이렉트합니다.
 			//response.sendRedirect(redirectUrl);
-			response.sendRedirect("loading.jsp");
+			response.sendRedirect(redirectUrl);
 	}
 
 }

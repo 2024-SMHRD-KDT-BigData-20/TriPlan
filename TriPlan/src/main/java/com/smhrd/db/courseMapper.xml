@@ -80,7 +80,7 @@ select * from my_tour_course_info where mt_idx = #{mt_idx}
 update my_daily_schedule_info set mt_course = #{mt_course} where mt_idx = #{mt_idx} and DAY_SCHE = #{day_sche}
 </update>
 <select id="loadSchedule" parameterType = "int" resultType = "myCourseVO">
-select * from my_daily_schedule_info where mt_idx = #{mt_idx}
+	select * from my_daily_schedule_info where mt_idx = #{mt_idx} order by day_sche
 
 </select>
 

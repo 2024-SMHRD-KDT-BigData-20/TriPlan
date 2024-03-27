@@ -23,12 +23,26 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 		//변수 받아오기
 		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
 		String user_id = loginMember.getUser_id();
-		String people = request.getParameter("people");
-		String transportation = request.getParameter("transportation");
-		String pace = request.getParameter("pace");
-		String poi = request.getParameter("poi");
-		String food = request.getParameter("food");
-		String sleep = request.getParameter("sleep");
+		String people = request.getParameter("question_1_1");
+		String transportation = request.getParameter("question_1_2");
+		String pace = request.getParameter("question_1_3");
+		String[] pois = request.getParameterValues("question_2");
+		String[] foods = request.getParameterValues("question_3");
+		String[] sleeps = request.getParameterValues("question_4");
+		
+		String poi = "";
+		String food = "";
+		String sleep = "";
+		
+		for(String p: pois) {
+			poi += "#" + p + " ";
+		}
+		for(String f: foods) {
+			food += "#" + f + " ";
+		}
+		for(String s: sleeps) {
+			sleep += "#" + s + " ";
+		}
 		
 		//VO에 담기 - insert parameter로 활용
 		n3PreferenceVO tripPreferenceVO = new n3PreferenceVO(user_id,people,transportation,pace,poi,food,sleep);
@@ -39,17 +53,14 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 		n1UserDAO dao = new n1UserDAO();
 		int cnt = dao.confirmPreference(tripPreferenceVO);
 		
-		
+		System.out.println();
 		//세션...매 서블릿마다 불러와야 하나?
 		if(cnt>0) {
 		session.setAttribute("tripPreferenceVO", tripPreferenceVO);
-		String targetUrl = "/n7FindMatchingTripCon"; // 대상 서블릿의 URL 경로
-
-		// 리다이렉트할 URL을 생성
-		String redirectUrl = response.encodeRedirectURL(request.getContextPath() + targetUrl);
+		session.setAttribute("loginMember", loginMember);
 
 		// 생성한 URL로 리다이렉트
-		response.sendRedirect(redirectUrl);
+		response.sendRedirect("loading.jsp");
 		}else {
 			System.out.println("스타일 업뎃 실패");
 		}

@@ -32,7 +32,7 @@
 	</select>
 	
 	<update id="updatePreference" parameterType = "PreferenceVO">
-		update user_preference set people = #{people}, tansportation = #{transportation}, pace = #{pace}, poi = #{poi}, food = #{food}, sleep = #{sleep} where user_id = #{user_id}
+		update user_preference set people = #{people}, transportation = #{transportation}, pace = #{pace}, poi = #{poi}, food = #{food}, sleep = #{sleep} where user_id = #{user_id}
 	</update>
 
 </mapper>

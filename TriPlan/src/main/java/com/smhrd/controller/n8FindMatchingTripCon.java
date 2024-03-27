@@ -56,7 +56,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
 			Date endDate = dates.parse(end);
 			long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
 			double diffDays = (double) diffSec / (60 * 60 * 24);
-		    period = (int) Math.ceil(diffDays);
+		    period = (int) Math.ceil(diffDays)+1;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

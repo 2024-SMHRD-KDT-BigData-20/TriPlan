@@ -49,6 +49,8 @@ public class loadScheduleCon extends HttpServlet {
 		courseDAO cDao = new courseDAO();
 		n4MyTripsVO currentTrip = cDao.currentTrip(mt_idx);
 		List<myCourseVO> myCourse = cDao.loadMyCourse(mt_idx);
+		
+		System.out.println("현재 여행: "+currentTrip);
 		System.out.println("왜 null이야?" + myCourse);
 		//장소 순서대로 (스플릿 결과) int idx 리스트 담을 리스트
 		List<List<Integer>> intMyCourses = new ArrayList<>();
