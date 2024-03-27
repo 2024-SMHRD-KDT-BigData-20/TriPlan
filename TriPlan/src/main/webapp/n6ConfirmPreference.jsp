@@ -69,7 +69,7 @@
     </details>
     <div class="button-container">
     <button id="modify" onClick="location.href='ConfirmPreference2.jsp'">수정하기</button>
-    <button id="create" onClick="location.href='n8FindMatchingTripCon'">여행 일정 생성하기</button>
+    <button id="create" onClick="location.href='loading.jsp'">여행 일정 생성하기</button>
     </div>  
     
     <script>
