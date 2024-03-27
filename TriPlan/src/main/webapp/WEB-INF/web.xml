@@ -89,6 +89,12 @@
 		<description></description>
 		<servlet-class>com.smhrd.controller.n9CopyCourseCon</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>n11alterPlaceCon</servlet-name>
+		<display-name>n11alterPlaceCon</display-name>
+		<description></description>
+		<servlet-class>com.smhrd.controller.n11alterPlaceCon</servlet-class>
+	</servlet>
 	
 	
 	
@@ -147,6 +153,10 @@
 	<servlet-mapping>
 		<servlet-name>n9CopyCourseCon</servlet-name>
 		<url-pattern>/n9CopyCourseCon</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>n11alterPlaceCon</servlet-name>
+		<url-pattern>/n11alterPlaceCon</url-pattern>
 	</servlet-mapping>
 	
 	<session-config>

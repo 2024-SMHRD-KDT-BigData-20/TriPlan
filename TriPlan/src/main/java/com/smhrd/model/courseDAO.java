@@ -157,6 +157,13 @@ public class courseDAO {
 		return sampleTripDetails;
 	}
 
+	public List<PoiVO> alterPlace(int poi_idx) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<PoiVO> alterPlace = sqlSession.selectList("com.smhrd.db.courseMapper.alterPlace",poi_idx);
+		sqlSession.close();
+		return alterPlace;
+	}
+
 
 
 }
