@@ -61,7 +61,7 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
     </div>     
 <!-- <div class="cloudBackground"> -->
 <%-- <%if(MyTrips.size()>0){%> --%>
-<%if(MyTrips.size()>0){%>
+<%if(MyTrips != null && MyTrips.size() > 0){%>
     <div class="container">
         <div class="restaurant-container">
         <div class="label-container">

@@ -309,6 +309,12 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 <script
 	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=rUw2inMtFc3RpPULkR6di5FZAXdX8YtU4H0nJxbF"></script>
 <script>
+
+        
+        <%HttpSession session2 = request.getSession();
+List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");
+n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
+%>
     var map;
     var markers = []; // 마커와 정보 창을 저장할 배열
 
@@ -319,12 +325,6 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
             height: "100Vh",
             zoom: 11
         });
-
-        
-        <%HttpSession session2 = request.getSession();
-List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");
-n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
-%>
 
 
 
@@ -545,7 +545,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 						<p class="delete" id="del" type="button" onclick="deletePoi()">삭제</p>
 						<!-- 이미지 요소 -->
 						<div class="Img">
-							<img src=<%="poiImgs/" + poi.getPoi_img_location()%> width=100%
+							<img src="poiImgs/<%=poi.getPoi_img_location()%>" width=100%
 								height="100%" alt=<%=poi.getPoi_name()%>>
 						</div>
 						<div class="place-info">
@@ -719,23 +719,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	        map: map
 	    });
 
-	    // 마커 사이의 거리 레이블 추가
-	    for (let i = 0; i < markers.length - 1; i++) {
-	        addDistanceLabel(markers[i], markers[i + 1], map);
-	    }
-	    function addDistanceLabel(marker1, marker2, map) {
-	        var latLng1 = marker1.getPosition();
-	        var latLng2 = marker2.getPosition();
-	        
-	        var distance = Tmapv2.Util.getDistance(latLng1, latLng2);
-	        var midpoint = new Tmapv2.LatLng((latLng1._lat + latLng2._lat) / 2, (latLng1._lng + latLng2._lng) / 2);
-	        
-	        var infoWindow = new Tmapv2.InfoWindow({
-	            position: midpoint,
-	            content: distance.toFixed(2) + " m",
-	            map: map
-	        });
-	    }
+	    
 	}
 
 	</script>
@@ -901,12 +885,14 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			if(document.querySelector("#result1").parentElement.innerText.includes("장소검색")){
 				alert("원하는 일정으로 드래그 해주세요")
 			}else{
-		search_item.classList.remove("search");
-		document.querySelector(".name.search").classList.remove("search");
-		document.querySelector(".Img.search").classList.remove("search");
-		document.getElementById('Tag').innerText = "";
-		document.querySelector(".address").style.display = 'block';
-			}
+	      const searchElements = search_item.querySelectorAll(".search");
+	      searchElements.forEach(element =>{
+	         element.classList.remove("search");
+	      });
+			search_item.classList.remove("search");
+	      search_item.querySelector('.tag-name').innerText = "";
+	      search_item.querySelector(".address").style.display = 'block'; 
+}
 		}
 		
 		

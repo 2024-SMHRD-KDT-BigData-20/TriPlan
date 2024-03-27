@@ -236,6 +236,10 @@ public class n8FindMatchingTripCon extends HttpServlet {
         
         int matchingTrip = maxKey;
         
+        //img = select * 혹은 img from tour_course_info
+        //insert into my)tourcourseinfo set mt_select = matchingTrip, img = 위에거
+
+        
         List<autoCourseVO> courseDetail = dao.importCourseDetail(matchingTrip);
         
         for(autoCourseVO course:courseDetail) {
@@ -255,6 +259,7 @@ public class n8FindMatchingTripCon extends HttpServlet {
         	System.out.println(myCourseDetail.toString());
         	cnt += dao.insertCourseDetail(myCourseDetail);
         }
+        //myTourImg 고대로 복사
         
         if(cnt==courseDetail.size()) {
         	//unique poi list
