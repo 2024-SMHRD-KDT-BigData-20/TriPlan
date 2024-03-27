@@ -8,7 +8,7 @@ body{
 .navbar{
     position: sticky;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     background-color: burlywood;
     padding: 8px 12px;
@@ -45,6 +45,15 @@ body{
 }
 
 .navbar___menu li{
+    padding: 8px 12px;
+}
+.navbar___personal{
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar___personal li{
     padding: 8px 12px;
 }
 

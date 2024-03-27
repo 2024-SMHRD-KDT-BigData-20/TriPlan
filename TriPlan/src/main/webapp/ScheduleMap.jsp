@@ -20,7 +20,9 @@
 <title>TriPlan 일정</title>
 
 <!--Google Fonts and Icons-->
-	<link rel="stylesheet" href="navStyle.css">
+<link rel="stylesheet" href="navStyle.css">
+<link rel="stylesheet" type="text/css" href="slick.css">
+<link rel="stylesheet" type="text/css" href="slick-theme.css">
 <link
 	href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
 	rel="stylesheet" />
@@ -77,6 +79,15 @@ body {
 #right_col_inner {
 	color: black;
 	text-align: center;
+}
+
+#slideContainer {
+	width: 100%;
+	display: flex;
+	margin: auto;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .fixed-element {
@@ -199,7 +210,13 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	border-radius: 5px;
 	cursor: pointer;
 	display: flex;
+	flex-direction: column;
+}
+
+.testElement {
+	display: flex;
 	flex-direction: row;
+	width: 100%;
 }
 
 .list-group-item.search {
@@ -210,6 +227,14 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	cursor: pointer;
 	display: flex;
 	flex-direction: row;
+	min-height: 20px;
+}
+
+.testElement.search {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 45px;
 }
 
 .daycount {
@@ -233,8 +258,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 }
 
 .Img.search {
-	width: 10%;
-	height: 5%;
+	width: auto;
 	object-fit: cover;
 	display: flex;
 	margin-right: 10px;
@@ -259,12 +283,19 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	height: 40px;
 }
 
+.search_title {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
 .place-info {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
-.delete{
+
+.delete {
 	position: absolute;
 	right: 20px;
 	height: 20px;
@@ -280,30 +311,54 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	margin-right: 15px;
 }
 
-    swiper-container {
-      width: 100%;
-      height: 100%;
-    }
+.slider {
+	width: 50%;
+	margin: 0;
+}
 
-    swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.slick-slide {
+	margin: 0px 20px;
+}
 
-    swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.slick-slide img {
+	width: 100%;
+}
+
+.slick-prev:before, .slick-next:before {
+	color: black;
+}
+
+.slick-slide {
+	transition: all ease-in-out .3s;
+	opacity: .2;
+}
+
+.slick-active {
+	opacity: .5;
+}
+
+.slick-current {
+	opacity: 1;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.otherpoi {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.otherpoi img {
+	height: 80%;
+}
 
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 <!-- 지도 함수 스크립트 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script
@@ -313,8 +368,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
         
         <%HttpSession session2 = request.getSession();
 List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");
-n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
-%>
+n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
     var map;
     var markers = []; // 마커와 정보 창을 저장할 배열
 	var travelPaths=[];
@@ -399,7 +453,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
         
     }
     </script>
-    
+
 <!-- 지도 함수 끝 -->
 
 <!-- 드래그 앤 드롭 소스 -->
@@ -414,7 +468,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 <script src="assets/js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
-<script src="https://kit.fontawesome.com/5366f35670.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/5366f35670.js"
+	crossorigin="anonymous"></script>
 
 
 </head>
@@ -435,29 +490,36 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 
 
 	<div id="right_col">
-		    <div class="navbar">
-        <div class="navbar___logo">
-            <i class="fa-brands fa-wordpress"></i>
-            <a href="">TriPlan</a>
-        </div>
-        <ul class="navbar___menu">
-            <li><a href="n3Preference.jsp">내 여행프로필</a></li>
-            <li><a href="MyPage.jsp">마이페이지</a></li>
-            <li><a href="ScheduleMap.jsp">스케쥴메이커</a></li>
-            <li><a href="n5CreateSchedule.jsp">일정생성</a></li>
-        </ul>
-    </div>
+		<div class="navbar">
+			<div class="navbar___logo">
+				<i class="fa-brands fa-wordpress"></i> <a href="">TriPlan</a>
+			</div>
+			<ul class="navbar___menu">
+				<li><a href="MyPage.jsp">홈</a></li>
+				<li><a href="n3Preference.jsp">내 여행프로필</a></li>
+				<li><a href="n5CreateSchedule.jsp">일정생성</a></li>
+			</ul>
+
+			<ul>
+				<li><a href="">로그아웃</a></li>
+			</ul>
+		</div>
 		<div id="right_col_inner">
 			<div class="fixed-element">
 				<h2><%=currentTrip.getMt_name()%></h2>
-				<%SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+				<%
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date startDate = sdf.parse(currentTrip.getMt_st_dt());
 				Date endDate = sdf.parse(currentTrip.getMt_ed_dt());
 				long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
 				double diffDays = (double) diffSec / (60 * 60 * 24);
 				int period = (int) Math.ceil(diffDays);
 				%>
-				<p><%=sdf.format(startDate)%> ~ <%=sdf.format(endDate)%> (<%=period-1%>박<%=period%>일)</p>
+				<p><%=sdf.format(startDate)%>
+					~
+					<%=sdf.format(endDate)%>
+					(<%=period - 1%>박<%=period%>일)
+				</p>
 				<button type="button" onclick="checkPOI()">저장</button>
 			</div>
 			<!-- <h3>
@@ -469,35 +531,17 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			<!-- 일정 장소별 드래그 앤 드롭 -->
 			<div class="container">
 
-				<div class="column" id = "searchResultList">
-					<h1>장소검색</h1>
+				<h1 style="margin-top: 30px;">장소검색</h1>
+				<div class="search_title">
+					<input type="text" class="searchBox" name="search">
+					<button onclick="search()" draggable="false">검색</button>
+				</div>
+				<div class="column" id="searchResultList">
+
 					<!-- 장소검색하는 컬럼생성 -->
 					<br>
-					<!-- 검색창 출력 -->
-					<input type="text" class="searchBox" name = "search">
-					<button onclick="search()">검색</button>
-					<!-- 검색결과에 따른 항목 출력 -->
-<!-- 					<div class="list-group-item search">
-						<div class="Img search">
-							<img src="hotelImg/100-코델리아리조트.jpg" alt="테스트" width="100%"
-								height="100%">
-						</div>
-						장소정보 출력
-						<div class="place-info">
-							<div class="name search">스마트인재개발원</div>
-							장소이름
-							<div class="tag-name" id="Tag">
-								숙소ㆍ음식점
-								ㆍ = 구분자? 이곳에 장소에 해당하는 태그 명 들어가야 함
-							</div>
-							장소설명
-							<div class="address" style="display: none">
-								주소 들어가야함
-								마우스 드롭하면 보임
-							</div>
-						</div>
-						<span class="material-icons-round">drag_indicator</span>
-					</div> -->
+
+
 				</div>
 
 
@@ -517,9 +561,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 				<h2 draggable="false">
 					<%=i + 1%>일차
 				</h2>
-				
+
 				<div class="column" id="Day<%=i + 1%>">
-				<button onclick="PrintMap(<%=i+1%>)">일정 지도에서 보기</button>
+					<button onclick="PrintMap(<%=i + 1%>)">일정 지도에서 보기</button>
 					<%--  --%>
 					<!-- <div class="ite/2m-plus">
 							<button>+ 장소추가</button>
@@ -546,29 +590,55 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 						id=<%=poi.getPoi_idx()%> onclick="mouse()">
 						<p class="delete" id="del" type="button" onclick="update()">삭제</p>
 						<!-- 이미지 요소 -->
-						<div class="Img">
-							<img src="poiImgs/<%=poi.getPoi_img_location()%>" width=100%
-								height="100%" alt=<%=poi.getPoi_name()%>>
-						</div>
-						<div class="place-info">
-							<div class="name"><%=poi.getPoi_name()%></div>
-							<div class="description"><%=poi.getPoi_desc()%></div>
-							<div class="addrees"><%=poi.getPoi_addr()%></div>
-							<%-- <div class="operation-time"><%=poi.getPoi_runingtime()%></div> --%>
+						<div class="testElement" id="testElement">
+							<div class="Img">
+								<img src="poiImgs/<%=poi.getPoi_img_location()%>" width=100%
+									height="100%" alt=<%=poi.getPoi_name()%>>
+							</div>
+							<div class="place-info">
+								<div class="name"><%=poi.getPoi_name()%></div>
+								<div class="description"><%=poi.getPoi_desc()%></div>
+								<div class="addrees"><%=poi.getPoi_addr()%></div>
+								<%-- <div class="operation-time"><%=poi.getPoi_runingtime()%></div> --%>
 
-							<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
-							<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div>
+								<!-- 재민 추신 : 현식이형 위도경도 정보 쓸려면 주석 풀어주세용-->
+								<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div>
 						<div class="operation-time"><%=poi.getPoi_lng()%></div>
 						--%>
+							</div>
+							<span class="material-icons-round">drag_indicator</span>
 						</div>
-						<!--    <swiper-container class="mySwiper" navigation="true">
-    						<swiper-slide>Slide 1</swiper-slide>
-    						<swiper-slide>Slide 2</swiper-slide>
-   						 </swiper-container> -->
-    
+
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
-						<span class="material-icons-round">drag_indicator</span>
-						
+						<div id="slideContainer">
+							<p
+								style="background-color: #ddd; border-radius: 50px; width: 200px;">비슷한
+								장소</p>
+							<section class="center slider">
+								<!-- id에 poi_idx값 들어가야 함 -->
+								<div id="otherpoi" class="otherpoi">
+									<div style="height: 70px; width: 70px">
+										<!-- 이미지 삽입 -->
+										<img src="http://placehold.it/350x300?text=1">
+									</div>
+									<div
+										style="display: flex; justify-content: center; text-align: center; align-items: center;">
+										<a>장소제목 들어감</a>
+									</div>
+								</div>
+								<div id="otherpoi" class="otherpoi">
+									<div style="height: 70px; width: 70px">
+										<img src="http://placehold.it/350x300?text=1">
+									</div>
+									<div
+										style="display: flex; justify-content: center; text-align: center; align-items: center;">
+										<a>스마트인재개발원</a>
+									</div>
+								</div>
+							</section>
+						</div>
+
+
 					</div>
 					<%
 					}
@@ -583,7 +653,21 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			</div>
 		</div>
 	</div>
-		<script>
+	<script src="slick.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		   $(document).on('ready', function() {
+         $(".center").slick({
+          dots: true,
+          infinite: true,
+          centerMode: true,
+          slidesToShow: 1,
+          slidesToScroll: 1
+        });
+         $(".center slider.slick-initialized.slick-slider.slick-dotted").css("margin", "0");
+         $(".center slider.slick-initialized.slick-slider.slick-dotted").css("width", "80%");
+         $(".center slider.slick-initialized.slick-slider.slick-dotted").css("display", "flex");
+         $(".slick-dots").css("display", "none");
+      });
 	// 아이템들의 초기 순서를 저장할 배열
 	let itemOrders = [];
 	
@@ -649,7 +733,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	newCourseOrder = [];
 	function saveItemOrder() {
 	let updatedItemOrders = [];
-	       	  <%for (int j = 0; j < period ; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
+	       	  <%for (int j = 0; j < period; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
 
        	        const Items<%=j + 1%> = document.querySelectorAll("#Day<%=j + 1%>>.list-group-item");
 	       	        
@@ -908,6 +992,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	    let resultList = document.getElementById("searchResultList"); // 검색 결과를 표시할 리스트 요소를 가져옴
 	    resultList.innerHTML = ""; // 이전 검색 결과를 초기화
 	    
+	    // 검색 입력 상자 생성까지 삭제해야될듯 싶어요
 	 // 헤더 생성
 	    let searchHeader = document.createElement("h1");
 	    searchHeader.textContent = "장소검색";
@@ -973,8 +1058,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	}
 	</script>
 
-	
-	
+
+
 	<script>
 	document.addEventListener("mousedown", (e) => {
 		const drag_item = e.target.closest(".list-group-item");
@@ -992,17 +1077,36 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
         if(current_item){
                 current_item.classList.remove("insert-animation");
 		if(search_item != null){
-			if(document.querySelector("#result1").parentElement.innerText.includes("장소검색")){
+			if(search_item.parentElement.innerText.includes("장소검색")){
 				alert("원하는 일정으로 드래그 해주세요")
 			}else{
-	      const searchElements = search_item.querySelectorAll(".search");
-	      searchElements.forEach(element =>{
-	         element.classList.remove("search");
-	      });
-			search_item.classList.remove("search");
-	      search_item.querySelector('.tag-name').innerText = "";
-	      search_item.querySelector(".address").style.display = 'block'; 
-}
+		const searchElements = search_item.querySelectorAll(".search");
+		searchElements.forEach(element =>{
+			element.classList.remove("search");
+		});
+ 		search_item.classList.remove("search");
+		search_item.querySelector('.tag-name').innerText = "";
+/* 		search_item.querySelector(".address").style.display = 'block' */; 
+        // 설명 들어감
+        const description = document.createElement('div');
+        description.classList.add('description');
+        description.innerText = '설명 들어가야 함';
+        search_item.querySelector('.place-info').appendChild(description);
+		// 주소 들어감
+        const adress = document.createElement('div');
+        adress.classList.add('adress');
+        adress.innerText = '주소 들어가야 함';
+        search_item.querySelector('.place-info').appendChild(adress);
+        // 삭제버튼 들어감
+         const Divdelete = document.createElement('p');
+         Divdelete.classList.add('delete');
+         Divdelete.setAttribute('type', 'button');
+         Divdelete.setAttribute('onclick', 'deletePoi()');
+         Divdelete.innerText = '삭제'; 
+         console.log(Divdelete);
+        search_item.appendChild(Divdelete);
+ 
+			}
 		}
 		
 		
@@ -1014,6 +1118,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
                 e.preventDefault();
             }
         });
+	
+			/* 삭제함수 */
 			 document.addEventListener('DOMContentLoaded', function() {
 			  // 상위 요소에 이벤트 리스너를 추가합니다. 여기서는 document를 사용했지만,
 			  // 성능을 위해 가능한 한 가까운 부모 요소에 추가하는 것이 좋습니다.
