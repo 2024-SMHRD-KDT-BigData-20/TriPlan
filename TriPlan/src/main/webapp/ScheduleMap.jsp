@@ -317,7 +317,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 %>
     var map;
     var markers = []; // 마커와 정보 창을 저장할 배열
-
+	var travelPaths=[];
     function initTmap() {
         map = new Tmapv2.Map("map_div", {
             center: new Tmapv2.LatLng(33.5070339, 126.4937486),
@@ -517,7 +517,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 				<h2 draggable="false">
 					<%=i + 1%>일차
 				</h2>
+				
 				<div class="column" id="Day<%=i + 1%>">
+				<button onclick="PrintMap(<%=i+1%>)">일정 지도에서 보기</button>
 					<%--  --%>
 					<!-- <div class="ite/2m-plus">
 							<button>+ 장소추가</button>
@@ -542,7 +544,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 
 					<div class="list-group-item" draggable="true"
 						id=<%=poi.getPoi_idx()%> onclick="mouse()">
-						<p class="delete" id="del" type="button" onclick="deletePoi()">삭제</p>
+						<p class="delete" id="del" type="button" onclick="update()">삭제</p>
 						<!-- 이미지 요소 -->
 						<div class="Img">
 							<img src="poiImgs/<%=poi.getPoi_img_location()%>" width=100%
@@ -581,6 +583,52 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			</div>
 		</div>
 	</div>
+		<script>
+	// 아이템들의 초기 순서를 저장할 배열
+	let itemOrders = [];
+	
+	 
+	
+/* 	const items = document.querySelectorAll("#Day2 > .list-group-item");
+	items.forEach((item,index)=>{
+		itemOrders.push(item.id);
+	});
+	console.log(itemOrders)
+ */
+
+ 	// 반복문을 사용하여 각 날짜에 대한 아이템들을 선택하고 초기 순서를 저장
+
+  	for (let j = 0; j < <%=period%> ; j++) {//session에서 period 받아와야 함. MyTripsVO.getPeriod()
+		    const items = document.querySelectorAll("#Day" +String(j+1) +"> .list-group-item");
+		    let itemOrder = [];
+		    items.forEach((item, index) => {
+		        itemOrder.push(item.id);
+		    });
+		    itemOrders.push(itemOrder);
+		}
+		    console.log(itemOrders);
+		    
+<%-- 			function saveItemOrder() {
+		   	   let updatedItemOrders = [];
+		       	  <%for (int j = 0; j < 4; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
+
+	       	        const Items<%=j+1%> = document.querySelectorAll("#Day<%=j+1%>>.list-group-item");
+		       	        
+		       	        let updatedItemOrder<%=j+1%> = []; // 배열 초기화
+		       	        //현재 순서대로 아이템들의 id를 배열에 추가
+		       	        Items<%=j+1%>.forEach((item, index) => {
+		       	            updatedItemOrder<%=j+1%>.push(item.id);
+		       	        });
+					  	console.log(updatedItemOrder<%=j+1%>)
+		       	        updatedItemOrders.push(updatedItemOrder<%=j+1%>);
+				  	<%}%>
+		   			return updatedItemOrders
+		       	  // 서버에 배열을 전송하여 저장하는 등의 작업을 수행할 수 있습니다.
+		       	} --%>
+/* 		    let testOrder = saveItemOrder();
+			console.log(testOrder); */
+			
+	</script>
 	<script>
 /*  	$(document).ready(function(){
 		.navbar position: fixed;
@@ -634,6 +682,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		//받아오는 데이터 타입
  		dataType : "json", 
 		success : function(res){
+			newPOI=[];
 			console.log(res)
 			console.log(typeof(res));
 			for(let i=0; i<res.length;i++){
@@ -652,11 +701,13 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		    }, */
 	}); //ajax 끝 
 		console.log("업뎃");
+		return newPOI;
 	}
+	
 	
 	function checkPOI() {
 		
-		
+		console.log("checkPOI() 실행")
 		
 	    let pathCoordinates = []; // 선을 그릴 좌표를 저장할 배열
 	    let infoWindow; // 인포윈도우를 관리하기 위한 변수 선언
@@ -718,10 +769,111 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	        strokeWeight: 6,
 	        map: map
 	    });
-
 	    
-	}
+	    
 
+	    console.log("checkPOI() 완료")
+	}
+	
+	 let dayX=1;
+
+	 console.log("dayX초기값",dayX)
+	 
+	 
+	 markers = [];
+	 function PrintMap(dayX) {
+		 
+		 console.log("PrintMap실행");
+		 console.log("마커스 배열 확인: ", markers);
+		 console.log("라인 배열 확인: ",travelPaths);
+		 for(var i = 0; i < markers.length; i++){
+			 console.log("markers ", i,"는 ", markers[i])
+			 markers[i].setMap(null); // 마커 제거			 
+		 }
+		 for(var i = 0; i < travelPaths.length; i++){
+			 console.log("Path ", i,"는 ", travelPaths[i])
+			 travelPaths[i].setMap(null); // 마커 제거			 
+		 }
+		 
+
+			//markers.clearMarkers();
+
+		/*  for(Tmapv2.Marker marker of markers){
+			 marker.clearMarkers();
+		 } */
+
+			newCourseOrder = itemOrders;
+			console.log("newCourseOrder",newCourseOrder)
+			newPOI = update();
+			console.log("newPOI는",newPOI)
+		    let pathCoordinates = []; // 선을 그릴 좌표를 저장할 배열
+		    let infoWindow; // 인포윈도우를 관리하기 위한 변수 선언
+		    markers = []; // 마커 배열 초기화
+		    travelPaths = [];
+		    // 모든 일차를 순회
+		  
+		        for (let i = 0; i < newCourseOrder[dayX-1].length; i++) {
+		            let poi = newCourseOrder[dayX-1][i];
+		            console.log("newCourseOrder[dayx-i][",i,"]는",newCourseOrder[dayX-1][i]);
+		            for (let detail of newPOI) {
+		            	console.log("detail 반복문 실행",detail)
+		                if (poi == detail.poi_idx) {
+		                    let poi_lat = detail.poi_lat;
+		                    let poi_lng = detail.poi_lng;
+
+		                    // 마커 생성 및 지도에 추가
+		                    let marker = new Tmapv2.Marker({
+		                        position: new Tmapv2.LatLng(poi_lat, poi_lng),
+		                        map: map
+		                    });
+
+		                    // 마커 배열에 추가
+		                    markers.push(marker);
+
+		                    // 선을 그릴 좌표 배열에 현재 마커의 위치 추가
+		                    pathCoordinates.push(new Tmapv2.LatLng(poi_lat, poi_lng));
+
+		                    // 마커에 대한 클릭 이벤트 핸들러 설정
+		                    marker.addListener("click", function(evt) {
+		                        if (infoWindow) {
+		                            infoWindow.setVisible(false);
+		                        }
+
+		                        // 새로운 인포윈도우 생성 및 설정
+		                        infoWindow = new Tmapv2.InfoWindow({
+		                            position: new Tmapv2.LatLng(poi_lat, poi_lng),
+		                            content: detail.poi_name,
+		                            map: map
+		                        });
+
+		                        // 인포윈도우 보이기
+		                        infoWindow.setVisible(true);
+		                    });
+		                }console.log("detail 반복문 안쪽끝")
+		            }
+		        }
+		    
+
+		    // 지도 클릭 이벤트 핸들러 설정
+		    map.addListener("click", function(evt) {
+		        if (infoWindow) {
+		            infoWindow.setVisible(false);
+		        }
+		    });
+
+		    // 마커들을 선으로 연결
+		    let travelPath = new Tmapv2.Polyline({
+		        path: pathCoordinates,
+		        strokeColor: "#FF0000",
+		        strokeWeight: 6,
+		        map: map
+		    });
+		    travelPaths.push(travelPath);
+		    console.log("PrintMap실행 완료")
+		}
+
+	 PrintMap(1);
+	// checkPOI();
 	</script>
 	<script type="text/javascript">
 	let searchResult = []
@@ -820,49 +972,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	    }
 	}
 	</script>
-	<script>
-	// 아이템들의 초기 순서를 저장할 배열
-	let itemOrders = [];
-	
-/* 	const items = document.querySelectorAll("#Day2 > .list-group-item");
-	items.forEach((item,index)=>{
-		itemOrders.push(item.id);
-	});
-	console.log(itemOrders)
- */
 
- 	// 반복문을 사용하여 각 날짜에 대한 아이템들을 선택하고 초기 순서를 저장
-
-  	for (let j = 0; j < 4 ; j++) {//session에서 period 받아와야 함. MyTripsVO.getPeriod()
-		    const items = document.querySelectorAll("#Day" +String(j+1) +"> .list-group-item");
-		    let itemOrder = [];
-		    items.forEach((item, index) => {
-		        itemOrder.push(item.id);
-		    });
-		    itemOrders.push(itemOrder);
-		}
-		    console.log(itemOrders);
-		    
-<%-- 			function saveItemOrder() {
-		   	   let updatedItemOrders = [];
-		       	  <%for (int j = 0; j < 4; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
-
-	       	        const Items<%=j+1%> = document.querySelectorAll("#Day<%=j+1%>>.list-group-item");
-		       	        
-		       	        let updatedItemOrder<%=j+1%> = []; // 배열 초기화
-		       	        //현재 순서대로 아이템들의 id를 배열에 추가
-		       	        Items<%=j+1%>.forEach((item, index) => {
-		       	            updatedItemOrder<%=j+1%>.push(item.id);
-		       	        });
-					  	console.log(updatedItemOrder<%=j+1%>)
-		       	        updatedItemOrders.push(updatedItemOrder<%=j+1%>);
-				  	<%}%>
-		   			return updatedItemOrders
-		       	  // 서버에 배열을 전송하여 저장하는 등의 작업을 수행할 수 있습니다.
-		       	} --%>
-/* 		    let testOrder = saveItemOrder();
-			console.log(testOrder); */
-	</script>
 	
 	
 	<script>
@@ -898,7 +1008,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		
                 saveItemOrder();//일정 순서 바뀐대로 가져오기
 				update();//해당 PoiVO가져오기
-				checkPOI();//가져온 정보로 맵 출력
+				//checkPOI();//가져온 정보로 맵 출력
+				PrintMap(1);
                 console.log("드래그종료");
                 e.preventDefault();
             }

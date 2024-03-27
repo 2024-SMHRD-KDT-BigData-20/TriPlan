@@ -60,12 +60,22 @@ public class loadScheduleCon extends HttpServlet {
 		//코스에 속한 장소들 형변환해서 리스트에 담기
 		for (int i = 0; i < myCourse.size(); i++) {
 		    String daily = myCourse.get(i).getMt_course();
-		    String[] dayCourseStr = daily.split("-");
+		    String[] dayCourseStr = new String[]{""};
+		    if(daily!=null) {
+		    dayCourseStr = daily.split("-");
+		    }
 		    List<Integer> dayCourse = new ArrayList<>();
 		    for (String place : dayCourseStr) {
-		    	int poi_idx = Integer.parseInt(place);
-		        dayCourse.add(poi_idx);
-		        allPlaces.add(poi_idx);
+		    	if (!place.isEmpty()) { // 빈 문자열이 아닌 경우에만 변환
+		            try {
+		                int poi_idx = Integer.parseInt(place);
+		                dayCourse.add(poi_idx);
+		                allPlaces.add(poi_idx);
+		            } catch (NumberFormatException e) {
+		                // 변환할 수 없는 경우 예외 처리
+		                // 또는 무시하고 계속 진행하도록 설정할 수 있음
+		            }
+		        }
 		    }		    
 		    intMyCourses.add(dayCourse);
 		}
