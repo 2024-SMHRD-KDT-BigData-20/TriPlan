@@ -83,6 +83,12 @@
 		<description></description>
 		<servlet-class>com.smhrd.controller.n10SearchCon</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>n9CopyCourseCon</servlet-name>
+		<display-name>n9CopyCourseCon</display-name>
+		<description></description>
+		<servlet-class>com.smhrd.controller.n9CopyCourseCon</servlet-class>
+	</servlet>
 	
 	
 	
@@ -137,6 +143,10 @@
 	<servlet-mapping>
 		<servlet-name>n10SearchCon</servlet-name>
 		<url-pattern>/n10SearchCon</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>n9CopyCourseCon</servlet-name>
+		<url-pattern>/n9CopyCourseCon</url-pattern>
 	</servlet-mapping>
 	
 	<session-config>

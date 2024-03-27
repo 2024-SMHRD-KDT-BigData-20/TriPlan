@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.n7TourCourseVO"%>
+<%@page import="com.smhrd.model.CourseBriefNDetailVO"%>
 <%@page import="com.smhrd.model.n4MyTripsVO"%>
 <%@page import="com.smhrd.model.n1UserVO"%>
 <%@page import="java.util.Date"%>
@@ -37,7 +39,8 @@
 List<n4MyTripsVO> MyTrips = (List<n4MyTripsVO>)session.getAttribute("myTrips"); 
 n1UserVO userVO = (n1UserVO)session.getAttribute("loginUserVO");
 System.out.println("MyTrips확인: "+MyTrips);
-
+List<n7TourCourseVO> sampleTrips = (List<n7TourCourseVO>)session.getAttribute("sampleTrips");
+System.out.println("SampleTrips확인: "+sampleTrips);
 SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 
 
@@ -50,7 +53,7 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
             <a href="">TriPlan</a>
         </div>
         <ul class="navbar___menu">
-            <li><a href="n3Preference.jsp">내 여행프로필</a></li>
+            <li><a href="n6ConfirmPreference.jsp">내 여행프로필</a></li>
             <li><a href="MyPage.jsp">마이페이지</a></li>
             <li><a href="ScheduleMap.jsp">스케쥴메이커</a></li>
             <li><a href="n5CreateSchedule.jsp">일정생성</a></li>
@@ -99,31 +102,34 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
           </div> 
           </a>         
           <%}
-		   }else{%>
+		   }else{
+		   %>
 		       <div class="container">
         <div class="restaurant-container">
         <div class="label-container">
-          <h2><span class=""><%=userVO.getUser_nick()%>님의</span> 첫 여행을 만들어보세요</h2> 
+          <h2><span class=""><%=userVO.getUser_nick()%>님</span> 여행 계획을 둘러보고 첫 여행을 만들어보세요</h2> 
           <button class="" onclick="location.href='n5CreateSchedule.jsp'" type="button">새로운 일정 생성</button>
           <button class="restaurant-arrow-left"><i class="bi bi-arrow-left"></i></button>
           <button class="restaurant-arrow-right"><i class="bi bi-arrow-right"></i></button>
         </div>
         <div class="card-slider">
-		   <a href=n5CreateSchedule.jsp>
+        <%for(n7TourCourseVO trip:sampleTrips){ %>
+		   <a href=sampleScheduleMap.jsp>
 		             <div class="restaurant-card">
               <div class="image-container">
-                  <img src="assets/01CreateTrip.jpg" alt="여행을 생성해보세요">
+                  <img src="CourseImg/<%=trip.getBc_img()%>" alt="여행을 생성해보세요">
                   <div class="discount-badge"><!-- Dday = 현재 시간 - mt_st_dt  --></div>
               </div>
-              <h3 class="restaurant-name">새로운 여행 생성하기</h3>
+              <h3 class="restaurant-name"><%=trip.getBc_name()%></h3>
               
               <!--info-container -->
                <div class="info-container">                 
-
+				<%=trip.getBc_period()%>일
               </div>
           </div> 
           </a>
-          <%} %>
+          <%}
+			} %>
 <!-- 		   </div> -->
       <script>
         document.addEventListener("DOMContentLoaded", function () {

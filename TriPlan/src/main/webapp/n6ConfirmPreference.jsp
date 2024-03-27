@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.n1UserDAO"%>
+<%@page import="com.smhrd.model.n1UserVO"%>
 <%@page import="com.smhrd.model.n3PreferenceVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -48,10 +50,14 @@
 		}
     </style>
 
-<%n3PreferenceVO preferenceVO = (n3PreferenceVO)session.getAttribute("userPreference"); %>
+<%
+n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
+String id = loginMember.getUser_id();
+n1UserDAO dao = new n1UserDAO();
+n3PreferenceVO preferenceVO = dao.PreferenceToPrint(id); %>
 </head>
 <body>
-	<h1>"nick name" 님의 여행 스타일 확인</h1>
+	<h1><%=loginMember.getUser_nick()%>님의 여행 스타일 확인</h1>
     <details class="details">
         <summary>여행 스타일</summary>
         <ul>

@@ -143,6 +143,20 @@ public class courseDAO {
 		return searchResult;
 	}
 
+	public List<n7TourCourseVO> SampleTrips() {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<n7TourCourseVO> sampleTrips = sqlSession.selectList("com.smhrd.db.courseMapper.sampleTrips");
+		sqlSession.close();
+		return sampleTrips;
+	}
+
+	public List<CourseBriefNDetailVO> SampleTripDetails(List<Integer> sampleTrips) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		List<CourseBriefNDetailVO> sampleTripDetails = sqlSession.selectList("com.smhrd.db.courseMapper.sampleTripDetail",sampleTrips);
+		sqlSession.close();
+		return sampleTripDetails;
+	}
+
 
 
 }

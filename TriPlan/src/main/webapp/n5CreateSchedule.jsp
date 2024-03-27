@@ -38,7 +38,7 @@
             <a href="">TriPlan</a>
         </div>
         <ul class="navbar___menu">
-            <li><a href="n3Preference.jsp">내 여행프로필</a></li>
+            <li><a href="n6ConfirmPreference.jsp">내 여행프로필</a></li>
             <li><a href="MyPage.jsp">마이페이지</a></li>
             <li><a href="ScheduleMap.jsp">스케쥴메이커</a></li>
             <li><a href="n5CreateSchedule.jsp">일정생성</a></li>

@@ -71,7 +71,29 @@ FROM (SELECT POI_IDX AS POI_idx,
 WHERE ROWNUM &lt;= 5
 
 </select>
+<select id="sampleTripDetail" parameterType="java.util.List" resultType="CourseBriefNDetailVO">
+    SELECT bc_name, bc_period, bc_theme, bc_img, day, bc_course
+    FROM tour_course_info a
+    inner JOIN daily_schedule_info b ON a.bc_idx = b.bc_idx
+    WHERE a.bc_idx IN
+    <foreach item="item" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</select>
 
+<select id="sampleTrips" resultType ="TourCourseVO">
+SELECT * FROM (
+    SELECT * FROM tour_course_info WHERE bc_period = 3 ORDER BY DBMS_RANDOM.RANDOM()
+) WHERE ROWNUM &lt;= 1
+UNION ALL
+SELECT * FROM (
+    SELECT * FROM tour_course_info WHERE bc_period = 4 ORDER BY DBMS_RANDOM.RANDOM()
+) WHERE ROWNUM &lt;= 1
+UNION ALL
+SELECT * FROM (
+    SELECT * FROM tour_course_info WHERE bc_period = 5 ORDER BY DBMS_RANDOM.RANDOM()
+) WHERE ROWNUM &lt;= 1
+</select>
 <select id="currentTrip" parameterType = "int" resultType = "MyTripsVO">
 select * from my_tour_course_info where mt_idx = #{mt_idx}
 </select>

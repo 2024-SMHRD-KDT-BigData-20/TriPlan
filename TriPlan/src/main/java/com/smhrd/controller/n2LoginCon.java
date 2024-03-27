@@ -34,6 +34,7 @@ public class n2LoginCon extends HttpServlet {
 		//loginVO가 잘 불러와지면 loginVO session에 저장해 다음 페이지로, 안 되면 로그인 페이지로 돌아가기
 		if (loginUserVO!=null) {
 			session.setAttribute("loginUserVO", loginUserVO);
+			session.setAttribute("loginMember", loginUserVO);
 			
 			System.out.println("session세팅 완료");
 			
