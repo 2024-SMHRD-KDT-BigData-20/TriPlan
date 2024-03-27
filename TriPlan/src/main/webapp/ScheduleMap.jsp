@@ -320,12 +320,14 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
             zoom: 11
         });
 
-        var positions = [];
         
         <%HttpSession session2 = request.getSession();
 List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");
 n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 %>
+
+
+
         <%-- 
         <%for (int i = 0; i < myUniquePOI.size(); i++) {
 			PoiVO poi = (PoiVO) myUniquePOI.get(i);%>
@@ -391,8 +393,13 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
                 m.marker.setVisible(true);
             });
         }); --%>
+        
+        
+        
+        
     }
     </script>
+    
 <!-- 지도 함수 끝 -->
 
 <!-- 드래그 앤 드롭 소스 -->
@@ -647,84 +654,90 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		console.log("업뎃");
 	}
 	
-	function checkPOI(){
-		console.log("사용가능한지", newPOI)
-		let poi_lat = 0;
-		let poi_lng = 0;
-		console.log("선언 확인",poi_lat);
-		console.log("newCourseOrder[0]확인: ",newCourseOrder[0])
-		for (let poi of newCourseOrder[0]) {
-			console.log("poi확인: "+poi)
-		    for (let detail of newPOI) {
-			console.log("detail확인: "+detail.poi_idx)
-		        if (poi == detail.poi_idx) {
-		        	console.log("매치!", poi, "<3", detail.poi_idx)
-		        	console.log("detail.poi_lat")
-		            poi_lat = detail.poi_lat;
-		            poi_lng = detail.poi_lng;
-		            console.log(poi_lat," ",poi_lng);
-		            //여기에 맵 추가?
-	                addMarkerToMap(poi_lat, poi_lng, detail.poi_name);
+	function checkPOI() {
+		
+		
+		
+	    let pathCoordinates = []; // 선을 그릴 좌표를 저장할 배열
+	    let infoWindow; // 인포윈도우를 관리하기 위한 변수 선언
+	    markers = []; // 마커 배열 초기화
 
-		        }
-		    }
-		}
-	}
+	    // 모든 일차를 순회
+	    for (let day = 0; day < newCourseOrder.length; day++) {
+	        for (let i = 0; i < newCourseOrder[day].length; i++) {
+	            let poi = newCourseOrder[day][i];
+	            for (let detail of newPOI) {
+	                if (poi == detail.poi_idx) {
+	                    let poi_lat = detail.poi_lat;
+	                    let poi_lng = detail.poi_lng;
 
-	function createMarkerAndInfoWindow(position, info, map) {
-	    let marker = new Tmapv2.Marker({
-	        position: new Tmapv2.LatLng(position.lat, position.lng),
-	        map: map
+	                    // 마커 생성 및 지도에 추가
+	                    let marker = new Tmapv2.Marker({
+	                        position: new Tmapv2.LatLng(poi_lat, poi_lng),
+	                        map: map
+	                    });
+
+	                    // 마커 배열에 추가
+	                    markers.push(marker);
+
+	                    // 선을 그릴 좌표 배열에 현재 마커의 위치 추가
+	                    pathCoordinates.push(new Tmapv2.LatLng(poi_lat, poi_lng));
+
+	                    // 마커에 대한 클릭 이벤트 핸들러 설정
+	                    marker.addListener("click", function(evt) {
+	                        if (infoWindow) {
+	                            infoWindow.setVisible(false);
+	                        }
+
+	                        // 새로운 인포윈도우 생성 및 설정
+	                        infoWindow = new Tmapv2.InfoWindow({
+	                            position: new Tmapv2.LatLng(poi_lat, poi_lng),
+	                            content: detail.poi_name,
+	                            map: map
+	                        });
+
+	                        // 인포윈도우 보이기
+	                        infoWindow.setVisible(true);
+	                    });
+	                }
+	            }
+	        }
+	    }
+
+	    // 지도 클릭 이벤트 핸들러 설정
+	    map.addListener("click", function(evt) {
+	        if (infoWindow) {
+	            infoWindow.setVisible(false);
+	        }
 	    });
 
-	    let infoWindow = new Tmapv2.InfoWindow({
-	        position: new Tmapv2.LatLng(position.lat, position.lng),
-	        content: info,
-	        border: "1px solid #2c81ba",
-	        visible: false,
-	        map: map
-	    });
-
-	    marker.addListener("click", function () {
-	        markers.forEach(function (m) {
-	            m.infoWindow.setVisible(false);
-	            m.marker.setVisible(true);
-	        });
-	        marker.setVisible(false);
-	        infoWindow.setVisible(true);
-	    });
-
-	    markers.push({ marker: marker, infoWindow: infoWindow });
-	}
-
-	function drawPolyline(positions, map) {
-	    let linePath = positions.map(function (position) {
-	        return new Tmapv2.LatLng(position.lat, position.lng);
-	    });
-
-	    new Tmapv2.Polyline({
-	        path: linePath,
+	    // 마커들을 선으로 연결
+	    let travelPath = new Tmapv2.Polyline({
+	        path: pathCoordinates,
 	        strokeColor: "#FF0000",
-	        strokeWeight: 3,
+	        strokeWeight: 6,
 	        map: map
 	    });
+
+	    // 마커 사이의 거리 레이블 추가
+	    for (let i = 0; i < markers.length - 1; i++) {
+	        addDistanceLabel(markers[i], markers[i + 1], map);
+	    }
+	    function addDistanceLabel(marker1, marker2, map) {
+	        var latLng1 = marker1.getPosition();
+	        var latLng2 = marker2.getPosition();
+	        
+	        var distance = Tmapv2.Util.getDistance(latLng1, latLng2);
+	        var midpoint = new Tmapv2.LatLng((latLng1._lat + latLng2._lat) / 2, (latLng1._lng + latLng2._lng) / 2);
+	        
+	        var infoWindow = new Tmapv2.InfoWindow({
+	            position: midpoint,
+	            content: distance.toFixed(2) + " m",
+	            map: map
+	        });
+	    }
 	}
 
-	function updateMarkersAndPolylines(newData) {
-	    // 기존 마커와 폴리라인 제거
-	    markers.forEach(function (m) {
-	        m.marker.setMap(null);
-	        m.infoWindow.setMap(null);
-	    });
-	    markers = [];
-
-	    // 새로운 마커와 폴리라인 생성
-	    newData.forEach(function (data) {
-	        createMarkerAndInfoWindow({lat: data.poi_lat, lng: data.poi_lng}, data.poi_info, map);
-	    });
-
-	    drawPolyline(newData.map(function (data) { return {lat: data.poi_lat, lng: data.poi_lng}; }), map);
-	}
 	</script>
 	<script type="text/javascript">
 	let searchResult = []
@@ -866,6 +879,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 /* 		    let testOrder = saveItemOrder();
 			console.log(testOrder); */
 	</script>
+	
+	
 	<script>
 	document.addEventListener("mousedown", (e) => {
 		const drag_item = e.target.closest(".list-group-item");
@@ -875,7 +890,11 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		current_item.classList.add("insert-animation");
 		iniY = e.clientY;
 	})
+	
+	
+	
 	    document.addEventListener("drop", (e) => {
+	    	
         if(current_item){
                 current_item.classList.remove("insert-animation");
 		if(search_item != null){
@@ -890,6 +909,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			}
 		}
 		
+		
                 saveItemOrder();//일정 순서 바뀐대로 가져오기
 				update();//해당 PoiVO가져오기
 				checkPOI();//가져온 정보로 맵 출력
@@ -900,6 +920,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			 document.addEventListener('DOMContentLoaded', function() {
 			  // 상위 요소에 이벤트 리스너를 추가합니다. 여기서는 document를 사용했지만,
 			  // 성능을 위해 가능한 한 가까운 부모 요소에 추가하는 것이 좋습니다.
+
 			  document.addEventListener('click', function(e) {
 			    // 클릭된 요소가 삭제 버튼인지 확인합니다.
 			    if (e.target && e.target.classList.contains('delete')) {
