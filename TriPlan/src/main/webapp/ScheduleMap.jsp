@@ -8,16 +8,16 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 
-<!-- !ì°¸ê³ ! -->
+<!-- !Âü°í! -->
 <%-- <%@page import="com.smhrd.controller.loadScheduleCon"%> --%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=euc-kr"
+	pageEncoding="euc-kr"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>TriPlan ì¼ì •</title>
+<meta charset="euc-kr">
+<title>TriPlan ÀÏÁ¤</title>
 
 <!--Google Fonts and Icons-->
 	<link rel="stylesheet" href="navStyle.css">
@@ -151,7 +151,7 @@ body {
 	color: #757575;
 	text-align: center;
 }
-/* ì„¤ëª… ë° ìš´ì˜ ì‹œê°„ ìŠ¤íƒ€ì¼ */
+/* ¼³¸í ¹× ¿î¿µ ½Ã°£ ½ºÅ¸ÀÏ */
 .description, .operation-time, .address {
 	margin-top: 10px;
 	font-size: 14px;
@@ -301,16 +301,16 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
       object-fit: cover;
     }
 
-/* ======================================================================= css ë  --------------------------------------------------------------------- */
+/* ======================================================================= css ³¡  --------------------------------------------------------------------- */
 </style>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-<!-- ì§€ë„ í•¨ìˆ˜ ìŠ¤í¬ë¦½íŠ¸ -->
+<!-- Áöµµ ÇÔ¼ö ½ºÅ©¸³Æ® -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script
 	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=rUw2inMtFc3RpPULkR6di5FZAXdX8YtU4H0nJxbF"></script>
 <script>
     var map;
-    var markers = []; // ë§ˆì»¤ì™€ ì •ë³´ ì°½ì„ ì €ì¥í•  ë°°ì—´
+    var markers = []; // ¸¶Ä¿¿Í Á¤º¸ Ã¢À» ÀúÀåÇÒ ¹è¿­
 
     function initTmap() {
         map = new Tmapv2.Map("map_div", {
@@ -336,14 +336,14 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
                 });
             <%}%>
 
-        // ë§ˆì»¤ì™€ ì •ë³´ ì°½ ìƒì„±
+        // ¸¶Ä¿¿Í Á¤º¸ Ã¢ »ı¼º
         for (var i = 0; i < positions.length; i++) {
             var position = new Tmapv2.LatLng(positions[i].lat, positions[i].lng);
             
             var marker = new Tmapv2.Marker({
                 position: position,
                 map: map,
-                title: i.toString() // ë§ˆì»¤ì— í‘œì‹œë  íƒ€ì´í‹€(ìˆ«ì)
+                title: i.toString() // ¸¶Ä¿¿¡ Ç¥½ÃµÉ Å¸ÀÌÆ²(¼ıÀÚ)
             });
 
             var infoWindow = new Tmapv2.InfoWindow({
@@ -354,38 +354,38 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
                 map: map
             });
 
-            // ë§ˆì»¤ í´ë¦­ ì´ë²¤íŠ¸
+            // ¸¶Ä¿ Å¬¸¯ ÀÌº¥Æ®
             (function (marker, infoWindow) {
                 marker.addListener("click", function () {
-                    // ë‹¤ë¥¸ ëª¨ë“  ë§ˆì»¤ë¥¼ í‘œì‹œí•˜ê³  ëª¨ë“  ì •ë³´ ì°½ì„ ìˆ¨ê¹ë‹ˆë‹¤.
+                    // ´Ù¸¥ ¸ğµç ¸¶Ä¿¸¦ Ç¥½ÃÇÏ°í ¸ğµç Á¤º¸ Ã¢À» ¼û±é´Ï´Ù.
                     markers.forEach(function (m) {
                         m.marker.setVisible(true);
                         m.infoWindow.setVisible(false);
                     });
-                    // í˜„ì¬ ë§ˆì»¤ë¥¼ ìˆ¨ê¸°ê³  ì •ë³´ ì°½ì„ í‘œì‹œí•©ë‹ˆë‹¤.
+                    // ÇöÀç ¸¶Ä¿¸¦ ¼û±â°í Á¤º¸ Ã¢À» Ç¥½ÃÇÕ´Ï´Ù.
                     marker.setVisible(false);
                     infoWindow.setVisible(true);
                 });
             })(marker, infoWindow);
 
-            markers.push({ marker: marker, infoWindow: infoWindow }); // ë°°ì—´ì— ë§ˆì»¤ì™€ ì •ë³´ ì°½ ì €ì¥
+            markers.push({ marker: marker, infoWindow: infoWindow }); // ¹è¿­¿¡ ¸¶Ä¿¿Í Á¤º¸ Ã¢ ÀúÀå
         }
 
-        // ë§ˆì»¤ë“¤ì„ ì´ì–´ì£¼ëŠ” ì„ ì„ ê·¸ë¦½ë‹ˆë‹¤.
+        // ¸¶Ä¿µéÀ» ÀÌ¾îÁÖ´Â ¼±À» ±×¸³´Ï´Ù.
         var linePath = positions.map(function (position) {
             return new Tmapv2.LatLng(position.lat, position.lng);
         });
 
         var polyline = new Tmapv2.Polyline({
             path: linePath,
-            strokeColor: "#FF0000", // ì„ ì˜ ìƒ‰ê¹”
-            strokeWeight: 3, // ì„ ì˜ ë‘ê»˜
+            strokeColor: "#FF0000", // ¼±ÀÇ »ö±ò
+            strokeWeight: 3, // ¼±ÀÇ µÎ²²
             map: map
         });
 
-        // ì§€ë„ í´ë¦­ ì´ë²¤íŠ¸
+        // Áöµµ Å¬¸¯ ÀÌº¥Æ®
         map.addListener("click", function (evt) {
-            // ëª¨ë“  ì •ë³´ ì°½ì„ ìˆ¨ê¸°ê³  ëª¨ë“  ë§ˆì»¤ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.
+            // ¸ğµç Á¤º¸ Ã¢À» ¼û±â°í ¸ğµç ¸¶Ä¿¸¦ Ç¥½ÃÇÕ´Ï´Ù.
             markers.forEach(function (m) {
                 m.infoWindow.setVisible(false);
                 m.marker.setVisible(true);
@@ -393,9 +393,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
         }); --%>
     }
     </script>
-<!-- ì§€ë„ í•¨ìˆ˜ ë -->
+<!-- Áöµµ ÇÔ¼ö ³¡ -->
 
-<!-- ë“œë˜ê·¸ ì•¤ ë“œë¡­ ì†ŒìŠ¤ -->
+<!-- µå·¡±× ¾Ø µå·Ó ¼Ò½º -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"
 	integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w=="
@@ -414,7 +414,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 
 <body>
 
-	<!-- ì™¼ìª½ í™”ë©´ì— ì§€ë„ ì¶œë ¥ -->
+	<!-- ¿ŞÂÊ È­¸é¿¡ Áöµµ Ãâ·Â -->
 	<div id="left_col">
 		<div id="background">
 			<div id="left_col_inner">
@@ -434,10 +434,10 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
             <a href="">TriPlan</a>
         </div>
         <ul class="navbar___menu">
-            <li><a href="n3Preference.jsp">ë‚´ ì—¬í–‰í”„ë¡œí•„</a></li>
-            <li><a href="MyPage.jsp">ë§ˆì´í˜ì´ì§€</a></li>
-            <li><a href="ScheduleMap.jsp">ìŠ¤ì¼€ì¥´ë©”ì´ì»¤</a></li>
-            <li><a href="n5CreateSchedule.jsp">ì¼ì •ìƒì„±</a></li>
+            <li><a href="n3Preference.jsp">³» ¿©ÇàÇÁ·ÎÇÊ</a></li>
+            <li><a href="MyPage.jsp">¸¶ÀÌÆäÀÌÁö</a></li>
+            <li><a href="ScheduleMap.jsp">½ºÄÉÁì¸ŞÀÌÄ¿</a></li>
+            <li><a href="n5CreateSchedule.jsp">ÀÏÁ¤»ı¼º</a></li>
         </ul>
     </div>
 		<div id="right_col_inner">
@@ -450,47 +450,47 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 				double diffDays = (double) diffSec / (60 * 60 * 24);
 				int period = (int) Math.ceil(diffDays);
 				%>
-				<p><%=startDate%> ~ <%=endDate%> (<%=period-1%>ë°•<%=period%>ì¼)</p>
-				<button type="button" onclick="checkPOI()">ì €ì¥</button>
+				<p><%=sdf.format(startDate)%> ~ <%=sdf.format(endDate)%> (<%=period-1%>¹Ú<%=period%>ÀÏ)</p>
+				<button type="button" onclick="checkPOI()">ÀúÀå</button>
 			</div>
 			<!-- <h3>
-				ë“œë˜ê·¸ & ë“œë¡­ ë°•ìŠ¤ëŠ” div.itemì…ë‹ˆë‹¤. <br>div.center > div.container > div.
-				item<br> ì‚¬ì´ì¦ˆ, ì¹¼ë¼ ë“± ë””ìì¸ ì¡°ì •í•´ì£¼ì„¸ìš” <br>ì¥ì†Œ ì •ë³´ê°€ ë“¤ì–´ê°ˆ div.item >
-				div.detail ? ë§Œë“¤ì–´ì£¼ì„¸ìš”
+				µå·¡±× & µå·Ó ¹Ú½º´Â div.itemÀÔ´Ï´Ù. <br>div.center > div.container > div.
+				item<br> »çÀÌÁî, Ä®¶ó µî µğÀÚÀÎ Á¶Á¤ÇØÁÖ¼¼¿ä <br>Àå¼Ò Á¤º¸°¡ µé¾î°¥ div.item >
+				div.detail ? ¸¸µé¾îÁÖ¼¼¿ä
 			</h3>
 			</div> -->
-			<!-- ì¼ì • ì¥ì†Œë³„ ë“œë˜ê·¸ ì•¤ ë“œë¡­ -->
+			<!-- ÀÏÁ¤ Àå¼Òº° µå·¡±× ¾Ø µå·Ó -->
 			<div class="container">
 
-				<div class="column">
-					<h1>ì¥ì†Œê²€ìƒ‰</h1>
-					<!-- ì¥ì†Œê²€ìƒ‰í•˜ëŠ” ì»¬ëŸ¼ìƒì„± -->
+				<div class="column" id = "searchResultList">
+					<h1>Àå¼Ò°Ë»ö</h1>
+					<!-- Àå¼Ò°Ë»öÇÏ´Â ÄÃ·³»ı¼º -->
 					<br>
-					<!-- ê²€ìƒ‰ì°½ ì¶œë ¥ -->
+					<!-- °Ë»öÃ¢ Ãâ·Â -->
 					<input type="text" class="searchBox" name = "search">
-					<button onclick=search()>ê²€ìƒ‰</button>
-					<!-- ê²€ìƒ‰ê²°ê³¼ì— ë”°ë¥¸ í•­ëª© ì¶œë ¥ -->
-					<div class="list-group-item search">
+					<button onclick="search()">°Ë»ö</button>
+					<!-- °Ë»ö°á°ú¿¡ µû¸¥ Ç×¸ñ Ãâ·Â -->
+<!-- 					<div class="list-group-item search">
 						<div class="Img search">
-							<img src="hotelImg/100-ì½”ë¸ë¦¬ì•„ë¦¬ì¡°íŠ¸.jpg" alt="í…ŒìŠ¤íŠ¸" width="100%"
+							<img src="hotelImg/100-ÄÚµ¨¸®¾Æ¸®Á¶Æ®.jpg" alt="Å×½ºÆ®" width="100%"
 								height="100%">
 						</div>
-						<!-- ì¥ì†Œì •ë³´ ì¶œë ¥ -->
+						Àå¼ÒÁ¤º¸ Ãâ·Â
 						<div class="place-info">
-							<div class="name search">ìŠ¤ë§ˆíŠ¸ì¸ì¬ê°œë°œì›</div>
-							<!-- ì¥ì†Œì´ë¦„ -->
+							<div class="name search">½º¸¶Æ®ÀÎÀç°³¹ß¿ø</div>
+							Àå¼ÒÀÌ¸§
 							<div class="tag-name" id="Tag">
-								ìˆ™ì†Œã†ìŒì‹ì 
-								<!-- ã† = êµ¬ë¶„ì? ì´ê³³ì— ì¥ì†Œì— í•´ë‹¹í•˜ëŠ” íƒœê·¸ ëª… ë“¤ì–´ê°€ì•¼ í•¨ -->
+								¼÷¼Ò¤ıÀ½½ÄÁ¡
+								¤ı = ±¸ºĞÀÚ? ÀÌ°÷¿¡ Àå¼Ò¿¡ ÇØ´çÇÏ´Â ÅÂ±× ¸í µé¾î°¡¾ß ÇÔ
 							</div>
-							<!-- ì¥ì†Œì„¤ëª…-->
+							Àå¼Ò¼³¸í
 							<div class="address" style="display: none">
-								ì£¼ì†Œ ë“¤ì–´ê°€ì•¼í•¨
-								<!-- ë§ˆìš°ìŠ¤ ë“œë¡­í•˜ë©´ ë³´ì„ -->
+								ÁÖ¼Ò µé¾î°¡¾ßÇÔ
+								¸¶¿ì½º µå·ÓÇÏ¸é º¸ÀÓ
 							</div>
 						</div>
 						<span class="material-icons-round">drag_indicator</span>
-					</div>
+					</div> -->
 				</div>
 
 
@@ -501,19 +501,19 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 
 				/* List<PoiVO> myUniquePOI = (List<PoiVO>) request.getAttribute("myUniquePOI"); */
 
-				System.out.println("ìœ ë‹ˆí¬POI í™•ì¸: " + myUniquePOI);
+				System.out.println("À¯´ÏÅ©POI È®ÀÎ: " + myUniquePOI);
 
-				System.out.println("ë°ì´ì½”ìŠ¤ í™•ì¸: " + allDayCourses);
+				System.out.println("µ¥ÀÌÄÚ½º È®ÀÎ: " + allDayCourses);
 
 				for (int i = 0; i < allDayCourses.size(); i++) {
 				%>
 				<h2 draggable="false">
-					<%=i + 1%>ì¼ì°¨
+					<%=i + 1%>ÀÏÂ÷
 				</h2>
 				<div class="column" id="Day<%=i + 1%>">
 					<%--  --%>
 					<!-- <div class="ite/2m-plus">
-							<button>+ ì¥ì†Œì¶”ê°€</button>
+							<button>+ Àå¼ÒÃß°¡</button>
 						</div> -->
 
 
@@ -521,22 +521,22 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 					<%
 					for (int item : allDayCourses.get(i)) {
 						PoiVO poi = null;
-						// allDayCoursesì˜ ì•„ì´í…œì´ myUniquePOIì˜ ì¸ë±ìŠ¤ì™€ ë§¤í•‘ë˜ëŠ” POIë¥¼ ì°¾ìŠµë‹ˆë‹¤.
+						// allDayCoursesÀÇ ¾ÆÀÌÅÛÀÌ myUniquePOIÀÇ ÀÎµ¦½º¿Í ¸ÅÇÎµÇ´Â POI¸¦ Ã£½À´Ï´Ù.
 						for (PoiVO p : myUniquePOI) {
 							if (p.getPoi_idx() == item) {
 						poi = p;
 						break;
 							}
 						}
-						// í•´ë‹¹ POIê°€ ë°œê²¬ë˜ë©´ ì¶œë ¥í•©ë‹ˆë‹¤.
+						// ÇØ´ç POI°¡ ¹ß°ßµÇ¸é Ãâ·ÂÇÕ´Ï´Ù.
 						if (poi != null) {
 							System.out.println(poi.getPoi_name());
 					%>
 
 					<div class="list-group-item" draggable="true"
 						id=<%=poi.getPoi_idx()%> onclick="mouse()">
-						<p class="delete" id="del" type="button" onclick="deletePoi()">ì‚­ì œ</p>
-						<!-- ì´ë¯¸ì§€ ìš”ì†Œ -->
+						<p class="delete" id="del" type="button" onclick="deletePoi()">»èÁ¦</p>
+						<!-- ÀÌ¹ÌÁö ¿ä¼Ò -->
 						<div class="Img">
 							<img src=<%="poiImgs/" + poi.getPoi_img_location()%> width=100%
 								height="100%" alt=<%=poi.getPoi_name()%>>
@@ -547,7 +547,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 							<div class="addrees"><%=poi.getPoi_addr()%></div>
 							<%-- <div class="operation-time"><%=poi.getPoi_runingtime()%></div> --%>
 
-							<!-- ì¬ë¯¼ ì¶”ì‹  : í˜„ì‹ì´í˜• ìœ„ë„ê²½ë„ ì •ë³´ ì“¸ë ¤ë©´ ì£¼ì„ í’€ì–´ì£¼ì„¸ìš©-->
+							<!-- Àç¹Î Ãß½Å : Çö½ÄÀÌÇü À§µµ°æµµ Á¤º¸ ¾µ·Á¸é ÁÖ¼® Ç®¾îÁÖ¼¼¿ë-->
 							<%-- <div class="operation-time"><%=poi.getPoi_lat()%></div>
 						<div class="operation-time"><%=poi.getPoi_lng()%></div>
 						--%>
@@ -557,7 +557,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
     						<swiper-slide>Slide 2</swiper-slide>
    						 </swiper-container> -->
     
-						<!-- ë‹¤ë¥¸ POI ì •ë³´ë„ í•„ìš”í•œ ê²½ìš° ìœ„ì™€ ê°™ì´ ì¶”ê°€í•˜ë©´ ë©ë‹ˆë‹¤. -->
+						<!-- ´Ù¸¥ POI Á¤º¸µµ ÇÊ¿äÇÑ °æ¿ì À§¿Í °°ÀÌ Ãß°¡ÇÏ¸é µË´Ï´Ù. -->
 						<span class="material-icons-round">drag_indicator</span>
 						
 					</div>
@@ -587,19 +587,19 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	});  */
 	
 	
-	//jquery ë¨¼ì € ì‹¤í–‰ëœ ë‹¤ìŒì— js ì½”ë“œ ì‚¬ìš©í•  ê²ƒ!!
-	//ajaxëŠ” jquery ë¬¸ë²•ì—ì„œ ê°€ì ¸ì˜´
+	//jquery ¸ÕÀú ½ÇÇàµÈ ´ÙÀ½¿¡ js ÄÚµå »ç¿ëÇÒ °Í!!
+	//ajax´Â jquery ¹®¹ı¿¡¼­ °¡Á®¿È
 	<%Gson gson = new Gson();%>
 <%-- 	<%Map<Integer,List<String>> MUpdatedItemOrders = new Map<>();%> --%>
 	newCourseOrder = [];
 	function saveItemOrder() {
 	let updatedItemOrders = [];
-	       	  <%for (int j = 0; j < 4; j++) {%>//sessionì—ì„œ period ë°›ì•„ì™€ì•¼ í•¨. MyTripsVO.getPeriod()
+	       	  <%for (int j = 0; j < period ; j++) {%>//session¿¡¼­ period ¹Ş¾Æ¿Í¾ß ÇÔ. MyTripsVO.getPeriod()
 
        	        const Items<%=j + 1%> = document.querySelectorAll("#Day<%=j + 1%>>.list-group-item");
 	       	        
-	       	        let updatedItemOrder<%=j + 1%> = []; // ë°°ì—´ ì´ˆê¸°í™”
-	       	        //í˜„ì¬ ìˆœì„œëŒ€ë¡œ ì•„ì´í…œë“¤ì˜ idë¥¼ ë°°ì—´ì— ì¶”ê°€
+	       	        let updatedItemOrder<%=j + 1%> = []; // ¹è¿­ ÃÊ±âÈ­
+	       	        //ÇöÀç ¼ø¼­´ë·Î ¾ÆÀÌÅÛµéÀÇ id¸¦ ¹è¿­¿¡ Ãß°¡
 	       	        Items<%=j + 1%>.forEach((item, index) => {
 	       	            updatedItemOrder<%=j + 1%>.push(item.id);
 	       	        });
@@ -619,12 +619,12 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	 	$.ajax({
 		url : "n14UpdateScheduleCon",
 		type : "get",
-		//ë³´ë‚´ëŠ” ë°ì´í„°
-		//js ê°ì²´ {key:value, key:value}
-		//key ê°’ì´ controllerì—ì„œ nameìœ¼ë¡œ ì¸ì‹
-		//$(ì„ íƒì)
+		//º¸³»´Â µ¥ÀÌÅÍ
+		//js °´Ã¼ {key:value, key:value}
+		//key °ªÀÌ controller¿¡¼­ nameÀ¸·Î ÀÎ½Ä
+		//$(¼±ÅÃÀÚ)
 		data : {"updatedSchedule" :JSON.stringify(saveItemOrder())},////
-		//ë°›ì•„ì˜¤ëŠ” ë°ì´í„° íƒ€ì…
+		//¹Ş¾Æ¿À´Â µ¥ÀÌÅÍ Å¸ÀÔ
  		dataType : "json", 
 		success : function(res){
 			console.log(res)
@@ -632,10 +632,10 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			for(let i=0; i<res.length;i++){
 				newPOI.push(res[i]);
 			}
-			console.log("ì—…ë°ì´íŠ¸ ì¼ì •",newPOI);
+			console.log("¾÷µ¥ÀÌÆ® ÀÏÁ¤",newPOI);
 		},
 		 error: function(){
-			alert("í†µì‹  ì‹¤íŒ¨")
+			alert("Åë½Å ½ÇÆĞ")
 		} 
 /* 		 error: function(xhr, status, error){
 		     console.log(xhr);
@@ -643,27 +643,27 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		    // console.log(error);
 			 alert("Error!" + xhr.status);
 		    }, */
-	}); //ajax ë 
-		console.log("ì—…ëƒ");
+	}); //ajax ³¡ 
+		console.log("¾÷µ«");
 	}
 	
 	function checkPOI(){
-		console.log("ì‚¬ìš©ê°€ëŠ¥í•œì§€", newPOI)
+		console.log("»ç¿ë°¡´ÉÇÑÁö", newPOI)
 		let poi_lat = 0;
 		let poi_lng = 0;
-		console.log("ì„ ì–¸ í™•ì¸",poi_lat);
-		console.log("newCourseOrder[0]í™•ì¸: ",newCourseOrder[0])
+		console.log("¼±¾ğ È®ÀÎ",poi_lat);
+		console.log("newCourseOrder[0]È®ÀÎ: ",newCourseOrder[0])
 		for (let poi of newCourseOrder[0]) {
-			console.log("poií™•ì¸: "+poi)
+			console.log("poiÈ®ÀÎ: "+poi)
 		    for (let detail of newPOI) {
-			console.log("detailí™•ì¸: "+detail.poi_idx)
+			console.log("detailÈ®ÀÎ: "+detail.poi_idx)
 		        if (poi == detail.poi_idx) {
-		        	console.log("ë§¤ì¹˜!", poi, "<3", detail.poi_idx)
+		        	console.log("¸ÅÄ¡!", poi, "<3", detail.poi_idx)
 		        	console.log("detail.poi_lat")
 		            poi_lat = detail.poi_lat;
 		            poi_lng = detail.poi_lng;
 		            console.log(poi_lat," ",poi_lng);
-		            //ì—¬ê¸°ì— ë§µ ì¶”ê°€?
+		            //¿©±â¿¡ ¸Ê Ãß°¡?
 	                addMarkerToMap(poi_lat, poi_lng, detail.poi_name);
 
 		        }
@@ -711,14 +711,14 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	}
 
 	function updateMarkersAndPolylines(newData) {
-	    // ê¸°ì¡´ ë§ˆì»¤ì™€ í´ë¦¬ë¼ì¸ ì œê±°
+	    // ±âÁ¸ ¸¶Ä¿¿Í Æú¸®¶óÀÎ Á¦°Å
 	    markers.forEach(function (m) {
 	        m.marker.setMap(null);
 	        m.infoWindow.setMap(null);
 	    });
 	    markers = [];
 
-	    // ìƒˆë¡œìš´ ë§ˆì»¤ì™€ í´ë¦¬ë¼ì¸ ìƒì„±
+	    // »õ·Î¿î ¸¶Ä¿¿Í Æú¸®¶óÀÎ »ı¼º
 	    newData.forEach(function (data) {
 	        createMarkerAndInfoWindow({lat: data.poi_lat, lng: data.poi_lng}, data.poi_info, map);
 	    });
@@ -730,81 +730,101 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	let searchResult = []
 	function search(){
 	 	$.ajax({
-		url : "searchCon",
+		url : "n10SearchCon",
 		type : "get",
-		//ë³´ë‚´ëŠ” ë°ì´í„°
-		//js ê°ì²´ {key:value, key:value}
-		//key ê°’ì´ controllerì—ì„œ nameìœ¼ë¡œ ì¸ì‹
-		//$(ì„ íƒì)
+		//º¸³»´Â µ¥ÀÌÅÍ
+		//js °´Ã¼ {key:value, key:value}
+		//key °ªÀÌ controller¿¡¼­ nameÀ¸·Î ÀÎ½Ä
+		//$(¼±ÅÃÀÚ)
 		data : {"search" :$("input[name=search]").val()},////
-		//ë°›ì•„ì˜¤ëŠ” ë°ì´í„° íƒ€ì…
+		//¹Ş¾Æ¿À´Â µ¥ÀÌÅÍ Å¸ÀÔ
  		dataType : "json", 
 		success : function(res){
-			console.log(res)
+ 			console.log(res)
 			console.log(typeof(res));
-			for(let i=0; i<5;i++){
+			for(let i=0; i<res.length;i++){
 				searchResult.push(res[i]);
 			}
-			console.log("ê²€ìƒ‰ ê²°ê³¼",searchResult);
+			console.log("°Ë»ö °á°ú",searchResult); 
+			printSearch(res);
 		},
 		error: function(){
-			alert("í†µì‹  ì‹¤íŒ¨")
+			alert("Åë½Å ½ÇÆĞ")
 		}
-	}); //ajax ë 
-		console.log("ì„œì¹˜ ê²°ê³¼ ë‚˜ì˜´");
+	}); //ajax ³¡ 
+		console.log("¼­Ä¡ °á°ú ³ª¿È");
 		return searchResult;
 	}
-	function printSearch(){
-	    let res = search();
-	    let resultList = document.getElementById("searchResultList"); // ê²€ìƒ‰ ê²°ê³¼ë¥¼ í‘œì‹œí•  ë¦¬ìŠ¤íŠ¸ ìš”ì†Œë¥¼ ê°€ì ¸ì˜´
-	    resultList.innerHTML = ""; // ì´ì „ ê²€ìƒ‰ ê²°ê³¼ë¥¼ ì´ˆê¸°í™”
+	function printSearch(res){
+	    let resultList = document.getElementById("searchResultList"); // °Ë»ö °á°ú¸¦ Ç¥½ÃÇÒ ¸®½ºÆ® ¿ä¼Ò¸¦ °¡Á®¿È
+	    resultList.innerHTML = ""; // ÀÌÀü °Ë»ö °á°ú¸¦ ÃÊ±âÈ­
+	    
+	 // Çì´õ »ı¼º
+	    let searchHeader = document.createElement("h1");
+	    searchHeader.textContent = "Àå¼Ò°Ë»ö";
+	    resultList.appendChild(searchHeader);
+
+	    // °Ë»ö ÀÔ·Â »óÀÚ »ı¼º
+	    let searchInput = document.createElement("input");
+	    searchInput.setAttribute("type", "text");
+	    searchInput.classList.add("searchBox");
+	    searchInput.setAttribute("name", "search");
+	    resultList.appendChild(searchInput);
+
+	    // °Ë»ö ¹öÆ° »ı¼º
+	    let searchButton = document.createElement("button");
+	    searchButton.textContent = "°Ë»ö";
+	    searchButton.onclick = search;
+	    resultList.appendChild(searchButton);
+
 	    
 	    for(let poi of res){
-	        let listItem = document.createElement("div"); // ìƒˆë¡œìš´ ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œ ìƒì„±
-	        listItem.classList.add("list-group-item", "search"); // í´ë˜ìŠ¤ ì¶”ê°€
+	        let listItem = document.createElement("div"); // »õ·Î¿î ¸®½ºÆ® ¾ÆÀÌÅÛ »ı¼º
+	        listItem.classList.add("list-group-item", "search"); // Å¬·¡½º Ãß°¡
+	        listItem.setAttribute("id", poi.poi_idx); // ¾ÆÀÌµğ Ãß°¡
 	        
-	        let imgDiv = document.createElement("div"); // ì´ë¯¸ì§€ ìš”ì†Œë¥¼ ê°ì‹¸ëŠ” div
+	        let imgDiv = document.createElement("div"); // ÀÌ¹ÌÁö ¿ä¼Ò¸¦ °¨½Î´Â div
 	        imgDiv.classList.add("Img", "search");
-	        let img = document.createElement("img"); // ì´ë¯¸ì§€ ìš”ì†Œ ìƒì„±
-	        img.src = "hotelImg/" + poi.poi_img; // ì´ë¯¸ì§€ ê²½ë¡œ ì„¤ì •
-	        img.alt = poi.poi_name; // ëŒ€ì²´ í…ìŠ¤íŠ¸ ì„¤ì •
+	        let img = document.createElement("img"); // ÀÌ¹ÌÁö ¿ä¼Ò »ı¼º
+	        img.src = "hotelImg/" + poi.poi_photo; // ÀÌ¹ÌÁö °æ·Î ¼³Á¤
+	        img.alt = poi.poi_name; // ´ëÃ¼ ÅØ½ºÆ® ¼³Á¤
 	        img.width = "100%";
 	        img.height = "100%";
-	        imgDiv.appendChild(img); // ì´ë¯¸ì§€ë¥¼ ê°ì‹¸ëŠ” divì— ì¶”ê°€
-	        listItem.appendChild(imgDiv); // ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œì— ì´ë¯¸ì§€ë¥¼ ê°ì‹¸ëŠ” div ì¶”ê°€
+	        imgDiv.appendChild(img); // ÀÌ¹ÌÁö¸¦ °¨½Î´Â div¿¡ Ãß°¡
+	        listItem.appendChild(imgDiv); // ¸®½ºÆ® ¾ÆÀÌÅÛ¿¡ ÀÌ¹ÌÁö¸¦ °¨½Î´Â div Ãß°¡
 	        
-	        let placeInfoDiv = document.createElement("div"); // ì¥ì†Œ ì •ë³´ë¥¼ ë‹´ëŠ” div
+	        let placeInfoDiv = document.createElement("div"); // Àå¼Ò Á¤º¸¸¦ ´ã´Â div
 	        placeInfoDiv.classList.add("place-info");
 	        
-	        let nameDiv = document.createElement("div"); // ì¥ì†Œ ì´ë¦„
+	        let nameDiv = document.createElement("div"); // Àå¼Ò ÀÌ¸§
 	        nameDiv.classList.add("name", "search");
 	        nameDiv.textContent = poi.poi_name;
 	        placeInfoDiv.appendChild(nameDiv);
 	        
-	        let tagNameDiv = document.createElement("div"); // íƒœê·¸ ëª…
+	        let tagNameDiv = document.createElement("div"); // ÅÂ±× ¸í
 	        tagNameDiv.classList.add("tag-name");
 	        tagNameDiv.textContent = poi.poi_tag;
 	        placeInfoDiv.appendChild(tagNameDiv);
 	        
-	        let addressDiv = document.createElement("div"); // ì¥ì†Œ ì£¼ì†Œ
+	        let addressDiv = document.createElement("div"); // Àå¼Ò ÁÖ¼Ò
 	        addressDiv.classList.add("address");
-	        addressDiv.textContent = poi.address;
+	        addressDiv.textContent = poi.addr;
 	        addressDiv.style.display = "none";
 	        placeInfoDiv.appendChild(addressDiv);
 	        
-	        listItem.appendChild(placeInfoDiv); // ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œì— ì¥ì†Œ ì •ë³´ë¥¼ ë‹´ëŠ” div ì¶”ê°€
+	        listItem.appendChild(placeInfoDiv); // ¸®½ºÆ® ¾ÆÀÌÅÛ¿¡ Àå¼Ò Á¤º¸¸¦ ´ã´Â div Ãß°¡
 	        
-	        let dragIndicatorSpan = document.createElement("span"); // ë“œë˜ê·¸ ì¸ë””ì¼€ì´í„°
+	        let dragIndicatorSpan = document.createElement("span"); // µå·¡±× ÀÎµğÄÉÀÌÅÍ
 	        dragIndicatorSpan.classList.add("material-icons-round");
 	        dragIndicatorSpan.textContent = "drag_indicator";
-	        listItem.appendChild(dragIndicatorSpan); // ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œì— ë“œë˜ê·¸ ì¸ë””ì¼€ì´í„° ì¶”ê°€
+	        listItem.appendChild(dragIndicatorSpan); // ¸®½ºÆ® ¾ÆÀÌÅÛ¿¡ µå·¡±× ÀÎµğÄÉÀÌÅÍ Ãß°¡
 	        
-	        resultList.appendChild(listItem); // ë¦¬ìŠ¤íŠ¸ì— ì•„ì´í…œ ì¶”ê°€
+	        resultList.appendChild(listItem); // ¸®½ºÆ®¿¡ ¾ÆÀÌÅÛ Ãß°¡
 	    }
 	}
 	</script>
 	<script>
-	// ì•„ì´í…œë“¤ì˜ ì´ˆê¸° ìˆœì„œë¥¼ ì €ì¥í•  ë°°ì—´
+	// ¾ÆÀÌÅÛµéÀÇ ÃÊ±â ¼ø¼­¸¦ ÀúÀåÇÒ ¹è¿­
 	let itemOrders = [];
 	
 /* 	const items = document.querySelectorAll("#Day2 > .list-group-item");
@@ -814,9 +834,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 	console.log(itemOrders)
  */
 
- 	// ë°˜ë³µë¬¸ì„ ì‚¬ìš©í•˜ì—¬ ê° ë‚ ì§œì— ëŒ€í•œ ì•„ì´í…œë“¤ì„ ì„ íƒí•˜ê³  ì´ˆê¸° ìˆœì„œë¥¼ ì €ì¥
+ 	// ¹İº¹¹®À» »ç¿ëÇÏ¿© °¢ ³¯Â¥¿¡ ´ëÇÑ ¾ÆÀÌÅÛµéÀ» ¼±ÅÃÇÏ°í ÃÊ±â ¼ø¼­¸¦ ÀúÀå
 
-  	for (let j = 0; j < 4 ; j++) {//sessionì—ì„œ period ë°›ì•„ì™€ì•¼ í•¨. MyTripsVO.getPeriod()
+  	for (let j = 0; j < 4 ; j++) {//session¿¡¼­ period ¹Ş¾Æ¿Í¾ß ÇÔ. MyTripsVO.getPeriod()
 		    const items = document.querySelectorAll("#Day" +String(j+1) +"> .list-group-item");
 		    let itemOrder = [];
 		    items.forEach((item, index) => {
@@ -828,12 +848,12 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		    
 <%-- 			function saveItemOrder() {
 		   	   let updatedItemOrders = [];
-		       	  <%for (int j = 0; j < 4; j++) {%>//sessionì—ì„œ period ë°›ì•„ì™€ì•¼ í•¨. MyTripsVO.getPeriod()
+		       	  <%for (int j = 0; j < 4; j++) {%>//session¿¡¼­ period ¹Ş¾Æ¿Í¾ß ÇÔ. MyTripsVO.getPeriod()
 
 	       	        const Items<%=j+1%> = document.querySelectorAll("#Day<%=j+1%>>.list-group-item");
 		       	        
-		       	        let updatedItemOrder<%=j+1%> = []; // ë°°ì—´ ì´ˆê¸°í™”
-		       	        //í˜„ì¬ ìˆœì„œëŒ€ë¡œ ì•„ì´í…œë“¤ì˜ idë¥¼ ë°°ì—´ì— ì¶”ê°€
+		       	        let updatedItemOrder<%=j+1%> = []; // ¹è¿­ ÃÊ±âÈ­
+		       	        //ÇöÀç ¼ø¼­´ë·Î ¾ÆÀÌÅÛµéÀÇ id¸¦ ¹è¿­¿¡ Ãß°¡
 		       	        Items<%=j+1%>.forEach((item, index) => {
 		       	            updatedItemOrder<%=j+1%>.push(item.id);
 		       	        });
@@ -841,7 +861,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 		       	        updatedItemOrders.push(updatedItemOrder<%=j+1%>);
 				  	<%}%>
 		   			return updatedItemOrders
-		       	  // ì„œë²„ì— ë°°ì—´ì„ ì „ì†¡í•˜ì—¬ ì €ì¥í•˜ëŠ” ë“±ì˜ ì‘ì—…ì„ ìˆ˜í–‰í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+		       	  // ¼­¹ö¿¡ ¹è¿­À» Àü¼ÛÇÏ¿© ÀúÀåÇÏ´Â µîÀÇ ÀÛ¾÷À» ¼öÇàÇÒ ¼ö ÀÖ½À´Ï´Ù.
 		       	} --%>
 /* 		    let testOrder = saveItemOrder();
 			console.log(testOrder); */
@@ -859,8 +879,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
         if(current_item){
                 current_item.classList.remove("insert-animation");
 		if(search_item != null){
-			if(document.querySelector("#result1").parentElement.innerText.includes("ì¥ì†Œê²€ìƒ‰")){
-				alert("ì›í•˜ëŠ” ì¼ì •ìœ¼ë¡œ ë“œë˜ê·¸ í•´ì£¼ì„¸ìš”")
+			if(document.querySelector("#result1").parentElement.innerText.includes("Àå¼Ò°Ë»ö")){
+				alert("¿øÇÏ´Â ÀÏÁ¤À¸·Î µå·¡±× ÇØÁÖ¼¼¿ä")
 			}else{
 		search_item.classList.remove("search");
 		document.querySelector(".name.search").classList.remove("search");
@@ -870,25 +890,25 @@ n4MyTripsVO currentTrip = (n4MyTripsVO)session.getAttribute("currentTrip");
 			}
 		}
 		
-                saveItemOrder();//ì¼ì • ìˆœì„œ ë°”ë€ëŒ€ë¡œ ê°€ì ¸ì˜¤ê¸°
-				update();//í•´ë‹¹ PoiVOê°€ì ¸ì˜¤ê¸°
-				checkPOI();//ê°€ì ¸ì˜¨ ì •ë³´ë¡œ ë§µ ì¶œë ¥
-                console.log("ë“œë˜ê·¸ì¢…ë£Œ");
+                saveItemOrder();//ÀÏÁ¤ ¼ø¼­ ¹Ù²ï´ë·Î °¡Á®¿À±â
+				update();//ÇØ´ç PoiVO°¡Á®¿À±â
+				checkPOI();//°¡Á®¿Â Á¤º¸·Î ¸Ê Ãâ·Â
+                console.log("µå·¡±×Á¾·á");
                 e.preventDefault();
             }
         });
 			 document.addEventListener('DOMContentLoaded', function() {
-			  // ìƒìœ„ ìš”ì†Œì— ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤. ì—¬ê¸°ì„œëŠ” documentë¥¼ ì‚¬ìš©í–ˆì§€ë§Œ,
-			  // ì„±ëŠ¥ì„ ìœ„í•´ ê°€ëŠ¥í•œ í•œ ê°€ê¹Œìš´ ë¶€ëª¨ ìš”ì†Œì— ì¶”ê°€í•˜ëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤.
+			  // »óÀ§ ¿ä¼Ò¿¡ ÀÌº¥Æ® ¸®½º³Ê¸¦ Ãß°¡ÇÕ´Ï´Ù. ¿©±â¼­´Â document¸¦ »ç¿ëÇßÁö¸¸,
+			  // ¼º´ÉÀ» À§ÇØ °¡´ÉÇÑ ÇÑ °¡±î¿î ºÎ¸ğ ¿ä¼Ò¿¡ Ãß°¡ÇÏ´Â °ÍÀÌ ÁÁ½À´Ï´Ù.
 			  document.addEventListener('click', function(e) {
-			    // í´ë¦­ëœ ìš”ì†Œê°€ ì‚­ì œ ë²„íŠ¼ì¸ì§€ í™•ì¸í•©ë‹ˆë‹¤.
+			    // Å¬¸¯µÈ ¿ä¼Ò°¡ »èÁ¦ ¹öÆ°ÀÎÁö È®ÀÎÇÕ´Ï´Ù.
 			    if (e.target && e.target.classList.contains('delete')) {
-			      // ì‚­ì œ ë²„íŠ¼ì˜ ë¶€ëª¨ ìš”ì†Œë¥¼ ì°¾ì•„ ì‚­ì œí•©ë‹ˆë‹¤.
-			      // ì´ ì˜ˆì œì—ì„œëŠ” 'list-group-item' í´ë˜ìŠ¤ë¥¼ ê°€ì§„ ë¶€ëª¨ ìš”ì†Œë¥¼ ì‚­ì œí•˜ë ¤ê³  í•©ë‹ˆë‹¤.
-			      // ì´ë¥¼ ìœ„í•´ closest ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ì—¬ ê°€ì¥ ê°€ê¹Œìš´ í•´ë‹¹ í´ë˜ìŠ¤ ìš”ì†Œë¥¼ ì°¾ìŠµë‹ˆë‹¤.
+			      // »èÁ¦ ¹öÆ°ÀÇ ºÎ¸ğ ¿ä¼Ò¸¦ Ã£¾Æ »èÁ¦ÇÕ´Ï´Ù.
+			      // ÀÌ ¿¹Á¦¿¡¼­´Â 'list-group-item' Å¬·¡½º¸¦ °¡Áø ºÎ¸ğ ¿ä¼Ò¸¦ »èÁ¦ÇÏ·Á°í ÇÕ´Ï´Ù.
+			      // ÀÌ¸¦ À§ÇØ closest ¸Ş¼Òµå¸¦ »ç¿ëÇÏ¿© °¡Àå °¡±î¿î ÇØ´ç Å¬·¡½º ¿ä¼Ò¸¦ Ã£½À´Ï´Ù.
 			      var toDelete = e.target.closest('.list-group-item');
 			      if (toDelete) {
-			        toDelete.remove(); // ìš”ì†Œë¥¼ ì‚­ì œí•©ë‹ˆë‹¤.
+			        toDelete.remove(); // ¿ä¼Ò¸¦ »èÁ¦ÇÕ´Ï´Ù.
 			      }
 			    }
 			  });

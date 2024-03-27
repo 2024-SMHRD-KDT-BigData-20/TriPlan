@@ -138,7 +138,7 @@ public class courseDAO {
 
 	public List<PoiVO> search(String search) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		List<PoiVO> searchResult = sqlSession.selectList("com.smhrd.db.courseMapper.currentTrip", search);
+		List<PoiVO> searchResult = sqlSession.selectList("com.smhrd.db.courseMapper.searchResult", search);
 		sqlSession.close();
 		return searchResult;
 	}

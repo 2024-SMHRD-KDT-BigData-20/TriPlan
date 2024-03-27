@@ -7,69 +7,68 @@
 	구분 mapper.xml 경로와 동일해야 함 -->
 
 <mapper namespace="com.smhrd.db.courseMapper">
+
 <select id="searchResult" parameterType="String" resultType="PoiVO">
-SELECT idx,
-       name,
-       tag,
-       addr,
-       desc1,
-       lat,
-       lng,
-       photo
-FROM (
-    SELECT POI_IDX AS idx,
-           POI_NAME AS name,
-           poi_tag AS tag,
-           POI_ADDR AS addr,
-           POI_DESC AS desc1,
-           POI_LAT AS lat,
-           POI_LNG AS lng,
-           POI_PHOTO AS photo,
+SELECT POI_idx,
+       POI_name,
+       POI_addr,  
+       POI_desc,
+       POI_lat,
+       POI_lng,
+       POI_tag,
+       POI_photo
+FROM (SELECT POI_IDX AS POI_idx,
+           POI_NAME AS POI_name,
+           poi_tag AS POI_tag,
+           POI_ADDR AS POI_addr,
+           POI_DESC AS POI_desc,
+           POI_LAT AS POI_lat,
+           POI_LNG AS POI_lng,
+           POI_PHOTO AS POI_photo,
            (REGEXP_COUNT(POI_NAME, #{search}) * 3 + REGEXP_COUNT(poi_tag, #{search}) * 2 + REGEXP_COUNT(poi_desc, #{search})) AS count_sum
     FROM poi_info
 
     UNION ALL
 
-    SELECT HOTEL_IDX,
-           HOTEL_NAME,
-           hotel_tag,
-           HOTEL_ADDR,
-           HOTEL_COMMENT,
-           LAT,
-           LNG,
-           HOTEL_PHOTO,
+    SELECT HOTEL_IDX AS POI_idx,
+           HOTEL_NAME AS POI_name,
+           hotel_tag AS POI_tag,
+           HOTEL_ADDR AS POI_addr,
+           HOTEL_COMMENT AS POI_desc,
+           LAT AS POI_lat,
+           LNG AS POI_lng,
+           HOTEL_PHOTO AS POI_photo,
            (REGEXP_COUNT(HOTEL_NAME, #{search}) * 3 + REGEXP_COUNT(hotel_tag, #{search}) * 2 + REGEXP_COUNT(HOTEL_COMMENT, #{search})) AS count_sum
     FROM hotel_info
 
     UNION ALL
 
-    SELECT RESTAU_IDX,
-           RESTAU_NAME,
-           RESTAU_TAG,
-           RESTAU_ADDR,
-           RESTAU_DESC,
-           LAT,
-           LNG,
-           RESTAU_PHOTO1,
+    SELECT RESTAU_IDX AS POI_idx,
+           RESTAU_NAME AS POI_name,
+           RESTAU_TAG AS POI_tag,
+           RESTAU_ADDR AS POI_addr,
+           RESTAU_DESC AS POI_desc,
+           LAT AS POI_lat,
+           LNG AS POI_lng,
+           RESTAU_PHOTO1 AS POI_photo,
            (REGEXP_COUNT(RESTAU_NAME, #{search}) * 3 + REGEXP_COUNT(RESTAU_TAG, #{search}) * 2 + REGEXP_COUNT(RESTAU_desc, #{search})) AS count_sum
     FROM RESTAURANT_INFO
 
     UNION ALL
 
-    SELECT SHOP_IDX,
-           SHOP_NAME,
-           SHOP_TAG,
-           SHOP_ADDR,
-           SHOP_DESC,
-           LAT,
-           LNG,
-           SHOP_PHOTO,
+    SELECT SHOP_IDX AS POI_idx,
+           SHOP_NAME AS POI_name,
+           SHOP_TAG AS POI_tag,
+           SHOP_ADDR AS POI_addr,
+           SHOP_DESC AS POI_desc,
+           LAT AS POI_lat,
+           LNG AS POI_lng,
+           SHOP_PHOTO AS POI_photo,
            (REGEXP_COUNT(SHOP_NAME, #{search}) * 3 + REGEXP_COUNT(SHOP_desc, #{search}) * 2 + REGEXP_COUNT(SHOP_TAG, #{search})) AS count_sum
     FROM shop_info
     ORDER BY count_sum DESC
-
 )
-WHERE ROWNUM &lt;= 5;
+WHERE ROWNUM &lt;= 5
 
 </select>
 

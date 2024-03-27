@@ -76,6 +76,8 @@ public class n14UpdateScheduleCon extends HttpServlet {
 		    // update my_daily_schedule_info set mt_course = #{daySchedule} where mt_idx = #{mt_idx} and DAY_SCHE = #{day}
 		}
 		
+		System.out.println("업데이트 횟수?"+cnt);
+		System.out.println("길이"+updatedSchedule.length);
 		System.out.println(updatedPoiVO);
 		String res = gson.toJson(updatedPoiVO);
 		System.out.println("json 결과 확인" +res);
