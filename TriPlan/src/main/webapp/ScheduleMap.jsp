@@ -250,29 +250,29 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 }
 
 .Img {
-	width: 70%;
-	height: 100%;
+	width: 50%;
+	height: 70%;
 	object-fit: cover;
 	display: flex;
 	margin-right: 10px;
 }
 
 .Img.search {
-min-width:100px;
-/* 	width: auto; */
+	min-width: 100px;
+	/* 	width: auto; */
 	object-fit: cover;
 	display: flex;
 	margin-right: 10px;
 }
 
-.Img.search > img{
-    width: 100px;
-    height: auto; /* 이미지의 비율을 유지하면서 너비에 맞춤 */
+.Img.search>img {
+	width: 100px;
+	height: auto; /* 이미지의 비율을 유지하면서 너비에 맞춤 */
 }
 
-.Img > img{
-	width: 100%;
-	height: 100%;
+.Img>img {
+	width: 70%;
+	height: 70%;
 }
 
 .material-icons-round {
@@ -366,13 +366,13 @@ min-width:100px;
 	height: 80%;
 }
 
-.daily-marker{
+.daily-marker {
 	display: block;
 	justify-content: center;
 	align-items: center;
 }
 
-.otherButton{
+.otherButton {
 	background-color: #ddd;
 	border-radius: 50px;
 	width: 200px;
@@ -385,7 +385,8 @@ min-width:100px;
 	src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 <!-- 지도 함수 스크립트 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=rUw2inMtFc3RpPULkR6di5FZAXdX8YtU4H0nJxbF"></script>
 <script>
@@ -446,7 +447,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	<div id="right_col">
 		<div class="navbar">
 			<div class="navbar___logo">
-				 <img alt="Logo" src="Triplan.png" style="height: 100%;">
+				<img alt="Logo" src="Triplan.png" style="height: 100%;">
 			</div>
 			<ul class="navbar___menu">
 				<li><a href="MyPage.jsp">홈</a></li>
@@ -469,34 +470,29 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 				System.out.println(diffSec);
 				double diffDays = (double) diffSec / (60 * 60 * 24);
 				System.out.println(diffDays);
-				int period = (int) Math.ceil(diffDays)+1;
+				int period = (int) Math.ceil(diffDays) + 1;
 				System.out.println(period);
 				%>
 				<p><%=sdf.format(startDate)%>
 					~
 					<%=sdf.format(endDate)%>
 					(<%=period - 1%>박<%=period%>일)
-					
+
 				</p>
 			</div>
 			<!-- 일정 장소별 드래그 앤 드롭 -->
 			<div class="container">
-
-				<h1 style="margin-top: 30px;">장소검색</h1>
-				<div class="search_title">
-					<input type="text" class="searchBox" name="search">
-					<button onclick="search()" draggable="false">검색</button>
-				</div>
 				<div class="column" id="searchResultList">
-
+					<h1 style="margin-top: 30px;">장소검색</h1>
+					<div class="search_title">
+						<input type="text" class="searchBox" name="search">
+						<button onclick="search()" draggable="false">검색</button>
+					</div>
 					<!-- 장소검색하는 컬럼생성 -->
 					<br>
 
 
 				</div>
-
-
-
 
 				<%
 				List<List<Integer>> allDayCourses = (List<List<Integer>>) session2.getAttribute("allDayCourses");
@@ -514,7 +510,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 				</h2>
 
 				<div class="column" id="Day<%=i + 1%>">
-					<button id="fixedButton" class="daily-marker" draggable="false" onclick="PrintMap(<%=i + 1%>)">일정 지도에서 보기</button>
+					<button id="fixedButton" class="daily-marker" draggable="false"
+						onclick="PrintMap(<%=i + 1%>)">일정 지도에서 보기</button>
 					<!-- <div class="ite/2m-plus">
 							<button>+ 장소추가</button>
 						</div> -->
@@ -557,7 +554,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<div id="slideContainer">
-							<button class="<%=poi.getPoi_idx()%>" onclick="alter2(<%=poi.getPoi_idx()%>)" >알고리즘 테스트용</button>
+							<button class="<%=poi.getPoi_idx()%>"
+								onclick="alter2(<%=poi.getPoi_idx()%>)">비슷한 장소 콘솔 확인</button>
 							<p class="otherButton">비슷한장소</p>
 							<section class="center slider" style="display: none;">
 								<!-- id에 poi_idx값 들어가야 함 -->
@@ -595,6 +593,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 				<%
 				}
 				%>
+
+
+
 			</div>
 		</div>
 	</div>
@@ -685,7 +686,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	function saveItemOrder() {
 	let updatedItemOrders = [];
 	       	  <%for (int j = 0; j < period; j++) {
-	       	  System.out.println("saveItemOrder길이"+period);%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
+	System.out.println("saveItemOrder길이" + period);%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
        	        const Items<%=j + 1%> = document.querySelectorAll("#Day<%=j + 1%>>.list-group-item");
 	       	        
 	       	        let updatedItemOrder<%=j + 1%> = []; // 배열 초기화
@@ -944,7 +945,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	    let resultList = document.getElementById("searchResultList"); // 검색 결과를 표시할 리스트 요소를 가져옴
 	    resultList.innerHTML = ""; // 이전 검색 결과를 초기화
 	    
-/* 	    // 검색 입력 상자 생성까지 삭제해야될듯 싶어요
+ 	    // 검색 입력 상자 생성까지 삭제해야될듯 싶어요
 	 // 헤더 생성
 	    let searchHeader = document.createElement("h1");
 	    searchHeader.textContent = "장소검색";
@@ -961,7 +962,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	    let searchButton = document.createElement("button");
 	    searchButton.textContent = "검색";
 	    searchButton.onclick = search;
-	    resultList.appendChild(searchButton); */
+	    resultList.appendChild(searchButton); 
 
 	    
 	    for(let i=0; i<res.length; i++){
@@ -1022,8 +1023,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	
 	</script>
 
-<script type="text/javascript" src="alterPlace.js"></script>
-<script type="text/javascript">
+	<script type="text/javascript" src="alterPlace.js"></script>
+	<script type="text/javascript">
 var alterPoi = [];
 function alter(){
 	console.log("alter실행");
