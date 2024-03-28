@@ -107,8 +107,10 @@ public class loadScheduleCon extends HttpServlet {
 		 * 
 		 * 
 		 *  */
+		System.out.println(uniquePlaces);
 		for (Integer poiIdx : uniquePlaces) { // POIINFOTEST 테이블에서 해당 장소 정보를 가져오는 메서드를 호출합니다. 
-			PoiVO poiInfo = cDao.myCoursePOI(poiIdx); 
+			PoiVO poiInfo = cDao.myCoursePOI(poiIdx);
+			System.out.println("poiInFO "+poiInfo);
 			if (poiInfo != null) {
 				myUniquePOI.add(poiInfo); } }
 		 

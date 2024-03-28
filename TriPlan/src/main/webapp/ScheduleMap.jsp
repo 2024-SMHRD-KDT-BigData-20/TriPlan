@@ -250,7 +250,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 }
 
 .Img {
-	width: 70%;
+	width: 50%;
 	height: 100%;
 	object-fit: cover;
 	display: flex;
@@ -367,7 +367,9 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 
         
         <%HttpSession session2 = request.getSession();
-List<PoiVO> myUniquePOI = (List<PoiVO>) session.getAttribute("myUniquePOI");
+List<PoiVO> myUniquePOI = 
+
+(List<PoiVO>) session.getAttribute("myUniquePOI");
 n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
     var map;
     var markers = []; // 마커와 정보 창을 저장할 배열
@@ -512,13 +514,17 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 				Date startDate = sdf.parse(currentTrip.getMt_st_dt());
 				Date endDate = sdf.parse(currentTrip.getMt_ed_dt());
 				long diffSec = (endDate.getTime() - startDate.getTime()) / 1000;
+				System.out.println(diffSec);
 				double diffDays = (double) diffSec / (60 * 60 * 24);
+				System.out.println(diffDays);
 				int period = (int) Math.ceil(diffDays);
+				System.out.println(period);
 				%>
 				<p><%=sdf.format(startDate)%>
 					~
 					<%=sdf.format(endDate)%>
 					(<%=period - 1%>박<%=period%>일)
+					
 				</p>
 				<button type="button" onclick="checkPOI()">저장</button>
 			</div>
@@ -588,11 +594,11 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 
 					<div class="list-group-item" draggable="true"
 						id=<%=poi.getPoi_idx()%> onclick="mouse()">
-						<p class="delete" id="del" type="button" onclick="update()">삭제</p>
+						<p class="delete" id="del" type="button" onclick="update();PrintMap(1);">삭제</p>
 						<!-- 이미지 요소 -->
 						<div class="testElement" id="testElement">
 							<div class="Img">
-								<img src="poiImgs/<%=poi.getPoi_img_location()%>" width=100%
+								<img src="poiImgs/<%=poi.getPoi_photo()%>" width=100%
 									height="100%" alt=<%=poi.getPoi_name()%>>
 							</div>
 							<div class="place-info">
@@ -733,8 +739,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	newCourseOrder = [];
 	function saveItemOrder() {
 	let updatedItemOrders = [];
-	       	  <%for (int j = 0; j < period; j++) {%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
-
+	       	  <%for (int j = 0; j < period; j++) {
+	       	  System.out.println("saveItemOrder길이"+period);%>//session에서 period 받아와야 함. MyTripsVO.getPeriod()
        	        const Items<%=j + 1%> = document.querySelectorAll("#Day<%=j + 1%>>.list-group-item");
 	       	        
 	       	        let updatedItemOrder<%=j + 1%> = []; // 배열 초기화
@@ -885,9 +891,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 		/*  for(Tmapv2.Marker marker of markers){
 			 marker.clearMarkers();
 		 } */
-
-			newCourseOrder = itemOrders;
-			console.log("newCourseOrder",newCourseOrder)
+			newCourseOrder=saveItemOrder();
+			//newCourseOrder = itemOrders;
+			console.log("newCourseOrder는",newCourseOrder)
 			newPOI = update();
 			console.log("newPOI는",newPOI)
 		    let pathCoordinates = []; // 선을 그릴 좌표를 저장할 배열
@@ -1056,13 +1062,22 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	        resultList.appendChild(listItem); // 리스트에 아이템 추가
 	    }
 	}
+	
+	function deletePOI(){
+		update();
+		PrintMap(1);
+		
+	}
+	
 	</script>
 
+	
 
 
 	<script>
 	document.addEventListener("mousedown", (e) => {
 		const drag_item = e.target.closest(".list-group-item");
+		//const target_column = e.tager.closest(".column;")
 		const drag_search = e.target.closest(".list-group-item.search");
 		current_item = drag_item;
 		search_item = drag_search;
@@ -1073,7 +1088,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	
 	
 	    document.addEventListener("drop", (e) => {
-	    	
+	    //target_column.classList.add("active");
         if(current_item){
                 current_item.classList.remove("insert-animation");
 		if(search_item != null){
@@ -1087,6 +1102,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
  		search_item.classList.remove("search");
 		search_item.querySelector('.tag-name').innerText = "";
 /* 		search_item.querySelector(".address").style.display = 'block' */; 
+ 
+ 		addedItemPOI()
+ 
         // 설명 들어감
         const description = document.createElement('div');
         description.classList.add('description');

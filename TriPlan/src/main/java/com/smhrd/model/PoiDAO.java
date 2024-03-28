@@ -25,7 +25,7 @@ public class PoiDAO {
                         poi.setPoi_name(rs.getString("poi_name"));
                         poi.setPoi_desc(rs.getString("poi_desc"));
                         poi.setPoi_runingtime(rs.getString("poi_runingtime"));
-                        poi.setPoi_img_location(rs.getString("poi_img_location"));
+                        poi.setPoi_photo(rs.getString("poi_Poi_photo"));
                         poi.setPoi_lat(rs.getDouble("poi_lat"));
                         poi.setPoi_lng(rs.getDouble("poi_lng"));
                         poiList.add(poi);

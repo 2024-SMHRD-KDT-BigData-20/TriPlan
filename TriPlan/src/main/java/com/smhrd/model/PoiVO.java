@@ -25,10 +25,10 @@ public class PoiVO {
 	private String poi_tag;
 	private String poi_runingtime;
 	private String poi_offday;
-	private String poi_img_location;
+	private String poi_photo;
 	
 	public PoiVO(@NonNull int poi_idx, @NonNull String poi_name, String poi_addr, String poi_desc, double poi_lat,
-			double poi_lng, @NonNull String poi_tag, String poi_img_location) {
+			double poi_lng, @NonNull String poi_tag, String poi_photo) {
 		super();
 		this.poi_idx = poi_idx;
 		this.poi_name = poi_name;
@@ -37,8 +37,24 @@ public class PoiVO {
 		this.poi_lat = poi_lat;
 		this.poi_lng = poi_lng;
 		this.poi_tag = poi_tag;
-		this.poi_img_location = poi_img_location;
+		this.poi_photo = poi_photo;
 	}
+
+	public PoiVO(@NonNull int poi_idx, @NonNull String poi_name, String poi_addr, String poi_desc, double poi_lat,
+			double poi_lng, String poi_photo) {
+		super();
+		this.poi_idx = poi_idx;
+		this.poi_name = poi_name;
+		this.poi_addr = poi_addr;
+		this.poi_desc = poi_desc;
+		this.poi_lat = poi_lat;
+		this.poi_lng = poi_lng;
+		this.poi_photo = poi_photo;
+	}
+	
+	
+	
+	
 	
 	
 	

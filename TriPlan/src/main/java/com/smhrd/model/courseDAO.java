@@ -75,6 +75,7 @@ public class courseDAO {
 		PoiVO myCoursePoi = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		myCoursePoi = sqlSession.selectOne("com.smhrd.db.courseMapper.myCoursePOI",poiIdx);
+		System.out.println("이미지 어디갔어"+myCoursePoi);
 		sqlSession.close();
 		return myCoursePoi;
 	}
