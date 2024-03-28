@@ -941,16 +941,17 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	    resultList.appendChild(searchButton);
 
 	    
-	    for(let poi of res){
+	    for(let i=0; i<res.length; i++){
 	        let listItem = document.createElement("div"); // 새로운 리스트 아이템 생성
 	        listItem.classList.add("list-group-item", "search"); // 클래스 추가
-	        listItem.setAttribute("id", poi.poi_idx); // 아이디 추가
+	        listItem.setAttribute("id", res[i].poi_idx); // 아이디 추가
+	        listItem.setAttribute("data_custom", i);
 	        
 	        let imgDiv = document.createElement("div"); // 이미지 요소를 감싸는 div
 	        imgDiv.classList.add("Img", "search");
 	        let img = document.createElement("img"); // 이미지 요소 생성
-	        img.src = "poiImgs/" + poi.poi_photo; // 이미지 경로 설정
-	        img.alt = poi.poi_name; // 대체 텍스트 설정
+	        img.src = "poiImgs/" + res[i].poi_photo; // 이미지 경로 설정
+	        img.alt = res[i].poi_name; // 대체 텍스트 설정
 	        img.width = "100%";
 	        img.height = "100%";
 	        imgDiv.appendChild(img); // 이미지를 감싸는 div에 추가
@@ -961,17 +962,17 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	        
 	        let nameDiv = document.createElement("div"); // 장소 이름
 	        nameDiv.classList.add("name", "search");
-	        nameDiv.textContent = poi.poi_name;
+	        nameDiv.textContent = res[i].poi_name;
 	        placeInfoDiv.appendChild(nameDiv);
 	        
 	        let tagNameDiv = document.createElement("div"); // 태그 명
 	        tagNameDiv.classList.add("tag-name");
-	        tagNameDiv.textContent = poi.poi_tag;
+	        tagNameDiv.textContent = res[i].poi_tag;
 	        placeInfoDiv.appendChild(tagNameDiv);
 	        
 	        let addressDiv = document.createElement("div"); // 장소 주소
 	        addressDiv.classList.add("address");
-	        addressDiv.textContent = poi.addr;
+	        addressDiv.textContent = res[i].addr;
 	        addressDiv.style.display = "none";
 	        placeInfoDiv.appendChild(addressDiv);
 	        
@@ -1032,22 +1033,23 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 /* 		search_item.querySelector(".address").style.display = 'block' */; 
  
  		console.log(searchResult);
- 
+ 		const i=search_item.getAttribute("data_custom");
+ 		console.log("i확인: ",i);
         // 설명 들어감
         const description = document.createElement('div');
         description.classList.add('description');
-        description.innerText = searchResult[4].poi_desc;
+        description.innerText = searchResult[i].poi_desc;
         search_item.querySelector('.place-info').appendChild(description);
 		// 주소 들어감
         const adress = document.createElement('div');
         adress.classList.add('adress');
-        adress.innerText = searchResult[4].poi_addr;
+        adress.innerText = searchResult[i].poi_addr;
         search_item.querySelector('.place-info').appendChild(adress);
         // 삭제버튼 들어감
          const Divdelete = document.createElement('p');
          Divdelete.classList.add('delete');
          Divdelete.setAttribute('type', 'button');
-         Divdelete.setAttribute('onclick', 'deletePoi()');
+         Divdelete.setAttribute('onclick', 'deletePoi()');//여기 수정 필요!!!
          Divdelete.innerText = '삭제'; 
          console.log(Divdelete);
         search_item.appendChild(Divdelete);
