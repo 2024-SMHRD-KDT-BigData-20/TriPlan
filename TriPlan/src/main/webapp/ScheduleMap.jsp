@@ -964,6 +964,9 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	        listItem.setAttribute("id", res[i].poi_idx); // 아이디 추가
 	        listItem.setAttribute("data_custom", i);
 	        
+	        let testEleDiv = document.createElement("div"); // testElement div추가
+	        testEleDiv.classList.add("testElement", "search");
+	        
 	        let imgDiv = document.createElement("div"); // 이미지 요소를 감싸는 div
 	        imgDiv.classList.add("Img", "search");
 	        let img = document.createElement("img"); // 이미지 요소 생성
@@ -972,7 +975,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	        img.width = "100%";
 	        img.height = "100%";
 	        imgDiv.appendChild(img); // 이미지를 감싸는 div에 추가
-	        listItem.appendChild(imgDiv); // 리스트 아이템에 이미지를 감싸는 div 추가
+	        testEleDiv.appendChild(imgDiv); // testElement에 이미지를 감싸는 div 추가
 	        
 	        let placeInfoDiv = document.createElement("div"); // 장소 정보를 담는 div
 	        placeInfoDiv.classList.add("place-info");
@@ -993,13 +996,14 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	        addressDiv.style.display = "none";
 	        placeInfoDiv.appendChild(addressDiv);
 	        
-	        listItem.appendChild(placeInfoDiv); // 리스트 아이템에 장소 정보를 담는 div 추가
+	        testEleDiv.appendChild(placeInfoDiv); // testElement에 장소 정보를 담는 div 추가
 	        
 	        let dragIndicatorSpan = document.createElement("span"); // 드래그 인디케이터
 	        dragIndicatorSpan.classList.add("material-icons-round");
 	        dragIndicatorSpan.textContent = "drag_indicator";
-	        listItem.appendChild(dragIndicatorSpan); // 리스트 아이템에 드래그 인디케이터 추가
+	        testEleDiv.appendChild(dragIndicatorSpan); // testElement 드래그 인디케이터 추가
 	        
+	        listItem.appendChild(testEleDiv); // 리스트 아이템에 testElement 추가
 	        resultList.appendChild(listItem); // 리스트에 아이템 추가
 	    }
 	}
@@ -1125,11 +1129,10 @@ alterPoi.forEach(function(poi) {
  		console.log(searchResult);
  		const i=search_item.getAttribute("data_custom");
  		console.log("i확인: ",i);
-        // testElement로 감싸주기
-        const description = document.createElement('div');
-        description.classList.add('description');
-        description.innerText = searchResult[i].poi_desc;
-        search_item.querySelector('.place-info').appendChild(description);
+/*         // testElement로 감싸주기
+        const testElement = document.createElement('div');
+        testElement.classList.add('testElement');
+        search_item.querySelector('.list-group-item').appendChild(testElement); */
         // 설명 들어감
         const description = document.createElement('div');
         description.classList.add('description');
