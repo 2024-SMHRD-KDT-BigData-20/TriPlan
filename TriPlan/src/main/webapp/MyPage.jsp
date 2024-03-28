@@ -77,7 +77,7 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 		    <a href=loadScheduleCon?mt_idx=<%=MyTrips.get(i).getMt_idx()%>>   
           <div class="restaurant-card">
               <div class="image-container">
-                  <img src="poiImgs/18-애월해안도로.jpg" alt="내 투어">
+                  <img src="CourseImg/<%=MyTrips.get(i).getMt_img()%>" alt="내 투어">
                   <%Date startDate = dates.parse(MyTrips.get(i).getMt_st_dt());
 					Date endDate = dates.parse(MyTrips.get(i).getMt_ed_dt());
 					Date now = new Date();

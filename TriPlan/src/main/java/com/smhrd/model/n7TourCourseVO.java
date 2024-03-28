@@ -19,5 +19,6 @@ public class n7TourCourseVO {
 	String bc_theme;
 	String bc_img;
 	
+	
 
 }

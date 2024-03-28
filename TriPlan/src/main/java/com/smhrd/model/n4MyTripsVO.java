@@ -16,7 +16,7 @@ public class n4MyTripsVO {
 	private String user_id;
 	private String mt_st_dt;
 	private String mt_ed_dt;
-	private String mt_select;
+	private int mt_select;
 	private String mt_img;
 
 

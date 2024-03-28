@@ -12,6 +12,8 @@ public class courseDAO {
 
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 	
+	
+	
 	public List<n4MyTripsVO> MyTrips(String user_id) {
 
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);//auto commit
@@ -163,6 +165,20 @@ public class courseDAO {
 		List<PoiVO> alterPlace = sqlSession.selectList("com.smhrd.db.courseMapper.alterPlace",poi_idx);
 		sqlSession.close();
 		return alterPlace;
+	}
+
+	public n7TourCourseVO TourImg(int matchingTrip) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		n7TourCourseVO tourImg = sqlSession.selectOne("com.smhrd.db.courseMapper.TourImage",matchingTrip);
+		sqlSession.close();
+		return tourImg;
+	}
+
+	public int updateMyTour(n4MyTripsVO myTripUpdate) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int cnt = sqlSession.update("com.smhrd.db.courseMapper.UpdateMyTour",myTripUpdate);
+		sqlSession.close();
+		return cnt;
 	}
 
 

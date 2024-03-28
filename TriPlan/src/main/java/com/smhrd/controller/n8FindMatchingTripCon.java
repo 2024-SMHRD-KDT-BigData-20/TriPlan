@@ -31,6 +31,7 @@ import com.smhrd.model.myCourseVO;
 import com.smhrd.model.n1UserDAO;
 import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n3PreferenceVO;
+import com.smhrd.model.n4MyTripsVO;
 import com.smhrd.model.n5CreateScheduleVO;
 import com.smhrd.model.n7TourCourseVO;
 import com.smhrd.model.tagInfoVO;
@@ -241,39 +242,18 @@ public class n8FindMatchingTripCon extends HttpServlet {
         
         int matchingTrip = maxKey;
         
-        //img = select * 혹은 img from tour_course_info
+        //img = select * 혹은 img from tour_course_info where 
         //insert into my_tourcourseinfo set mt_select = matchingTrip, img = 위에거
         
+        n7TourCourseVO tourInfo = dao.TourImg(matchingTrip);
         
+        n4MyTripsVO myTripUpdate = new n4MyTripsVO();
+        myTripUpdate.setMt_idx(mt_idx);
+        myTripUpdate.setMt_select(matchingTrip);
+        myTripUpdate.setMt_img(tourInfo.getBc_img());
+        
+        int udpateResultCnt = dao.updateMyTour(myTripUpdate);
 
-		/*
-		 * String selectedImage = null; try { Connection conn =
-		 * DriverManager.getConnection(
-		 * "jdbc:mysql://project-db-campus.smhrd.com:1523/xe", "sc_21K_bigdata20_p2_3",
-		 * "smhrd3"); String sql =
-		 * "SELECT bc_img FROM tour_course_info WHERE bc_idx = ?"; PreparedStatement
-		 * pstmt = conn.prepareStatement(sql); pstmt.setInt(1, maxKey); // maxKey는 가장 높은
-		 * 점수를 가진 코스의 ID입니다.
-		 * 
-		 * ResultSet rs = pstmt.executeQuery(); if (rs.next()) { selectedImage =
-		 * rs.getString("bc_img"); } rs.close(); pstmt.close(); conn.close(); } catch
-		 * (SQLException e) { e.printStackTrace(); } if (selectedImage != null) { try {
-		 * Connection conn = DriverManager.getConnection(
-		 * "jdbc:mysql://project-db-campus.smhrd.com:1523/xe", "sc_21K_bigdata20_p2_3",
-		 * "smhrd3"); String sql =
-		 * "UPDATE my_tour_course_info SET mt_select = ?, mt_img = ? WHERE 조건"; // 여기서
-		 * "조건"은 실제 사용 시 적절한 조건으로 교체해야 합니다. PreparedStatement pstmt =
-		 * conn.prepareStatement(sql); pstmt.setInt(1, maxKey); pstmt.setString(2,
-		 * selectedImage);
-		 * 
-		 * int affectedRows = pstmt.executeUpdate(); if (affectedRows > 0) {
-		 * System.out.println("업데이트 성공"); } else { System.out.println("업데이트 실패"); }
-		 * pstmt.close(); conn.close(); } catch (SQLException e) { e.printStackTrace();
-		 * } } else { System.out.println("선택된 이미지가 없습니다."); }
-		 */
-   
-        
-        //
         
         List<autoCourseVO> courseDetail = dao.importCourseDetail(matchingTrip);
         
