@@ -2,6 +2,7 @@ package com.smhrd.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -71,7 +72,14 @@ public class courseDAO {
 		sqlSession.close();
 		return dailyCourseList;
 	}
-	
+	public PoiVO alterTag(int poiIdx) {
+		// TODO Auto-generated method stub
+		PoiVO myCoursePoi = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		myCoursePoi = sqlSession.selectOne("com.smhrd.db.courseMapper.alterTag",poiIdx);
+		sqlSession.close();
+		return myCoursePoi;
+	}
 	public PoiVO myCoursePOI(int poiIdx) {
 		// TODO Auto-generated method stub
 		PoiVO myCoursePoi = null;
@@ -160,9 +168,9 @@ public class courseDAO {
 		return sampleTripDetails;
 	}
 
-	public List<PoiVO> alterPlace(int poi_idx) {
+	public List<PoiVO> alterPlace(Map<String, Object> params) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		List<PoiVO> alterPlace = sqlSession.selectList("com.smhrd.db.courseMapper.alterPlace",poi_idx);
+		List<PoiVO> alterPlace = sqlSession.selectList("com.smhrd.db.courseMapper.alterPlace",params);
 		sqlSession.close();
 		return alterPlace;
 	}

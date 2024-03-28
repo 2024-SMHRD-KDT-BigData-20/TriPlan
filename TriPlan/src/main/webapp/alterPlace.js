@@ -1,9 +1,46 @@
 /**
  * 
  */
-
-
 var alterPoi2 = [];
+
+function printAlter2(alterPoi2) {
+	    console.log("printAlter시작");
+    // section 요소에 접근
+    var section = document.querySelector("section.center.slider");
+
+    // PoiVO 객체를 반복하여 처리
+    alterPoi2.forEach(function(poi) {
+        console.log("반복문 시작: ", poi.poi_name);
+        // otherpoi div 요소 추가
+        var otherpoiDiv = document.createElement("div");
+        otherpoiDiv.className = "otherpoi";
+        otherpoiDiv.id = "otherpoi_" + poi.poi_idx; // poi_idx 값을 id로 설정
+
+        // 이미지 div 추가
+        var imgDiv = document.createElement("div");
+        imgDiv.style.height = "70px";
+        imgDiv.style.width = "70px";
+
+        // 이미지 추가
+        var img = document.createElement("img");
+        var encodedFilename = encodeURIComponent(poi.poi_photo)
+        img.src = "poiImgs/" + encodedFilename; // 이미지 URL 설정
+        imgDiv.appendChild(img);
+        otherpoiDiv.appendChild(imgDiv);
+
+        // 장소 제목 추가
+        var titleAnchor = document.createElement("a");
+        titleAnchor.textContent = poi.poi_name; // 장소 이름 설정
+        otherpoiDiv.appendChild(titleAnchor);
+
+        // section에 otherpoiDiv 추가
+        section.appendChild(otherpoiDiv);
+
+        console.log("반복문 끝: ", poi.poi_name);
+    });
+}
+
+
 function alter2(){
 	 	$.ajax({
 		url : "n11alterPlaceCon",
@@ -26,8 +63,9 @@ function alter2(){
 			for(let i=0; i<res.length;i++){
 				alterPoi2.push(res[i]);
 			}
-			console.log("대체장소",alterPOI);
-
+			console.log("대체장소",alterPoi2);
+			printAlter2(alterPoi2);
+			console.log("printAlter를 실행했건만 왜");
 		},
 		 error: function(){
 			alert("통신 실패")
@@ -39,39 +77,7 @@ function alter2(){
 			 alert("Error!" + xhr.status);
 		    }, */
 	}); //ajax 끝 
-		console.log("성공");
-		printAlter(alterPoi2);
+		console.log("된거냐?");
 		return alterPoi2;
 	}
 
-function printAlter(alterPoi) {
-    // center slider 요소에 접근
-    var slider = document.querySelector(".center.slider");
-    
-    // PoiVO 객체를 반복하여 처리
-    alterPoi.forEach(function(poi) {
-        // otherpoi div 요소 추가
-        var otherpoiDiv = document.createElement("div");
-        otherpoiDiv.className = "otherpoi";
-        otherpoiDiv.id = "otherpoi_" + poi.poi_idx; // poi_idx 값을 id로 설정
-        
-        // 이미지 div 추가
-        var imgDiv = document.createElement("div");
-        imgDiv.style.height = "70px";
-        imgDiv.style.width = "70px";
-        
-        // 이미지 추가
-        var img = document.createElement("img");
-        img.src = poi.image_url; // 이미지 URL 설정
-        imgDiv.appendChild(img);
-        otherpoiDiv.appendChild(imgDiv);
-        
-        // 장소 제목 추가
-        var titleAnchor = document.createElement("a");
-        titleAnchor.textContent = poi.poi_name; // 장소 이름 설정
-        otherpoiDiv.appendChild(titleAnchor);
-        
-        // center slider에 otherpoiDiv 추가
-        slider.appendChild(otherpoiDiv);
-    });
-}

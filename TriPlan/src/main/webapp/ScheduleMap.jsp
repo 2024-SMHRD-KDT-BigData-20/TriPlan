@@ -556,7 +556,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<div id="slideContainer">
-							<button onclick="alter2()">알고리즘 테스트용</button>
+							<button onclick="alter2()" id=<%=poi.getPoi_idx()%>>알고리즘 테스트용</button>
 							<p class="otherButton">비슷한장소</p>
 							<section class="center slider" style="display: none;">
 								<!-- id에 poi_idx값 들어가야 함 -->

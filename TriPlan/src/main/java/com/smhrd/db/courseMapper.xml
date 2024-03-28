@@ -16,14 +16,32 @@
 	update my_tour_course_info set mt_select = #{mt_select}, mt_img=#{mt_img} where mt_idx=#{mt_idx}
 </update>
 <select id="alterPlace" parameterType="Map" resultType="PoiVO">
-    select 
-    <foreach item="item" collection="topTagsNPreference" open="(" separator="+" close=")">
-        REGEXP_COUNT(POI_name, #{item}) + REGEXP_COUNT(POI_desc, #{item})*2 + REGEXP_COUNT(POI_tag, #{item})
-    </foreach>
-    as count
-    from poi_table
+    select
+    POI_idx,
+       POI_name,
+       POI_addr,  
+       POI_desc,
+       POI_lat,
+       POI_lng,
+       POI_tag,
+       POI_photo from
+    (select (
+    <foreach item="item" collection="tagList" open="(" separator="+" close=")">
+        REGEXP_COUNT(POI_name, #{item})*3 + REGEXP_COUNT(POI_desc, #{item})*2 + REGEXP_COUNT(POI_tag, #{item})
+    </foreach>)
+    as count,
+    POI_idx,
+       POI_name,
+       POI_addr,  
+       POI_desc,
+       POI_lat,
+       POI_lng,
+       POI_tag,
+       POI_photo
+    from poi_info
     where poi_lat &lt; #{max_lat} and poi_lat &gt; #{min_lat} and poi_lng &lt; #{max_lng} and poi_lng &gt; #{min_lng}
     order by count desc
+    ) WHERE ROWNUM &lt;= 5
 </select>
 <select id="searchResult" parameterType="String" resultType="PoiVO">
 SELECT POI_idx,
@@ -217,6 +235,58 @@ values (MY_DAILY_SCHEDULE_INFO_SEQ.nextval, #{mt_idx}, #{day_sche}, #{mt_course}
 		resultType="createScheduleVO">
 		select * from testMyDaily where mt_idx=#{mt_idx} order by
 		day_sche
+	</select>
+	
+	<select id="alterTag" parameterType="int" resultType="PoiVO">
+		SELECT		
+		POI_IDX,
+		POI_NAME,
+		POI_ADDR,
+		POI_DESC,
+		POI_LAT,
+		POI_LNG,
+		poi_tag,
+		POI_PHOTO		
+		FROM poi_info
+		WHERE poi_idx = #{poi_idx}
+		union
+		SELECT
+		HOTEL_IDX,
+		HOTEL_NAME,
+		HOTEL_ADDR,
+		HOTEL_COMMENT,
+		LAT,
+		LNG,
+		hotel_tag,
+		HOTEL_PHOTO		
+		FROM
+		hotel_info
+		WHERE hotel_idx = #{poi_idx}
+		union
+		SELECT
+		RESTAU_IDX,
+		RESTAU_NAME,
+		RESTAU_ADDR,
+		RESTAU_DESC,
+		LAT,
+		LNG,
+		RESTAU_tag,
+		RESTAU_PHOTO1
+		FROM RESTAURANT_INFO
+		WHERE RESTAU_IDX = #{poi_idx}
+		union
+		SELECT
+		SHOP_IDX,
+		SHOP_NAME,
+		SHOP_ADDR,
+		SHOP_DESC,
+		LAT,
+		LNG,
+		SHOP_tag,
+		SHOP_PHOTO
+		FROM
+		shop_info
+		WHERE shop_idx = #{poi_idx}
 	</select>
 
 	<select id="myCoursePOI" parameterType="int" resultType="PoiVO">
