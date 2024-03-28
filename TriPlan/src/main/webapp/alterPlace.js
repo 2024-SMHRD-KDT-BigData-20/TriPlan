@@ -10,7 +10,7 @@ function printAlter2(alterPoi2) {
 
     // PoiVO 객체를 반복하여 처리
     alterPoi2.forEach(function(poi) {
-        console.log("반복문 시작: ", poi.poi_name);
+        console.log("대체 추천 장소: ", poi.poi_name);
         // otherpoi div 요소 추가
         var otherpoiDiv = document.createElement("div");
         otherpoiDiv.className = "otherpoi";
@@ -36,12 +36,12 @@ function printAlter2(alterPoi2) {
         // section에 otherpoiDiv 추가
         section.appendChild(otherpoiDiv);
 
-        console.log("반복문 끝: ", poi.poi_name);
     });
 }
 
 
-function alter2(){
+function alter2(poiIdx){
+	console.log("id확인: ",poiIdx)
 	 	$.ajax({
 		url : "n11alterPlaceCon",
 		type : "get",
@@ -51,8 +51,8 @@ function alter2(){
 		//$(선택자)
 		data : {
 "mt_idx":366,
-"updatedSchedule" :JSON.stringify(saveItemOrder()),
-"currentPoiIdx":100244
+"currentSchedule" :JSON.stringify(saveItemOrder()),
+"currentPoiIdx":poiIdx
 },////
 		//받아오는 데이터 타입
  		dataType : "json", 
@@ -65,7 +65,6 @@ function alter2(){
 			}
 			console.log("대체장소",alterPoi2);
 			printAlter2(alterPoi2);
-			console.log("printAlter를 실행했건만 왜");
 		},
 		 error: function(){
 			alert("통신 실패")
@@ -77,7 +76,6 @@ function alter2(){
 			 alert("Error!" + xhr.status);
 		    }, */
 	}); //ajax 끝 
-		console.log("된거냐?");
 		return alterPoi2;
 	}
 

@@ -385,6 +385,7 @@ min-width:100px;
 	src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 <!-- 지도 함수 스크립트 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=rUw2inMtFc3RpPULkR6di5FZAXdX8YtU4H0nJxbF"></script>
 <script>
@@ -556,7 +557,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<div id="slideContainer">
-							<button onclick="alter2()" id=<%=poi.getPoi_idx()%>>알고리즘 테스트용</button>
+							<button class="<%=poi.getPoi_idx()%>" onclick="alter2(<%=poi.getPoi_idx()%>)" >알고리즘 테스트용</button>
 							<p class="otherButton">비슷한장소</p>
 							<section class="center slider" style="display: none;">
 								<!-- id에 poi_idx값 들어가야 함 -->
