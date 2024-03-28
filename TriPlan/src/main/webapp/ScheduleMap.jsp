@@ -870,7 +870,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	 console.log("dayX초기값",dayX)
 	 
 	 
-	 markers = [];
+
 	 function PrintMap(dayX) {
 		 
 		 console.log("PrintMap실행");
@@ -882,15 +882,16 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 		 }
 		 for(var i = 0; i < travelPaths.length; i++){
 			 console.log("Path ", i,"는 ", travelPaths[i])
-			 travelPaths[i].setMap(null); // 마커 제거			 
+			 travelPaths[i].setMap(null); // 선 제거			 
 		 }
-		 
+		  
 
 			//markers.clearMarkers();
 
 		/*  for(Tmapv2.Marker marker of markers){
 			 marker.clearMarkers();
 		 } */
+		 
 			newCourseOrder=saveItemOrder();
 			//newCourseOrder = itemOrders;
 			console.log("newCourseOrder는",newCourseOrder)
@@ -900,7 +901,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 		    let infoWindow; // 인포윈도우를 관리하기 위한 변수 선언
 		    markers = []; // 마커 배열 초기화
 		    travelPaths = [];
-		    // 모든 일차를 순회
+		    
 		  
 		        for (let i = 0; i < newCourseOrder[dayX-1].length; i++) {
 		            let poi = newCourseOrder[dayX-1][i];

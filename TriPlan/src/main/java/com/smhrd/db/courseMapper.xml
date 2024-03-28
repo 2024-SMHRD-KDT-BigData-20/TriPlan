@@ -249,6 +249,12 @@ values (MY_DAILY_SCHEDULE_INFO_SEQ.nextval, #{mt_idx}, #{day_sche}, #{mt_course}
 		shop_info
 		WHERE shop_idx = #{poi_idx}
 	</select>
-
+<!-- 	<update id="updateSchedule" parameterType="HashMap">
+		update my_course_detail
+		set
+		<foreach collection="HashMap" separator = ",">
+		#{key} = #{value}
+		</foreach>
+	</update> -->
 
 </mapper>
