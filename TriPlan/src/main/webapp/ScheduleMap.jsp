@@ -270,6 +270,11 @@ min-width:100px;
     height: auto; /* 이미지의 비율을 유지하면서 너비에 맞춤 */
 }
 
+.Img > img{
+	width: 100%;
+	height: 100%;
+}
+
 .material-icons-round {
 	display: flex;
 	justify-content: right;
