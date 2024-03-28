@@ -47,18 +47,20 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 %>
 </head>
 <body>
-			    <div class="navbar">
-        <div class="navbar___logo">
-            <i class="fa-brands fa-wordpress"></i>
-            <a href="">TriPlan</a>
-        </div>
-        <ul class="navbar___menu">
-            <li><a href="n6ConfirmPreference.jsp">내 여행프로필</a></li>
-            <li><a href="MyPage.jsp">마이페이지</a></li>
-            <li><a href="ScheduleMap.jsp">스케쥴메이커</a></li>
-            <li><a href="n5CreateSchedule.jsp">일정생성</a></li>
-        </ul>
-    </div>     
+		<div class="navbar">
+			<div class="navbar___logo">
+				 <img alt="Logo" src="Triplan.png" style="height: 100%;">
+			</div>
+			<ul class="navbar___menu">
+				<li><a href="MyPage.jsp">홈</a></li>
+				<li><a href="n3Preference.jsp">내 여행프로필</a></li>
+				<li><a href="n5CreateSchedule.jsp">일정생성</a></li>
+			</ul>
+
+			<ul>
+				<li><a href="">로그아웃</a></li>
+			</ul>
+		</div>    
 <!-- <div class="cloudBackground"> -->
 <%-- <%if(MyTrips.size()>0){%> --%>
 <%if(MyTrips != null && MyTrips.size() > 0){%>
