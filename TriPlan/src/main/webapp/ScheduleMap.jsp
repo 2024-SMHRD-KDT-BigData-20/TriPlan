@@ -93,7 +93,7 @@ body {
 .fixed-element {
 	position: sticky;
 	text-align: center;
-	top: 85px;
+	top: 107px;
 	right: 0;
 	width: 100%;
 	background-color: #f0f0f0;
@@ -250,7 +250,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 }
 
 .Img {
-	width: 50%;
+	width: 70%;
 	height: 100%;
 	object-fit: cover;
 	display: flex;
@@ -276,7 +276,7 @@ min-width:100px;
 	align-items: center;
 }
 
-.list-froup-item.dragging {
+.list-group-item.dragging {
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, 0) scale(1.15);
@@ -361,6 +361,19 @@ min-width:100px;
 	height: 80%;
 }
 
+.daily-marker{
+	display: block;
+	justify-content: center;
+	align-items: center;
+}
+
+.otherButton{
+	background-color: #ddd;
+	border-radius: 50px;
+	width: 200px;
+	cursor: pointer;
+}
+
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
 <script
@@ -427,7 +440,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	<div id="right_col">
 		<div class="navbar">
 			<div class="navbar___logo">
-				<i class="fa-brands fa-wordpress"></i> <a href="">TriPlan</a>
+				 <img alt="Logo" src="Triplan.png" style="height: 100%;">
 			</div>
 			<ul class="navbar___menu">
 				<li><a href="MyPage.jsp">홈</a></li>
@@ -495,8 +508,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 				</h2>
 
 				<div class="column" id="Day<%=i + 1%>">
-					<button onclick="PrintMap(<%=i + 1%>)">일정 지도에서 보기</button>
-					<%--  --%>
+					<button id="fixedButton" class="daily-marker" draggable="false" onclick="PrintMap(<%=i + 1%>)">일정 지도에서 보기</button>
 					<!-- <div class="ite/2m-plus">
 							<button>+ 장소추가</button>
 						</div> -->
@@ -519,8 +531,8 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 					%>
 					<!-- 일정 장소 출력 -->
 					<div class="list-group-item" draggable="true"
-						id=<%=poi.getPoi_idx()%> onclick="mouse()">
-						<p class="delete" id="del" type="button" onclick="update();PrintMap(<%=i+1%>);">삭제</p>
+						id=<%=poi.getPoi_idx()%>>
+						<p class="delete" id="del" type="button" onclick="update()">삭제</p>
 						<!-- 이미지 요소 -->
 						<div class="testElement" id="testElement">
 							<div class="Img">
@@ -537,14 +549,12 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 							<span class="material-icons-round">drag_indicator</span>
 						</div>
 
-						<!-- 비슷한 장소 추천 -->
+						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<div id="slideContainer">
-							<p
-								style="background-color: #ddd; border-radius: 50px; width: 200px;">비슷한
-								장소</p>
-							<section class="center slider">
+							<p class="otherButton">비슷한장소</p>
+							<section class="center slider" style="display: none;">
 								<!-- id에 poi_idx값 들어가야 함 -->
-								<div id="otherpoi" class="otherpoi">
+								<div id="otherpoi1" class="otherpoi">
 									<div style="height: 70px; width: 70px">
 										<!-- 이미지 삽입 -->
 										<img src="http://placehold.it/350x300?text=1">
@@ -554,7 +564,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 										<a>장소제목 들어감</a>
 									</div>
 								</div>
-								<div id="otherpoi" class="otherpoi">
+								<div id="otherpoi2" class="otherpoi">
 									<div style="height: 70px; width: 70px">
 										<img src="http://placehold.it/350x300?text=1">
 									</div>
@@ -642,17 +652,23 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 			
 	</script>
 	<script>
-/*  	$(document).ready(function(){
-		.navbar position: fixed;
 
-		#right_col_inner margin-top: 85px;
-
-		.fixed-element :85px
-
-		 $("#right_col_inner").css("margin-top","15px"); 
-		 $(".fixed-element").css("top","85px");
-	});  */
-	
+	document.addEventListener('DOMContentLoaded', function() {
+	    // '비슷한장소'를 클릭했을 때 실행될 이벤트 리스너 추가
+	    var buttons = document.querySelectorAll('p.otherButton'); // 모든 '비슷한장소' 버튼을 선택
+	    buttons.forEach(function(button, index) {
+	        button.addEventListener('click', function() {
+	            // 클릭된 버튼에 해당하는 .center.slider 요소의 display 상태를 변경
+	            // 여기서는 버튼과 .center.slider 요소가 순서대로 대응된다고 가정
+	            var sliders = document.querySelectorAll('.center.slider');
+	            if (sliders[index].style.display === 'none' || sliders[index].style.display === '') {
+	                sliders[index].style.display = 'block';
+	            } else {
+	                sliders[index].style.display = 'none'; // 다시 클릭하면 숨깁니다
+	            }
+	        });
+	    });
+	});	
 	
 	//jquery 먼저 실행된 다음에 js 코드 사용할 것!!
 	//ajax는 jquery 문법에서 가져옴
