@@ -937,7 +937,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	    let resultList = document.getElementById("searchResultList"); // 검색 결과를 표시할 리스트 요소를 가져옴
 	    resultList.innerHTML = ""; // 이전 검색 결과를 초기화
 	    
-	    // 검색 입력 상자 생성까지 삭제해야될듯 싶어요
+/* 	    // 검색 입력 상자 생성까지 삭제해야될듯 싶어요
 	 // 헤더 생성
 	    let searchHeader = document.createElement("h1");
 	    searchHeader.textContent = "장소검색";
@@ -954,7 +954,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	    let searchButton = document.createElement("button");
 	    searchButton.textContent = "검색";
 	    searchButton.onclick = search;
-	    resultList.appendChild(searchButton);
+	    resultList.appendChild(searchButton); */
 
 	    
 	    for(let i=0; i<res.length; i++){
@@ -1051,6 +1051,11 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
  		console.log(searchResult);
  		const i=search_item.getAttribute("data_custom");
  		console.log("i확인: ",i);
+        // testElement로 감싸주기
+        const description = document.createElement('div');
+        description.classList.add('description');
+        description.innerText = searchResult[i].poi_desc;
+        search_item.querySelector('.place-info').appendChild(description);
         // 설명 들어감
         const description = document.createElement('div');
         description.classList.add('description');
