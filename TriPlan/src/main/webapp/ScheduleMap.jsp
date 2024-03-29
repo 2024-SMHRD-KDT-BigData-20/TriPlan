@@ -81,7 +81,7 @@ body {
 	text-align: center;
 }
 
-#slideContainer {
+.slideContainer {
 	width: 100%;
 	display: flex;
 	margin: auto;
@@ -568,7 +568,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 
 
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
-						<div id="slideContainer">
+						<div class="slideContainer">
 							<button onclick="alter3(<%=poi.getPoi_idx()%>)">비슷한 장소 슬라이더에??</button>
 							<p class="otherButton">비슷한장소</p>
 							<section class="center slider" style="display: none;">
