@@ -62,15 +62,15 @@ n3PreferenceVO preferenceVO = dao.PreferenceToPrint(id); %>
     <details class="details">
         <summary>여행 스타일</summary>
         <ul>
-        <li>기본정보</li>
+        <li>-- 기본정보 --</li>
         <%=preferenceVO.getPeople()%><br>
         <%=preferenceVO.getTransportation()%><br>
         <%=preferenceVO.getPace()%><br>
-        <li>관광</li>
+        <li>-- 관광 --</li>
         <%=preferenceVO.getPoi()%>
-        <li>음식</li>
+        <li>-- 음식 --</li>
         <%=preferenceVO.getFood()%>
-        <li>숙소</li>
+        <li>-- 숙소 --</li>
         <%=preferenceVO.getSleep()%>
         </ul>
     </details>
