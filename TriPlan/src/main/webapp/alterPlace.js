@@ -1,7 +1,87 @@
 /**
  * 
  */
+
+
+
 var alterPoi2 = [];
+
+
+function printAlter4(alterPoi2,poiIdx) {
+    console.log("printAlter4444444시작 ",poiIdx);
+    // AlterPlace 요소에 접근
+    
+						
+	var poiItem = document.getElementById(poiIdx);
+	console.log(poiItem);
+    
+    var container = poiItem.querySelector(".center.slider.slick-initialized.slick-slider.slick-dotted");
+
+    // AlterPlace 내부에 있는 AlterInfo 요소에 접근
+    var list = container.querySelector(".slick-list.draggable");
+
+    // AlterImg 요소에 접근
+   // var 아몰라 = alterInfo.querySelector(".AlterImg");
+
+    // AlterTitle 요소에 접근
+    var alterTitle = alterInfo.querySelector(".AlterTitle");
+
+
+    // 버튼을 클릭한 대체 장소의 정보를 출력
+    alterPoi2.forEach(function(poi) {
+        // AlterTitle에 장소 이름 출력
+        var titleAnchor = document.createElement("a");
+        titleAnchor.textContent = poi.poi_name;
+        alterTitle.appendChild(titleAnchor);
+
+        // AlterDesc에 이미지 출력
+        var img = document.createElement("img");
+        var encodedFilename = encodeURIComponent(poi.poi_photo);
+        img.src = "poiImgs/" + encodedFilename;
+        img.style.height = "50px";
+        img.style.width = "70px";
+        alterDesc.appendChild(img);
+    });
+}
+
+
+
+function printAlter3(alterPoi2,poiIdx) {
+    console.log("printAlter333333333333333333시작 ",poiIdx);
+    // AlterPlace 요소에 접근
+    
+						
+	var poiItem = document.getElementById(poiIdx);
+	console.log(poiItem);
+    
+    var alterPlace = poiItem.querySelector(".AlterPlace");
+
+    // AlterPlace 내부에 있는 AlterInfo 요소에 접근
+    var alterInfo = alterPlace.querySelector(".AlterInfo");
+
+    // AlterImg 요소에 접근
+    var alterDesc = alterInfo.querySelector(".AlterImg");
+
+    // AlterTitle 요소에 접근
+    var alterTitle = alterInfo.querySelector(".AlterTitle");
+
+
+    // 버튼을 클릭한 대체 장소의 정보를 출력
+    alterPoi2.forEach(function(poi) {
+        // AlterTitle에 장소 이름 출력
+        var titleAnchor = document.createElement("a");
+        titleAnchor.textContent = poi.poi_name;
+        alterTitle.appendChild(titleAnchor);
+
+        // AlterDesc에 이미지 출력
+        var img = document.createElement("img");
+        var encodedFilename = encodeURIComponent(poi.poi_photo);
+        img.src = "poiImgs/" + encodedFilename;
+        img.style.height = "50px";
+        img.style.width = "70px";
+        alterDesc.appendChild(img);
+    });
+}
 
 function printAlter2(alterPoi2) {
 	    console.log("printAlter시작");
@@ -64,7 +144,7 @@ function alter2(poiIdx){
 				alterPoi2.push(res[i]);
 			}
 			console.log("대체장소",alterPoi2);
-			printAlter2(alterPoi2);
+			printAlter3(alterPoi2,poiIdx);
 		},
 		 error: function(){
 			alert("통신 실패")
@@ -76,6 +156,6 @@ function alter2(poiIdx){
 			 alert("Error!" + xhr.status);
 		    }, */
 	}); //ajax 끝 
-		return alterPoi2;
+		return poiIdx;
 	}
 

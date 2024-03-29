@@ -551,11 +551,25 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 							</div>
 							<span class="material-icons-round">drag_indicator</span>
 						</div>
+						
+						<div class="AlterPlace">
+						<button class="<%=poi.getPoi_idx()%>"
+								onclick="alter2(<%=poi.getPoi_idx()%>)">비슷한 장소 콘솔 확인</button>
+						<div class="AlterInfo">
+						<div class="AlterImg">
+						
+						</div>
+						<div class="AlterTitle">
+						
+						</div>
+						
+						</div>
+						</div>
+
 
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<div id="slideContainer">
-							<button class="<%=poi.getPoi_idx()%>"
-								onclick="alter2(<%=poi.getPoi_idx()%>)">비슷한 장소 콘솔 확인</button>
+							<button onclick="alter3(<%=poi.getPoi_idx()%>)">비슷한 장소 슬라이더에??</button>
 							<p class="otherButton">비슷한장소</p>
 							<section class="center slider" style="display: none;">
 								<!-- id에 poi_idx값 들어가야 함 -->
