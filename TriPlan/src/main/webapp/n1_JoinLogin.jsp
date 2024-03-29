@@ -18,7 +18,8 @@ JoinResult = -1;
 </head>
 <body>
 	<section class="forms-section">
-		<h1 class="section-title">Triplan</h1>
+		<!-- <h1 class="section-title">Triplan</h1> -->
+			<img alt="mainLogo" src="assets/TriPlan-logo.png">
 				<%if(JoinResult == 0){ %>
 				<p>회원가입에 실패했습니다.</p>
 				<%} %>
@@ -118,7 +119,6 @@ switchers.forEach(item => {
 })
 
       </script>
-	>>>>>>> branch 'master' of
-	https://github.com/2024-SMHRD-KDT-BigData-20/TriPlan.git
+
 </body>
 </html>
