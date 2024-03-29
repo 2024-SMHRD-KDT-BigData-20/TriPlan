@@ -51,6 +51,7 @@ public class n1_JoinCon extends HttpServlet {
 		//회원가입 실패 => n1LoginJoin.jsp
 		HttpSession session = request.getSession();
 		session.setAttribute("loginMember", joinUser);
+		session.setAttribute("loginUserVO", joinUser);
 		request.setAttribute("JoinResult",cnt);
 		if(cnt>0) {
 			//성공

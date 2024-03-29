@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.smhrd.model.n1UserDAO;
 import com.smhrd.model.n1UserVO;
 import com.smhrd.model.n3PreferenceVO;
+import com.smhrd.model.n5CreateScheduleVO;
 
 public class n7ConfirmPreferenceCon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +20,7 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 		System.out.println("[ConfirmPreferenceCON");
 		
 		HttpSession session = request.getSession();
-		
+		n5CreateScheduleVO schedule = (n5CreateScheduleVO)session.getAttribute("scheduleVO");
 		//변수 받아오기
 		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
 		String user_id = loginMember.getUser_id();
@@ -58,9 +59,12 @@ public class n7ConfirmPreferenceCon extends HttpServlet {
 		if(cnt>0) {
 		session.setAttribute("tripPreferenceVO", tripPreferenceVO);
 		session.setAttribute("loginMember", loginMember);
-
+		if(schedule!=null) {
 		// 생성한 URL로 리다이렉트
 		response.sendRedirect("loading.jsp");
+		}else {
+			response.sendRedirect("MyPage.jsp");
+		}
 		}else {
 			System.out.println("스타일 업뎃 실패");
 		}

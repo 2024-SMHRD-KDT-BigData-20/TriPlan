@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.n1UserDAO"%>
+<%@page import="com.smhrd.model.n1UserVO"%>
 <%@page import="com.smhrd.model.n3PreferenceVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -9,7 +11,12 @@
 <title>여행 스타일 조사</title>
 <link rel="stylesheet" href="navStyle.css">
 <link rel="stylesheet" href="assets/css/n3Preference.css">
-<%n3PreferenceVO preferenceVO = (n3PreferenceVO)session.getAttribute("userPreference"); 
+<%
+n1UserVO user = (n1UserVO)session.getAttribute("loginUserVO");
+String user_id = user.getUser_id();
+n1UserDAO dao = new n1UserDAO();
+n3PreferenceVO preferenceVO = dao.PreferenceToPrint(user_id);
+//n3PreferenceVO preferenceVO = (n3PreferenceVO)session.getAttribute("userPreference"); 
 System.out.println(preferenceVO.toString());
 System.out.println(preferenceVO.getPeople());
 String people = preferenceVO.getPeople();

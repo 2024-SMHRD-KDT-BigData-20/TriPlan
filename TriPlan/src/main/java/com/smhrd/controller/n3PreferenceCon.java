@@ -27,7 +27,7 @@ public class n3PreferenceCon extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		//변수 받아오기
-		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginMember");
+		n1UserVO loginMember = (n1UserVO)session.getAttribute("loginUserVO");
 		String user_id = loginMember.getUser_id();
 		String people = request.getParameter("question_1_1");
 		String transportation = request.getParameter("question_1_2");
@@ -66,7 +66,10 @@ public class n3PreferenceCon extends HttpServlet {
 		System.out.println("확인"+preferenceVO.toString());
 		
 		if(cnt>0) {
-		response.sendRedirect("MyPage.jsp");
+			String targetUrl = "/n4MyTripsCon";
+			// 리다이렉트할 URL을 생성합니다.
+			String redirectUrl = response.encodeRedirectURL(request.getContextPath() + targetUrl);
+		response.sendRedirect(redirectUrl);
 		}else {
 			response.sendRedirect("n3Preference.jsp");
 			

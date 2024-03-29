@@ -259,6 +259,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 
 .Img.search {
 	min-width: 100px;
+	min-width:70px;
 	/* 	width: auto; */
 	object-fit: cover;
 	display: flex;
@@ -267,6 +268,7 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 
 .Img.search>img {
 	width: 100px;
+	height: 70px;
 	height: auto; /* 이미지의 비율을 유지하면서 너비에 맞춤 */
 }
 
@@ -379,6 +381,17 @@ keyframes scaleit {from { transform:translate(-50%, 0)scale(1);
 	cursor: pointer;
 }
 
+.AlterPlace {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.AlterInfo {
+    flex: 1 0 100px; /* 각 아이템의 너비 설정, 원하는 너비로 조정하세요 */
+    margin: 10px; /* 아이템 간 간격 조정 */
+}
+
+
 /* ======================================================================= css 끝  --------------------------------------------------------------------- */
 </style>
 <script
@@ -400,7 +413,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 	var travelPaths=[];
     function initTmap() {
         map = new Tmapv2.Map("map_div", {
-            center: new Tmapv2.LatLng(33.5070339, 126.4937486),
+            center: new Tmapv2.LatLng(33.3606281, 126.5358345),
             width: "100%",
             height: "100Vh",
             zoom: 11
@@ -552,30 +565,22 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 							<span class="material-icons-round">drag_indicator</span>
 						</div>
 						
-						<div class="AlterPlace">
 						<button class="<%=poi.getPoi_idx()%>"
-								onclick="alter2(<%=poi.getPoi_idx()%>)">비슷한 장소 콘솔 확인</button>
-						<div class="AlterInfo">
-						<div class="AlterImg">
+								onclick="alter2(<%=poi.getPoi_idx()%>)" style="max-width: 150px;">비슷한 장소</button>
+						<div class="AlterPlace">
 						
-						</div>
-						<div class="AlterTitle">
-						
-						</div>
-						
-						</div>
 						</div>
 
 
 						<!-- 다른 POI 정보도 필요한 경우 위와 같이 추가하면 됩니다. -->
 						<div class="slideContainer">
-							<button onclick="alter3(<%=poi.getPoi_idx()%>)">비슷한 장소 슬라이더에??</button>
+		<%-- 	<button onclick="alter3(<%=poi.getPoi_idx()%>)">비슷한 장소 슬라이더에??</button> --%>
 							<p class="otherButton">비슷한장소</p>
 							<section class="center slider" style="display: none;">
 								<!-- id에 poi_idx값 들어가야 함 -->
 								<div id="otherpoi1" class="otherpoi">
 									<div style="height: 70px; width: 70px">
-										<!-- 이미지 삽입 -->
+										이미지 삽입
 										<img src="http://placehold.it/350x300?text=1">
 									</div>
 									<div
