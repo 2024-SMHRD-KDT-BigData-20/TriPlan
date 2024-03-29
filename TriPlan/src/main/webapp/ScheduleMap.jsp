@@ -456,7 +456,7 @@ n4MyTripsVO currentTrip = (n4MyTripsVO) session.getAttribute("currentTrip");%>
 			</ul>
 
 			<ul>
-				<li><a href="">로그아웃</a></li>
+				<li><a href="LogOutCon">로그아웃</a></li>
 			</ul>
 		</div>
 		<div id="right_col_inner">

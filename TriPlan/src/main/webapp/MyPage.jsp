@@ -58,7 +58,7 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 			</ul>
 
 			<ul>
-				<li><a href="">로그아웃</a></li>
+				<li><a href="LogOutCon">로그아웃</a></li>
 			</ul>
 		</div>    
 <!-- <div class="cloudBackground"> -->
