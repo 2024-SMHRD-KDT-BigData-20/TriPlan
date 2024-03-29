@@ -53,7 +53,7 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 			</div>
 			<ul class="navbar___menu">
 				<li><a href="MyPage.jsp">홈</a></li>
-				<li><a href="n3Preference.jsp">내 여행프로필</a></li>
+				<li><a href="ConfirmPreference2.jsp">내 여행프로필</a></li>
 				<li><a href="n5CreateSchedule.jsp">일정생성</a></li>
 			</ul>
 
