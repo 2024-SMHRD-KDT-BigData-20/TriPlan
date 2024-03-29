@@ -10,10 +10,10 @@
 <style>
 		body {
         text-align: center;
-        background: #eee9e0;
+        background: #FFFFFF;
         }
         input {
-        border: 2px solid whitesmoke;
+        border: 2px solid #65553B;
         border-radius: 20px;
         padding: 12px 10px;
         text-align: center;
@@ -26,7 +26,7 @@
         padding: 12px 10px;
         text-align: center;
         cursor: pointer;
-        background: #f18a0d;
+        background: #B0A591;
         color: whitesmoke;
         }
 </style>

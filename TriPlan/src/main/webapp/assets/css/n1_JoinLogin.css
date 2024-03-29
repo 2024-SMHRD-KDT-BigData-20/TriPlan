@@ -152,13 +152,15 @@ img{
 	0% {
 		background: #d7e7f1;
 		transform: translate(40%, 10px);
+		border: 1px solid transparent;
 	}
 	50% {
 		transform: translate(0, 0);
 	}
 	100% {
-		background-color: #eee9e0;
+		background-color: #FFFFFF;
 		transform: translate(35%, -20px);
+		border: 1px solid #65553B;
 	}
 }
 
@@ -171,7 +173,7 @@ img{
 		transform: translate(0, 0);
 	}
 	100% {
-		background: #65553B;
+		background: #B0A591;
 		transform: translate(40%, 10px);
 	}
 }
@@ -186,15 +188,17 @@ img{
 
 @keyframes showSignup {
 	0% {
-		background: #eee9e0;
+		background: #FFFFFF;
 		transform: translate(-40%, 10px) scaleY(.8);
+		border: 1px solid transparent;
 	}
 	50% {
 		transform: translate(0, 0) scaleY(.8);
 	}
 	100% {
-		background-color: #eee9e0;
+		background-color: #FFFFFF;
 		transform: translate(-35%, -20px) scaleY(1);
+		border: 1px solid #65553B;
 	}
 }
 
@@ -207,7 +211,7 @@ img{
 		transform: translate(0, 0) scaleY(.8);
 	}
 	100% {
-		background: #65553B ;
+		background: #B0A591;
 		transform: translate(-40%, 10px) scaleY(.8);
 	}
 }
@@ -249,12 +253,7 @@ img{
 
 .input-block label {
 	font-size: 14px;
-  color: #f18a0d;
-}
-
-.col-half {
-    font-size: 14px;
-  color: #f18a0d; 
+  color: #000000;
 }
 
  .row {
@@ -312,9 +311,9 @@ img{
     font-size: 12px;
 }
 .input-group input[type="radio"]:checked + label {
-	background-color: #f18a0d;
+	background-color: #B0A591;
 	color: #fff;
-	border-color: #f18a0d;
+	border-color: #B0A591;
 }
 .input-group label {
     margin-top: 10px;
