@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>여행 스타일 조사</title>
+<link rel="stylesheet" href="navStyle.css">
 <link rel="stylesheet" href="assets/css/n3Preference.css">
 <%
 n1UserVO user = (n1UserVO)session.getAttribute("loginUserVO");
@@ -29,6 +30,19 @@ String sleep = preferenceVO.getSleep();
 %>
 </head>
 <body>
+		<div class="navbar">
+			<div class="navbar___logo">
+				<img alt="Logo" src="Triplan.png" style="height: 100%;">
+			</div>
+			<ul class="navbar___menu">
+				<li><a href="MyPage.jsp">홈</a></li>
+				<li><a href="ConfirmPreference2.jsp">내 여행프로필</a></li>
+				<li><a href="n5CreateSchedule.jsp">일정생성</a></li>
+			</ul>
+			<ul class="navbar___menu">
+				<li><a href="LogOutCon">로그아웃</a></li>
+			</ul>
+		</div>
     <div class="container">
       <header class="header">
         <h1 id="title" class="header__title">여행 스타일 조사</h1> 

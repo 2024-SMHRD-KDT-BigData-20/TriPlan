@@ -57,7 +57,7 @@ SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd");
 				<li><a href="n5CreateSchedule.jsp">일정생성</a></li>
 			</ul>
 
-			<ul>
+			<ul class="navbar___menu">
 				<li><a href="LogOutCon">로그아웃</a></li>
 			</ul>
 		</div>    
