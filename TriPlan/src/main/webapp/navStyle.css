@@ -2,21 +2,24 @@ body{
     margin: 0;
 }
 .navbar a{
+	
+	font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
     text-decoration: none;
-    color: white;
+    color: #FFFFFF;
 }
 .navbar{
     position: sticky;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: burlywood;
-    padding: 8px 12px;
+    background-color: #B0A591;
+    padding: 6px 10px;
     box-sizing: border-box;
 	z-index: 1000;
 	top: 0;
 	right: 0;
-	width: 100%;	
+	width: 100%;
+		
 	/* 
 	position: sticky;
 	text-align: center;
@@ -58,7 +61,7 @@ body{
 }
 
 .navbar___menu li:hover {
-    background-color: green;
+    background-color:  #65553B;
     border-radius: 4px;
 }
 
