@@ -18,7 +18,7 @@
     	}
     	
         body {
-        background: #eee9e0;
+        background:  #FFFFFF;
         }
 
         h1 {
@@ -26,7 +26,8 @@
         }
         
         details {
-        background : #fff;
+        background : #FFFFFF;
+        border: 2px solid #65553B;
         }
 
         html, details, summary { line-height: 2.5; }
@@ -39,9 +40,9 @@
 		.button-container button {
 	    display: inline-block;
 	    padding: 10px 25px;
-	    background : #f18a0d;
+	    background : #B0A591;
 	    color : #fff;
-	    border : 2px solid  #f18a0d;
+	    border : 2px solid  #B0A591;
 	    border-radius: 8px;
 	    margin: 10px;
 	    line-height : 1.15;
