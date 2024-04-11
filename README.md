@@ -10,6 +10,26 @@ Map API를 활용하여 생성된 일정의 위치 시각화 및 경로 표시
   드래그 앤 드롭
   지도 API
 # 3. 개발환경
+프론트엔드
+  ∙ HTML(Drag & Drop)
+  ∙ JS
+  ∙ CSS
+백엔드
+  ∙ Servlet 
+  ∙ JSP
+  ∙ AJAX
+  ∙ jQuery
+DATA & SERVER
+  ∙ OracleDB
+  ∙ MyBatis
+  ∙ Apache TomCat
+etc
+  ∙ Tmap API
+  ∙ GitHub
+  ∙ eclipse
+  ∙ VSCode
+  ∙ Jupyter Notebook
+
 # 4. 서비스흐름도 및 다이어그램 (유스케이스, ER다이어그램)
 유스케이스
 ![유스케이스](https://github.com/2024-SMHRD-KDT-BigData-20/TriPlan/assets/162647935/05333b0f-010f-4861-9f70-251cb16a56d3)
