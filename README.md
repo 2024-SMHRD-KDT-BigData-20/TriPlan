@@ -72,7 +72,7 @@ ER다이어그램
 
 # 7. 트러블슈팅 (해결방안과 같이)
 
-  Cookie, Session, Request, Page에 담은 VO를 불러올것인가?,
+  Cookie, Session, Request, Page에 담은 VO를 불러올것인가?
   페이지 로딩 시 인덱스를 활용한 DAO로 VO를 불러올 것인가?
 
   - 로그인 사용자 정보 유지
