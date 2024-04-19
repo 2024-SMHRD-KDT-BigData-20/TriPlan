@@ -1,4 +1,4 @@
-![image](https://github.com/2024-SMHRD-KDT-BigData-20/TriPlan/assets/160554303/568f6f76-70e7-48e2-8792-66e97f9df34a)# 팀명
+팀명
 # 1. 프로젝트 개요 및 서비스 소개
 주제 : 여행 일정 추천 및 관리 서비스
 사용자 맞춤형 일정 추천을 위한 여행 스타일 조사
