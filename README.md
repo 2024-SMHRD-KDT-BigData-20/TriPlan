@@ -11,28 +11,28 @@ Map API를 활용하여 생성된 일정의 위치 시각화 및 경로 표시
   지도 API
 
 # 3. 개발환경
-프론트엔드 : 
-  ∙ HTML(Drag & Drop)
-  ∙ JS
-  ∙ CSS
+프론트엔드 
+  - HTML(Drag & Drop)
+  - JS
+  - CSS
   
-백엔드 : 
-  ∙ Servlet 
-  ∙ JSP
-  ∙ AJAX
-  ∙ jQuery
+백엔드 
+  - Servlet 
+  - JSP
+  - AJAX
+  - jQuery
   
-DATA & SERVER : 
-  ∙ OracleDB
-  ∙ MyBatis
-  ∙ Apache TomCat
+DATA & SERVER  
+  - OracleDB
+  - MyBatis
+  - Apache TomCat
   
-etc : 
-  ∙ Tmap API
-  ∙ GitHub
-  ∙ eclipse
-  ∙ VSCode
-  ∙ Jupyter Notebook
+etc 
+  - Tmap API
+  - GitHub
+  - eclipse
+  - VSCode
+  - Jupyter Notebook
 
 # 4. 서비스흐름도 및 다이어그램 (유스케이스, ER다이어그램)
 유스케이스
@@ -72,7 +72,7 @@ ER다이어그램
 
 # 7. 트러블슈팅 (해결방안과 같이)
 
-  Cookie, Session, Request, Page에 담은 VO를 불러올것인가,
+  Cookie, Session, Request, Page에 담은 VO를 불러올것인가?,
   페이지 로딩 시 인덱스를 활용한 DAO로 VO를 불러올 것인가?
 
   - 로그인 사용자 정보 유지
