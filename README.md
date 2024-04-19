@@ -1,4 +1,3 @@
-팀명
 # 1. 프로젝트 개요 및 서비스 소개
 주제 : 여행 일정 추천 및 관리 서비스
 사용자 맞춤형 일정 추천을 위한 여행 스타일 조사
@@ -13,19 +12,26 @@ Map API를 활용하여 생성된 일정의 위치 시각화 및 경로 표시
 
 # 3. 개발환경
 프론트엔드
+
   ∙ HTML(Drag & Drop)
   ∙ JS
   ∙ CSS
+  
 백엔드
+
   ∙ Servlet 
   ∙ JSP
   ∙ AJAX
   ∙ jQuery
+  
 DATA & SERVER
+
   ∙ OracleDB
   ∙ MyBatis
   ∙ Apache TomCat
+  
 etc
+
   ∙ Tmap API
   ∙ GitHub
   ∙ eclipse
