@@ -1,4 +1,4 @@
-# 팀명
+![image](https://github.com/2024-SMHRD-KDT-BigData-20/TriPlan/assets/160554303/568f6f76-70e7-48e2-8792-66e97f9df34a)# 팀명
 # 1. 프로젝트 개요 및 서비스 소개
 주제 : 여행 일정 추천 및 관리 서비스
 사용자 맞춤형 일정 추천을 위한 여행 스타일 조사
@@ -39,6 +39,8 @@ ER다이어그램
 ![ER다이어그램](https://github.com/2024-SMHRD-KDT-BigData-20/TriPlan/assets/162647935/9e572ab3-376f-4175-b54f-e5637bff7ad8)
 
 # 5. 화면설계도
+![녹화_2024_03_29_14_58_21_63 mp4_000067766](https://github.com/2024-SMHRD-KDT-BigData-20/TriPlan/assets/160554303/998ef9cf-4788-4194-abbd-1a557a6a21bf)
+
 
 # 6. 팀원역할
   최재민(팀장)
