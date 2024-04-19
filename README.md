@@ -12,26 +12,22 @@ Map API를 활용하여 생성된 일정의 위치 시각화 및 경로 표시
 
 # 3. 개발환경
 프론트엔드
-
   ∙ HTML(Drag & Drop)
   ∙ JS
   ∙ CSS
   
 백엔드
-
   ∙ Servlet 
   ∙ JSP
   ∙ AJAX
   ∙ jQuery
   
 DATA & SERVER
-
   ∙ OracleDB
   ∙ MyBatis
   ∙ Apache TomCat
   
 etc
-
   ∙ Tmap API
   ∙ GitHub
   ∙ eclipse
